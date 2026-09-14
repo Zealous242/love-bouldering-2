@@ -6,7 +6,7 @@ A Django-based Wikipedia-style website dedicated to bouldering. The purpose of t
 
 ## Live Site Link
 
-To be added later
+**Live site:** [**Boulder Wiki**](https://love-bouldering-2-69300253a310.herokuapp.com/)
 
 ## Project Overview
 
