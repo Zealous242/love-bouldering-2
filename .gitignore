@@ -8,5 +8,5 @@ node_modules/
 .github/
 cloudinary_python.txt
 .venv/
-blog/fixtures/ 
+article/fixtures/ 
 db.sqlite3
