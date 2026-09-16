@@ -6,11 +6,16 @@
 
 body {
     background-color: #85d6ff;
+    padding-top: 70px;
 }
 
 .navbar {
     background-color: hsl(195, 11%, 86%);
     margin-bottom: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 
