@@ -14,8 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('article/', include('article.urls'))
 """
+
+print(">>> LOADED BUILDERWIKI URLS.PY <<<")
+
 from django.contrib import admin
 from django.urls import path, include
+
 
 urlpatterns = [
     path("about/", include("about.urls"), name="about-urls"),
