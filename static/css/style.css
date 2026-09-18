@@ -6,7 +6,7 @@
 
 body {
     background-color: #85d6ff;
-    padding-top: 70px;
+    padding-top: 100px;
 }
 
 .page-footer {
@@ -23,8 +23,9 @@ body {
 
 .navbar {
     background-color: #83ddfb;
+    color: #000000;
     box-shadow: 0px 8px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     position: fixed;
     top: 0;
     width: 100%;
@@ -160,7 +161,11 @@ body {
 
 .link:hover,
 .link:active {
-    color: #445261;
+    color: #614444;
+    text-decoration: underline;
+}
+
+.underline:hover {
     text-decoration: underline;
 }
 
