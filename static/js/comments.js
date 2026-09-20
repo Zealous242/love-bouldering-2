@@ -13,6 +13,8 @@ const deleteModal = deleteModalElement ?
 const deleteButtons = document.getElementsByClassName("btn-delete");
 const deleteConfirm = document.getElementById("deleteConfirm");
 
+
+
 /*
  * Initializes edit functionality for the provided edit buttons.
  * 
