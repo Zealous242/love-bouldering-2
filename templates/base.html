@@ -79,7 +79,7 @@
 
                 </ul>
                 <span class="navbar-text text-dark" id = "adventures-of-a-climber">
-                    {% if user.is_authenticated %}You are logged in as {{ user }}
+                    {% if user.is_authenticated %}Logged in as <strong>{{ user }}</strong>
                     {% else %}You are not logged in
                     {% endif %}
                 </span>
