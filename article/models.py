@@ -23,6 +23,8 @@ class Post(models.Model):
         return f"{self.title} | written by {self.author}"
     
 class Comment(models.Model):
+    list_display = ('post', 'author', 'approved', 'created_on')
+    
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(
