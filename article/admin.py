@@ -14,6 +14,7 @@ class PostAdmin(SummernoteModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('post', 'author', 'approved', 'created_on')
+    list_filter = ('post__title', 'author', 'approved', 'created_on')
 
     class Media:
         css = {'all': ('css/admin_comments.css',)}

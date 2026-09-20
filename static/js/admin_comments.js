@@ -1,4 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const filterMenu = document.querySelector("#changelist-filter");
+
+    if (filterMenu) {
+        const filterContent = document.createElement("div");
+        const filterToggle = document.createElement("button");
+
+        filterContent.className = "admin-filter-content";
+        filterToggle.type = "button";
+        filterToggle.className = "admin-filter-toggle";
+        filterToggle.textContent = "Hide filters";
+        filterToggle.setAttribute("aria-expanded", "true");
+        filterContent.setAttribute("aria-hidden", "false");
+
+        while (filterMenu.firstChild) {
+            filterContent.appendChild(filterMenu.firstChild);
+        }
+
+        filterMenu.append(filterToggle, filterContent);
+
+        filterToggle.addEventListener("click", function () {
+            const isExpanded = filterToggle.getAttribute("aria-expanded") === "true";
+            filterMenu.classList.toggle("is-collapsed", isExpanded);
+            filterToggle.setAttribute("aria-expanded", String(!isExpanded));
+            filterContent.setAttribute("aria-hidden", String(isExpanded));
+            filterToggle.textContent = isExpanded ? "Show filters" : "Hide filters";
+        });
+    }
+
     const table = document.querySelector("#result_list");
 
     if (!table) return;
@@ -16,10 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const isApprovedField = header.classList.contains("column-approved");
         const initialWidth = isActionField ?
             70 :
-            isAuthorField || isApprovedField ?
+            isApprovedField ?
+            115 :
+            isAuthorField ?
             150 :
             isFirstField ?
-            500 :
+            370 :
             header.getBoundingClientRect().width;
 
         column.style.width = `${initialWidth}px`;
