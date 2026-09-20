@@ -74,10 +74,40 @@
                 This comment by {{ comment.author }} is awaiting approval from an admin
             </p>
             {% endif %}
+            {% if user.is_authenticated and comment.author == user %}
+            <button type="button" class="btn btn-edit"
+                comment_id="{{ comment.id }}"
+                data-edit-url="{% url 'comment_edit' post.slug comment.id %}">Edit</button>
+            {% endif %}
             </div>
             <!-- Our for loop ends here -->
             {% endfor %}
         </div>
+        </div>
+        <div class="modal fade" id="editCommentModal" tabindex="-1"
+            aria-labelledby="editCommentModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCommentModalLabel">Edit comment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <form id="editCommentForm" method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <label for="editCommentBody" class="form-label">Comment</label>
+                            <textarea id="editCommentBody" name="body" class="form-control"
+                                rows="5" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-signup">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <!-- Creating New Comments -->
     <div class="col-md-4 card mb-4 mt-3">
@@ -101,3 +131,7 @@
 </div>
 
 {% endblock content %}
+
+{% block extras %}
+<script src="{% static 'js/comments.js' %}"></script>
+{% endblock %}
