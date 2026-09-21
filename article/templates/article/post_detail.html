@@ -140,6 +140,25 @@
         </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-8 card mb-4 mt-3">
+            <div class="card-body">
+                {% if user.is_authenticated %}
+                <h3>Suggest a change:</h3>
+                <form method="post" action="{% url 'suggestion_create' post.slug %}">
+                    {% csrf_token %}
+                    <button type="button" id="importPostContent" class="btn btn-secondary mb-3">
+                        Import current post text
+                    </button>
+                    {{ suggestion_form|crispy }}
+                    <button type="submit" class="btn btn-signup">Submit suggestion</button>
+                </form>
+                {% else %}
+                <p>Log in to suggest a change to this article.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Delete confirmation modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1"
@@ -168,5 +187,26 @@
 {% endblock content %}
 
 {% block extras %}
+{{ suggestion_form.media }}
 <script src="{% static 'js/comments.js' %}"></script>
+<script>
+    const importPostContentButton = document.getElementById("importPostContent");
+    const postContent = "{{ post.content|escapejs }}";
+    const suggestionContent = document.getElementById("id_proposed_content");
+    const suggestionEditor = document.getElementById("id_proposed_content_iframe");
+
+    function importPostContent() {
+        if (!suggestionContent || !suggestionEditor) return;
+        suggestionContent.value = postContent;
+
+        if (suggestionEditor.contentWindow && suggestionEditor.contentWindow.jQuery) {
+            suggestionEditor.contentWindow.jQuery("#summernote")
+                .summernote("code", postContent);
+        }
+    }
+
+    if (importPostContentButton) {
+        importPostContentButton.addEventListener("click", importPostContent);
+    }
+</script>
 {% endblock %}

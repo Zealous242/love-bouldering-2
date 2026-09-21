@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
 from requests import post
-from .models import Category, Comment, Post
-from .forms import CommentForm
+from .models import Category, Comment, Post, Suggestions
+from .forms import CommentForm, SuggestionForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
 # Create your views here.
@@ -59,6 +60,7 @@ def post_detail(request, slug):
 
     
     comment_form = CommentForm()
+    suggestion_form = SuggestionForm()
 
     return render(
         request,
@@ -68,8 +70,30 @@ def post_detail(request, slug):
             "comments": comments,
             "comment_count": comment_count,
             "comment_form": comment_form,
+            "suggestion_form": suggestion_form,
         },
     )
+
+
+@login_required
+def suggestion_create(request, slug):
+    post = get_object_or_404(Post, slug=slug, status=1)
+
+    if request.method == "POST":
+        suggestion_form = SuggestionForm(request.POST)
+        if suggestion_form.is_valid():
+            suggestion = suggestion_form.save(commit=False)
+            suggestion.post = post
+            suggestion.submitted_by = request.user
+            suggestion.save()
+            messages.success(
+                request,
+                'Your suggestion has been submitted for review.',
+            )
+        else:
+            messages.error(request, 'Please correct the errors in your suggestion.')
+
+    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
     
 def comment_edit(request, slug, comment_id):
     """

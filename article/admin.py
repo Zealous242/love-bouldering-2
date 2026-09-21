@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Comment, Post
+from .models import Category, Comment, Post, Suggestions
 from django_summernote.admin import SummernoteModelAdmin
 
 @admin.register(Post)
@@ -30,3 +30,11 @@ class CommentAdmin(admin.ModelAdmin):
     class Media:
         css = {'all': ('css/admin_comments.css',)}
         js = ('js/admin_comments.js',)
+
+
+@admin.register(Suggestions)
+class SuggestionsAdmin(SummernoteModelAdmin):
+    list_display = ('post', 'submitted_by', 'status', 'created_on', 'updated_on')
+    list_filter = ('status', 'created_on')
+    search_fields = ('post__title', 'submitted_by__username', 'proposed_content')
+    summernote_fields = ('proposed_content',)

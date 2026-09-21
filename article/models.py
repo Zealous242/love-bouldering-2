@@ -57,3 +57,34 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name                                                    # Assign a string representation for each category object. This will be used in the admin panel.
+
+
+class Suggestions(models.Model):
+    STATUS = (
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+    )
+
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='suggestions',
+    )
+    submitted_by = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='article_suggestions',
+    )
+    proposed_content = models.TextField()
+    reason = models.TextField(blank=True)
+    status = models.CharField(max_length=20, choices=STATUS, default='pending')
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_on']
+        verbose_name_plural = 'suggestions'
+
+    def __str__(self):
+        return f'Suggestion for {self.post.title} by {self.submitted_by}'
