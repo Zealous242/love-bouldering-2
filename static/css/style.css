@@ -176,13 +176,13 @@ body {
 }
 
 .btn-delete {
-    color: #fff;
+    color: #ffffff9a;
     background: #E84610;
 }
 
 .btn-like:hover,
 .btn-like:active {
-    color: #E84610;
+    color: #10cfe8;
     background: transparent;
     border: none;
 }
