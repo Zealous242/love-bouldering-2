@@ -6,6 +6,7 @@ from .forms import CommentForm, SuggestionForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 # Create your views here.
 class PostList(generic.ListView):
@@ -15,9 +16,18 @@ class PostList(generic.ListView):
     def get_queryset(self):
         queryset = Post.objects.filter(status=1).order_by("-created_on")
         category_id = self.request.GET.get("category")
+        search_query = self.request.GET.get("q", "").strip()
 
         if category_id and category_id.isdigit():
             queryset = queryset.filter(categories__id=category_id)
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(title__icontains=search_query) |
+                Q(excerpt__icontains=search_query) |
+                Q(content__icontains=search_query) |
+                Q(categories__name__icontains=search_query)
+            )
 
         return queryset.distinct()
 
@@ -25,6 +35,7 @@ class PostList(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["categories"] = Category.objects.order_by("name")
         context["selected_category"] = self.request.GET.get("category", "")
+        context["search_query"] = self.request.GET.get("q", "")
         return context
     
 def post_detail(request, slug):
