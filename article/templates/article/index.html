@@ -65,6 +65,16 @@
             </div>
             <div class="row">
                 {% endif %}
+                {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-primary" role="alert">
+                        {% if search_query %}
+                        No articles matched “{{ search_query }}”. Try a different search term.
+                        {% else %}
+                        No articles are available in this category yet.
+                        {% endif %}
+                    </div>
+                </div>
                 {% endfor %}
 
             </div>
