@@ -147,7 +147,7 @@
                 <h3>Suggest a change:</h3>
                 <form method="post" action="{% url 'suggestion_create' post.slug %}">
                     {% csrf_token %}
-                    <button type="button" id="importPostContent" class="btn btn-secondary mb-3">
+                    <button type="button" id="importPostContent" class="btn btn-secondary mb-3" style="border-color: #023047;">
                         Import current post text
                     </button>
                     {{ suggestion_form|crispy }}

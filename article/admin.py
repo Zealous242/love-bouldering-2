@@ -15,6 +15,10 @@ class PostAdmin(SummernoteModelAdmin):
     def category_list(self, post):
         return ', '.join(category.name for category in post.categories.all())
 
+    class Media:
+        css = {'all': ('css/admin_comments.css',)}
+        js = ('js/admin_comments.js',)
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
