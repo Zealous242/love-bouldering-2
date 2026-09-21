@@ -14,6 +14,11 @@ class Post(models.Model):
     featured_image = CloudinaryField('image', default='placeholder')
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    categories = models.ManyToManyField(
+        'Category',
+        related_name='posts',
+        blank=True,
+    )
     status = models.IntegerField(choices=STATUS, default=0)
     excerpt = models.TextField(blank=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -40,3 +45,15 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment: {self.body} by {self.author}"
+    
+class Category(models.Model):
+    """
+    Categories can be added in the admin panel by superusers. Our create/edit forms will be dynamically populated with the categories.
+    """
+    class Meta:
+        verbose_name_plural = 'categories'                                 # Assign a plural name to prevent default pluralization of the model name. (Catagory(s))
+
+    name = models.CharField(max_length=255)                                # The name of the category.
+    
+    def __str__(self):
+        return self.name                                                    # Assign a string representation for each category object. This will be used in the admin panel.
