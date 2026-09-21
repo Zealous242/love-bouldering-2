@@ -17,7 +17,7 @@ class PostAdmin(SummernoteModelAdmin):
 
     class Media:
         css = {'all': ('css/admin_comments.css',)}
-        js = ('js/admin_comments.js',)
+        js = ('js/admin_posts.js',)
 
 
 @admin.register(Category)
