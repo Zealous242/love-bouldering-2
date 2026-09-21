@@ -1,16 +1,30 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
 from requests import post
-from .models import Post, Comment
+from .models import Category, Comment, Post
 from .forms import CommentForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
 # Create your views here.
 class PostList(generic.ListView):
-    queryset = Post.objects.filter(status=1).order_by("-created_on")
     template_name = "article/index.html"
     paginate_by = 6
+
+    def get_queryset(self):
+        queryset = Post.objects.filter(status=1).order_by("-created_on")
+        category_id = self.request.GET.get("category")
+
+        if category_id and category_id.isdigit():
+            queryset = queryset.filter(categories__id=category_id)
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.order_by("name")
+        context["selected_category"] = self.request.GET.get("category", "")
+        return context
     
 def post_detail(request, slug):
     """

@@ -613,3 +613,11 @@ The project should prioritise this complete moderated contribution workflow befo
 The simplified project narrative is:
 
 **Public knowledge base + authenticated contributions + controlled moderation**
+
+## AI Usage
+
+AI was used to:
+- Generate user stories
+- Make code suggestions for styling
+- Enhance the UI of the admin portal in sections like comments
+- Create the Category model in article/models.py and allow articles to be sorted by categories
