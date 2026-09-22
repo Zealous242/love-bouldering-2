@@ -53,15 +53,16 @@ class Comment(models.Model):
     
 class Category(models.Model):
     """
-    Categories can be added in the admin panel by superusers. Our create/edit forms will be dynamically populated with the categories.
+    Categories can be added in the admin panel by superusers. 
+    Our create/edit forms will be dynamically populated with the categories.
     """
     class Meta:
-        verbose_name_plural = 'categories'                                 # Assign a plural name to prevent default pluralization of the model name. (Catagory(s))
+        verbose_name_plural = 'categories'  # Assign a plural name to prevent default pluralization of the model name. (Catagory(s))
 
-    name = models.CharField(max_length=255)                                # The name of the category.
+    name = models.CharField(max_length=255)  # The name of the category.
     
     def __str__(self):
-        return self.name                                                    # Assign a string representation for each category object. This will be used in the admin panel.
+        return self.name  # Assign a string representation for each category object. This will be used in the admin panel.
 
 
 class Suggestions(models.Model):
