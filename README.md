@@ -620,6 +620,8 @@ The website was originally going to have a hero secrion on the homepage but this
 
 The website was originally going to have custom user profiles where the user can change things like their profile pick and add details to their profile like a bio and links to their socials
 
+A "Create a new post" page was added to the website to allow superusers to create a new post without needing to access the admin portal. 
+
 ## AI Usage
 
 AI was used to:

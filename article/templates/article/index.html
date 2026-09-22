@@ -97,8 +97,10 @@
             <li><a href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"> >></a></li> <!-- Link to the last page -->
             {% endif %}
         </ul>
+        
     </nav>
     {% endif %}
+    
 </div>
 
 <!-- index.html content ends here -->
