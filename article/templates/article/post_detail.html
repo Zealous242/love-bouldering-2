@@ -48,9 +48,11 @@
     <!-- Displaying count of comments -->
     <div class="row">
         <div class="col-12">
+            <div class="card-body">
         <strong class="text-secondary">
             <i class="far fa-comments"></i> {{ comment_count }}
         </strong>
+        </div>
         </div>
         <div class="col-12">
         <hr>
@@ -58,17 +60,20 @@
     </div>
     <div class="row">
         <div class="col-12">
-
+            <div class="card-body">
             <strong>
                 To make a suggestion to an article, please scroll down to the bottom of the page to find the suggestion form. Your suggestion will be reviewed by an admin before it is implemented.
             </strong>
+            <div></div>
         </div>
     </div>
     <!-- Displaying Comments -->
     <div class="row">
+        
         <div class="col-md-8 card mb-4  mt-3 ">
-        <h3>Comments:</h3>
         <div class="card-body">
+            
+            <h3>Comments:</h3>
             <!-- We want a for loop inside the empty control tags
             to iterate through each comment in comments -->
             {% for comment in comments %}
@@ -162,7 +167,7 @@
             {% csrf_token %}
             <button type="button" id="importPostContent" class="btn btn-secondary mb-3" style="border-color: #023047;">
                 Import current post text
-            </button>
+            </button> 
             {{ suggestion_form|crispy }}
             <button type="submit" class="btn btn-signup" style = "margin-bottom: 10px;">Submit suggestion</button>
         </form>
