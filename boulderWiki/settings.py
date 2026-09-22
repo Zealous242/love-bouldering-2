@@ -60,17 +60,7 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-CLOUDINARY_STORAGE = {}
-if all(os.environ.get(name) for name in (
-    'CLOUDINARY_CLOUD_NAME',
-    'CLOUDINARY_API_KEY',
-    'CLOUDINARY_API_SECRET',
-)):
-    CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.environ['CLOUDINARY_CLOUD_NAME'],
-        'API_KEY': os.environ['CLOUDINARY_API_KEY'],
-        'API_SECRET': os.environ['CLOUDINARY_API_SECRET'],
-    }
+
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
