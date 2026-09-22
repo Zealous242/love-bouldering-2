@@ -614,6 +614,12 @@ The simplified project narrative is:
 
 **Public knowledge base + authenticated contributions + controlled moderation**
 
+## Design Alterations
+
+The website was originally going to have a hero secrion on the homepage but this was scrapped due to time constraints.
+
+The website was originally going to have custom user profiles where the user can change things like their profile pick and add details to their profile like a bio and links to their socials
+
 ## AI Usage
 
 AI was used to:
