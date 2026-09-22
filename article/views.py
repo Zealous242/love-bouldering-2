@@ -30,6 +30,26 @@ def post_create(request):
     return render(request, 'article/post_create.html', {'form': form})
 
 
+@user_passes_test(is_superuser)
+def post_edit(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+
+    if request.method == 'POST':
+        form = PostCreateForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save()
+            messages.success(request, 'Post updated successfully.')
+            if post.status == 1:
+                return HttpResponseRedirect(
+                    reverse('post_detail', args=[post.slug])
+                )
+            return HttpResponseRedirect(reverse('home'))
+    else:
+        form = PostCreateForm(instance=post)
+
+    return render(request, 'article/post_edit.html', {'form': form, 'post': post})
+
+
 class PostList(generic.ListView):
     template_name = "article/index.html"
     paginate_by = 6

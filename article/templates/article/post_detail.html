@@ -17,6 +17,9 @@
                     
                     {% endfor %}
                 </p>
+                {% if user.is_superuser %}
+                <a href="{% url 'post_edit' post.slug %}" class="btn btn-outline-primary">Edit post</a>
+                {% endif %}
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
                 {% if "placeholder" in post.featured_image.url %}
