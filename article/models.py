@@ -11,7 +11,12 @@ class Post(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="article_posts"
     )
-    featured_image = CloudinaryField('image', default='placeholder')
+    featured_image = CloudinaryField(
+        'image',
+        default='placeholder',
+        folder='posts',
+        allowed_formats=['jpg', 'jpeg', 'png', 'webp', 'gif'],
+    )
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField(
