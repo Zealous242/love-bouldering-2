@@ -17,9 +17,6 @@
                     
                     {% endfor %}
                 </p>
-                {% if user.is_superuser %}
-                <a href="{% url 'post_edit' post.slug %}" class="btn btn-outline-primary">Edit post</a>
-                {% endif %}
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
                 {% if "placeholder" in post.featured_image.url %}
@@ -35,7 +32,11 @@
 <div class="container">
     <div class="row">
         <div class="col card mb-4  mt-3 left  top">
+            
             <div class="card-body">
+                {% if user.is_superuser %}
+                <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary" style="border-color: #023047;">Edit post</a>
+                {% endif %}
                 <!-- The post content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
                 <p class="card-text">
