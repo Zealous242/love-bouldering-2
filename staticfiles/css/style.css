@@ -84,6 +84,23 @@ body {
     flex-grow: 1;
 }
 
+.suggestion-form {
+    width: 100%;
+}
+
+.suggestion-form .summernote-div,
+.suggestion-form .summernote-div iframe {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.suggestion-form .summernote-div {
+    min-width: 320px;
+    overflow: auto;
+    resize: horizontal;
+}
+
 .image-container {
     position: relative;
 }
