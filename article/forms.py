@@ -1,4 +1,4 @@
-from .models import Comment, Suggestions
+from .models import Comment, Post, Suggestions
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 
@@ -21,3 +21,20 @@ class SuggestionForm(forms.ModelForm):
             'proposed_content': SummernoteWidget(),
             'reason': forms.Textarea(attrs={'rows': 4}),
         }
+
+
+class PostCreateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'slug', 'featured_image', 'content', 'categories',
+                  'status', 'excerpt')
+        widgets = {
+            'content': SummernoteWidget(),
+            'excerpt': forms.Textarea(attrs={'rows': 4}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['featured_image'].widget.attrs['accept'] = (
+            'image/jpeg,image/png,image/webp,image/gif'
+        )

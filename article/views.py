@@ -2,13 +2,34 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
 from requests import post
 from .models import Category, Comment, Post, Suggestions
-from .forms import CommentForm, SuggestionForm
+from .forms import CommentForm, PostCreateForm, SuggestionForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseRedirect
 from django.db.models import Q
 
 # Create your views here.
+def is_superuser(user):
+    return user.is_authenticated and user.is_superuser
+
+
+@user_passes_test(is_superuser)
+def post_create(request):
+    if request.method == 'POST':
+        form = PostCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            form.save_m2m()
+            messages.success(request, 'Post created successfully.')
+            return HttpResponseRedirect(reverse('post_detail', args=[post.slug]))
+    else:
+        form = PostCreateForm()
+
+    return render(request, 'article/post_create.html', {'form': form})
+
+
 class PostList(generic.ListView):
     template_name = "article/index.html"
     paginate_by = 6
