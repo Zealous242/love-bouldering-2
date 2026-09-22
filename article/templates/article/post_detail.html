@@ -60,7 +60,7 @@
         <div class="col-12">
 
             <strong>
-                To make a suggestion to an article, please leave a comment below that outlines the suggestion. Your comment will be reviewed by an admin before it is published.
+                To make a suggestion to an article, please scroll down to the bottom of the page to find the suggestion form. Your suggestion will be reviewed by an admin before it is implemented.
             </strong>
         </div>
     </div>
@@ -149,26 +149,31 @@
         </div>
         </div>
     </div>
+
+    
+</div>
+<!-- Suggestion form -->
+<div class="container">
     <div class="row">
-        <div class="col-md-8 card mb-4 mt-3">
-            <div class="card-body">
-                {% if user.is_authenticated %}
-                <h3>Suggest a change:</h3>
-                <form method="post" action="{% url 'suggestion_create' post.slug %}">
-                    {% csrf_token %}
-                    <button type="button" id="importPostContent" class="btn btn-secondary mb-3" style="border-color: #023047;">
-                        Import current post text
-                    </button>
-                    {{ suggestion_form|crispy }}
-                    <button type="submit" class="btn btn-signup">Submit suggestion</button>
-                </form>
-                {% else %}
-                <p>Log in to suggest a change to this article.</p>
-                {% endif %}
-            </div>
+        <div class="col-12">
+            {% if user.is_authenticated %}
+        <h3>Suggest a change:</h3>
+        <form method="post" action="{% url 'suggestion_create' post.slug %}" class="suggestion-form">
+            {% csrf_token %}
+            <button type="button" id="importPostContent" class="btn btn-secondary mb-3" style="border-color: #023047;">
+                Import current post text
+            </button>
+            {{ suggestion_form|crispy }}
+            <button type="submit" class="btn btn-signup" style = "margin-bottom: 10px;">Submit suggestion</button>
+        </form>
+        {% else %}
+        <p>Log in to suggest a change to this article.</p>
+        {% endif %}
         </div>
     </div>
+
 </div>
+
 <!-- Delete confirmation modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1"
     aria-labelledby="deleteModalLabel" aria-hidden="true">
