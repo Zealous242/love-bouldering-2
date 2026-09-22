@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from django.utils import timezone
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
@@ -44,9 +45,15 @@ class Comment(models.Model):
     body = models.TextField()
     approved = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(null=True, blank=True)
     
     class Meta:
         ordering = ["-created_on"]
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            self.updated_on = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Comment: {self.body} by {self.author}"

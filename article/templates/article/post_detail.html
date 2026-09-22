@@ -69,13 +69,18 @@
             to iterate through each comment in comments -->
             {% for comment in comments %}
             <div class="p-2 comments
-            {% if not comment.approved and comment.author == user %}
-            faded{% elif not comment.approved %} d-none{% endif %}">
+            {% if not comment.approved and comment.author == user %}faded
+            {% elif not comment.approved %} d-none{% endif %}">
             <p class="font-weight-bold">
                 <strong>{{ comment.author }}</strong>
                 <span class="font-weight-normal d-block">
-                {{ comment.created_on }}
+                Created on: {{ comment.created_on }}
                 </span>
+                {% if comment.updated_on %}
+                <span class="font-weight-normal d-block">
+                Edited on: {{ comment.updated_on }}
+                </span>
+                {% endif %}
             </p>
             <div id="comment{{ comment.id }}">
                 {{ comment.body | linebreaks }}
