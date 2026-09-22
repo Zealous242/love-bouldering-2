@@ -35,6 +35,9 @@ class PostCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['categories'].help_text = (
+            'To select multiple categories hold down ctrl then choose the categories'
+        )
         self.fields['featured_image'].widget.attrs['accept'] = (
             'image/jpeg,image/png,image/webp,image/gif'
         )
