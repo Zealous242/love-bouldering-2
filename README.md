@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A Django-based Wikipedia-style website dedicated to bouldering. The purpose of this website is to provide an educational resource where visitors can learn about bouldering, while registered users can suggest improvements to articles. Bouldering is a climbing discipline (or hobby for some people) that is done on short walls - typically in a climbing gym - and/or on small rock formations outdoors without the use of ropes or harnesses. Suggested changes are reviewed and approved or rejected by an administrator before they can affect published content.
+A Django-based Wikipedia-style website dedicated to bouldering. The purpose of this website is to provide an educational resource where visitors can learn about bouldering, while registered users can suggest improvements to articles and write comments on articles. Bouldering is a climbing discipline that is done on short walls - typically in a climbing gym - and/or on small rock formations outdoors without the use of ropes or harnesses. Suggested changes to an article are reviewed, and approved or rejected by an administrator before they can affect published content.
 
 ## Live Site Link
 
@@ -19,12 +19,7 @@ The website is designed to allow visitors to learn about topics such as:
 - Climbing techniques
 - Grading systems
 - Climbing holds
-- Safety
 - Training
-- Bouldering terminology
-- Competitions
-- Professional boulderers
-- Bouldering locations and gyms
 
 The website will use **Django's authentication and authorisation functionality** to control access to contribution and administration features.
 
@@ -614,7 +609,368 @@ The simplified project narrative is:
 
 **Public knowledge base + authenticated contributions + controlled moderation**
 
-## Design Alterations
+## Database Design
+
+Below is a picture of the ERD (entity relationship diagram) for the project
+
+![Diagram of ERD](/documentation/boulder-wiki-erd-white-bg.png)
+
+## Strategy Plane
+
+### Project Purpose
+
+BoulderWiki is an educational full-stack Django web application designed to provide clear and accessible information about bouldering.
+
+The website allows visitors and guest users to:
+
+- Browse bouldering articles
+- Explore articles by category
+- Search for information
+- Read content without creating an account
+
+Registered users can also:
+
+- Log in securely
+- Suggest improvements to existing articles
+- Make comments on posts
+- Update comments
+- Delete comments
+
+Administrators can:
+
+- Manage articles and categories by accessing the Django admin portal
+- Review suggested edits by accessing the Django admin portal
+- Approve or reject proposed changes
+- Create new posts
+- Edit existing posts
+- Delete posts
+
+To protect the reliability and accuracy of published information, suggested changes enter a moderation workflow rather than immediately changing an article. An administrator reviews each suggestion before approving or rejecting it.
+
+---
+
+### Core Project Goal
+
+The main goal is to create a simple, trustworthy knowledge-sharing platform that demonstrates a complete moderated contribution workflow. 
+
+**Visitor → Discover Content → Read Article → Register / Login → Suggest → Improvement → Administrator Reviews → Approve or Reject**
+
+---
+
+### Site Owner Goals
+
+The primary project goal is to create a useful educational resource while demonstrating the development of a secure, database-driven Django application.
+
+The project objectives are to:
+
+1. **Provide useful bouldering information**  
+   Give users a central location for learning about different aspects of bouldering.
+
+2. **Make information easy to discover**  
+   Organise articles into meaningful categories and provide clear navigation and search functionality.
+
+3. **Encourage community contributions**  
+   Allow registered users to:
+   - Suggest improvements when they identify missing, inaccurate, or outdated information
+   - Make comments on posts
+   - Update existing comments
+   - Delete existing comments
+
+4. **Maintain content quality**  
+   Prevent unreviewed user contributions from immediately appearing on the public website.
+
+5. **Provide effective content administration**  
+   Allow administrators (superusers) to:
+   - Create new articles
+   - Edit existing articles
+   - Create/delete categories
+   - Create/delete users
+   - Update/change user credentials such as their username and password
+   - Approve/reject suggested edits
+
+6. **Create an accessible and responsive experience**  
+   Ensure the website works effectively across:
+   - Mobiles 
+   - Tablets
+   - Laptops
+   - Desktops
+
+7. **Demonstrate full-stack development skills**  
+   Showcase: 
+   - Django models 
+   - Authentication  
+   - Authorisation 
+   - CRUD functionality 
+   - Forms 
+   - Database relationships  
+   - Testing 
+   - Responsive design 
+   - Accessibility 
+   - UX desgin principles.
+
+---
+
+### User Goals
+
+The project has three main user groups: **Guests**, **Registered Users**, and **Administrators/Superusers**.
+
+**Guest Users**
+
+Guest users are visitors who want to learn about bouldering without creating an account.
+
+Their main goals are to:
+
+- Quickly understand the purpose of BoulderWiki.
+- Browse available bouldering articles.
+- Explore information by category.
+- Search for specific subjects.
+- Read articles without registering.
+- Navigate between articles and pages
+- Learn more about bouldering.
+
+The website should therefore place as few barriers as possible between a guest and the educational content. Registration is not required simply to browse or read the website.
+
+**Registered Users**
+
+Registered users have the same informational needs as guests but also want to participate in improving the website, and leaving comments on articles to share their thoughts.
+
+Their goals are to:
+
+- Register for an account
+- Log in and log out securely
+- Browse and read articles
+- Identify information that could be improved
+- Suggest changes to an article
+- Explain why a change is being suggested
+
+A key UX requirement is to make it clear that **suggesting an edit is not the same as directly editing an article**. Only administrators should have the ability to directly edit an article.
+
+**Administrators (Superusers)**
+
+Administrators are responsible for maintaining the website and protecting the quality of its published content.
+
+Their goals are to:
+
+- Create new articles
+- Maintain/edit existing articles
+- Delete inappropriate or obsolete articles
+- Delete inappropriate comments
+- Manage article categories by creating new cateogories or deleting existing ones
+- Manage users
+- Review suggested edits
+- Compare proposed content with existing content
+- Approve appropriate suggestions
+- Reject unsuitable suggestions
+- Implement suggested changes
+- Provide feedback where appropriate
+- Maintain the accuracy and organisation of the knowledge base
+
+The administrator experience should therefore prioritise efficient moderation and content management.
+
+---
+
+### User Needs
+
+The following table connects key user needs with the functionality that BoulderWiki will provide.
+
+| User Need | BoulderingWiki Response |
+| --- | --- |
+| Learn about bouldering | Educational articles |
+| Find specific information | Search functionality |
+| Explore related subjects | Categories and related articles |
+| Understand unfamiliar terminology | Dedicated educational content |
+| Access information quickly | Clear navigation and article structure |
+| Read from different devices | Responsive design |
+| Participate in the website | User registration and authentication |
+| Correct inaccurate information | Suggest-an-edit functionality |
+| Know what happened to a contribution | Suggestion status tracking |
+| Trust published information | Administrator moderation |
+| Manage website content | Django Admin and administrator tools |
+
+---
+
+### Target Audience
+
+The primary target audience is people interested in learning about or improving their knowledge of bouldering.
+
+**Beginners**
+
+Beginners may require information about:
+
+- What bouldering is
+- Basic terminology
+- Safety
+- Equipment
+- Grading systems
+- Basic techniques
+- Gym etiquette
+
+Their experience should prioritise discoverability, clarity, and understandable terminology.
+
+**Intermediate Climbers**
+
+Intermediate climbers may look for more detailed information about:
+
+- Creating a training plan
+- Climbing holds
+- Strength and conditioning
+- Antagonist training
+- Hangboarding
+- Introduction to board climbing
+
+Their experience benefits from search, categories, and links between related subjects.
+
+**Experienced Climbers**
+
+Experienced users may use BoulderingWiki as a reference resource or contribute improvements to existing material.
+
+The **Suggest an Edit** workflow is particularly relevant to users who have knowledge or experience they want to contribute without giving them unrestricted access to published content.
+
+---
+
+### Core Value Proposition
+
+> **BoulderWiki provides an accessible, organised, and community-supported knowledge base where people can learn about bouldering and help improve the information through moderated contributions.**
+
+The project's core experience can be summarised as:
+
+**Learn → Explore → Contribute**
+
+---
+
+### User Expectations
+
+Users are likely to arrive with expectations influenced by other knowledge and reference websites.
+
+The interface should therefore feel:
+
+- Informational rather than commercial
+- Easy to scan
+- Content-focused
+- Easy to navigate
+- Searchable
+- Clearly organised
+- Trustworthy
+- Accessible
+- Consistent between pages
+
+Articles should remain the dominant element of the interface rather than decorative or promotional content.
+
+---
+
+### Project Objectives and User Objectives
+
+The Strategy Plane identifies where project objectives and user objectives overlap.
+
+| Project Objective | User Objective | UX Solution |
+| --- | --- | --- |
+| Build a useful knowledge base | Learn about bouldering | Structured educational articles |
+| Organise information | Find topics quickly | Categories |
+| Improve discoverability | Find specific information | Search |
+| Encourage participation | Contribute knowledge | Suggest an Edit |
+| Encourage sharing opinions | Share opinions | Make comments on articles |
+| Maintain accuracy | Trust published information | Moderation workflow |
+| Build community participation | Participate in the project | User accounts |
+| Maintain content | Access current information | Administrator tools |
+| Demonstrate Django skills | Use reliable functionality | Database-driven architecture |
+| Support multiple devices | Access information anywhere | Responsive design |
+| Protect the application | Use accounts safely | Authentication and authorisation |
+
+---
+
+### Strategic UX Principles
+
+**Content First**
+
+The primary purpose of BoulderWiki is education. Article content should therefore receive greater visual importance than secondary interface elements.
+
+**Browse Without Barriers**
+
+Users should not need an account to consume educational content. Authentication should only become necessary when users attempt to contribute or access account-specific functionality.
+
+**Easy to Explore**
+
+Users should be able to move naturally through the website:
+
+**Homepage → Category → Articles List → Article Page**
+
+Navigation should help users understand where they are and discover additional relevant information.
+
+**Contribution Without Compromising Quality**
+
+Community participation should be encouraged without allowing unreviewed content to immediately alter published information.
+
+The contribution workflow is therefore:
+
+**User Suggestion → Pending Review → Administrator Review → Approved / Rejected**
+
+rather than:
+
+**User Edit → Immediately Published**
+
+**Clear System Feedback**
+
+When users perform actions, the website should clearly communicate the outcome.
+
+For example:
+
+> Your suggested edit has been submitted for review.
+
+Users should also be able to identify whether their suggestions are **Pending**, **Approved**, or **Rejected**.
+
+**Responsive by Design**
+
+The core experience should remain usable across:
+
+**Mobile → Tablet → Laptop → Desktop**
+
+Content and functionality should be prioritised appropriately rather than simply shrinking the desktop interface.
+
+**Accessibility**
+
+Navigation, forms, buttons, headings, and content should be understandable and usable with assistive technologies and keyboard navigation.
+
+---
+
+**Success Criteria**
+
+The project will be considered successful when the core user and project objectives can be achieved reliably.
+
+Success criteria include:
+
+- Visitors can locate and read articles without creating an account.
+- Users can browse articles by category.
+- Users can search for relevant articles.
+- Users can register and authenticate successfully.
+- Guests cannot access protected contribution functionality.
+- Registered users can submit suggested edits.
+- Suggested edits do not automatically alter published articles.
+- Users can track the status of their own suggestions.
+- Administrators can approve or reject suggestions.
+- Approved suggestions correctly update the relevant article.
+- Unauthorised users cannot access administrative functionality.
+- The website remains usable across mobile, tablet, laptop, and desktop layouts.
+- The application provides clear feedback when actions succeed or fail.
+- Core functionality is supported by appropriate automated and manual testing.
+
+---
+
+### Strategy Plane Summary
+
+The strategy for **BoulderingWiki** is to create an accessible and trustworthy educational resource that allows anyone to explore information about bouldering while enabling registered users to contribute improvements through a controlled moderation process.
+
+The project balances two primary objectives:
+
+1. Providing users with an easy way to discover and learn about bouldering.
+2. Providing the site owner with a secure and manageable system for maintaining high-quality, community-supported content.
+
+The UX will therefore prioritise **clear navigation, search and categorisation, readable article content, responsive design, accessibility, straightforward authentication, transparent contribution status, and administrator-controlled moderation**.
+
+
+
+---
+
+## Design Alterations/Additions
 
 The website was originally going to have a hero secrion on the homepage but this was scrapped due to time constraints.
 
