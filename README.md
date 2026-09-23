@@ -2134,13 +2134,23 @@ The search control should include a clear label or accessible name.
 
 ### Wireframes
 
+A set of wireframes for desktops was not required since the website would look the same on desktops and laptops. You can therefore treat the laptop wireframes the same as desktop wireframes.
+
 #### Laptops and Larger Devices:
 
-#### Tablets (Portrait mode):
+![Diagram of  wireframes for laptops and larger devices](/documentation/wireframes/laptops-and-larger-devices/laptops-and-larger-devices.png)
 
-#### Tablets (Landscape mode):
+#### Tablets (Portrait):
+
+![Diagram of tablet portrait wireframes](/documentation/wireframes/tablet/portrait/tablet-portrait.png)
+
+#### Tablets (Landscape):
+
+![Diagram of tablet landscape wireframes](/documentation/wireframes/tablet/landscape/tablet-landscape.png)
 
 #### Mobiles:
+
+![Diagram of mobile wireframes](/documentation/wireframes/mobile/mobile-wireframes.png)
 
 ---
 
@@ -2373,7 +2383,517 @@ The skeleton establishes consistent patterns for:
 - Responsive layouts
 - Accessibility
 
+## UX Design — Surface Plane
 
+The **Surface Plane** defines the final visual appearance of BoulderingWiki. It brings together the decisions made throughout the previous UX planes and determines how the interface should **look and feel** to the user.
+
+It focuses on areas such as:
+
+- Colour
+- Typography
+- Imagery
+- Icons
+- Spacing
+- Buttons
+- Cards
+- Forms
+- Navigation styling
+- Visual hierarchy
+- Responsive presentation
+- Accessibility
+- Consistency
+---
+
+### Visual Design Goals
+
+The interface should support the educational purpose of the website rather than compete with it.
+
+The main visual goals are:
+
+1. **Readability** - articles should be comfortable to read for extended periods.
+2. **Clarity** - important actions and information should be immediately identifiable.
+3. **Consistency** - components should look and behave consistently.
+4. **Accessibility** - visual choices should support users with different accessibility needs.
+5. **Identity** - the interface should have a recognisable bouldering-inspired visual style.
+6. **Trust** - the design should reinforce the moderated, educational nature of the platform.
+7. **Responsiveness**- the visual system should work consistently across mobile, tablet, laptop, and desktop.
+
+---
+
+### Visual Identity
+
+BoulderingWiki should combine the clarity of an educational reference website with the visual character of modern climbing environments.
+
+Visual inspiration can come from:
+
+- Climbing walls
+- Rock surfaces
+- Climbing holds
+- Chalk
+- Outdoor environments
+- Topographic shapes
+- Route markers
+
+These influences should remain subtle. The interface should not become overly decorative because the primary purpose is reading and discovering information.
+
+### Color Palette
+
+![Diagram of ERD](/documentation/color-palette.png)
+
+### Typography
+
+Typography is especially important because BoulderingWiki is a content-heavy application.
+
+The type system should prioritise readability over decorative styling.
+
+A simple hierarchy could use:
+
+| Element | Relative Importance |
+| --- | --- |
+| H1 | Article/page title |
+| H2 | Major content section |
+| H3 | Subsection |
+| Body | Main article content |
+| Small | Metadata/supporting information |
+
+A clean sans-serif font would work well for interface elements.
+
+Possible font families include:
+
+- Inter
+- Roboto
+- Open Sans
+- Source Sans
+- System UI fonts
+
+A system font stack would also reduce external dependencies and improve loading performance.
+
+---
+
+### Typography Hierarchy
+
+A typical article could visually follow:
+
+```text
+DYNAMIC MOVEMENT
+Page / Article Title
+
+Introduction
+Major section heading
+
+Generating Momentum
+Subsection heading
+
+Bouldering involves solving movement problems...
+Normal body content
+
+Updated 8 September 2026
+Secondary metadata
+```
+
+Typography should make it possible to understand the structure of an article even when scanning rather than reading every sentence.
+
+### Article Readability
+
+Article pages should provide comfortable reading conditions.
+
+The design should avoid stretching text across the entire width of large monitors. Instead, article content should use a controlled maximum width.
+
+Important considerations include:
+
+- Comfortable line length
+- Sufficient line height
+- Clear paragraph spacing
+- Strong heading hierarchy
+- Adequate contrast
+- Limited use of bold text
+- Consistent lists
+- Appropriate image spacing
+
+On desktop, unused space can support a table of contents or related information.
+
+---
+
+### Navigation Styling
+
+The navigation should visually separate itself from the main article content while remaining simple.
+
+```text
+┌───────────────────────────────────────────────────────┐
+│ BoulderWiki   Home  Articles  Categories  Search   │
+│                                    Login   Register   │
+└───────────────────────────────────────────────────────┘
+```
+
+The current section should have a visible active state. Hover and keyboard focus states should also be visually identifiable.
+
+---
+
+### Button Design
+
+Buttons should follow a consistent visual hierarchy.
+
+#### Primary Buttons
+
+Used for important actions such as:
+
+- Search
+- Login
+- Create Account
+- Submit Suggestion
+- Approve
+
+These should use the strongest brand styling.
+
+#### Secondary Buttons
+
+Used for actions such as:
+
+- Cancel
+- Back
+- View Details
+- Browse Articles
+
+These should be visually quieter.
+
+#### Destructive Actions
+
+Actions such as:
+
+- Delete
+- Reject
+
+should have a distinct treatment that communicates additional risk.
+
+Destructive styling should not be used for ordinary navigation.
+
+---
+
+### Button States
+
+Interactive elements should visually communicate their current state.
+
+Buttons should account for:
+
+- Default
+- Hover
+- Focus
+- Active
+- Disabled
+
+A strong keyboard focus indicator is particularly important for accessibility.
+
+---
+
+### Link Styling
+
+Links within article content should be clearly distinguishable from normal text.
+
+Links should not depend entirely on colour. Options include underlining links, providing clear hover treatment, and using visible keyboard focus styling.
+
+Users should immediately understand which text is interactive.
+
+---
+
+### Form Styling
+
+Forms should have a simple and predictable appearance.
+
+```text
+Username
+
+┌──────────────────────────────┐
+│                              │
+└──────────────────────────────┘
+
+Password
+
+┌──────────────────────────────┐
+│                              │
+└──────────────────────────────┘
+
+[ Login ]
+```
+
+Inputs should provide clear labels, borders, focus states, error states, help text, and required-field indicators where appropriate.
+
+Placeholder text should not replace permanent field labels.
+
+---
+
+### Form Validation Styling
+
+Errors should appear close to the field that caused them.
+
+```text
+Username
+
+┌──────────────────────────────┐
+│ name                        │
+└──────────────────────────────┘
+
+⚠ This username is already in use.
+```
+
+Error messages should explain what went wrong and how the user can correct it.
+
+The interface should not rely solely on a red border to indicate an error.
+
+---
+
+### Feedback and Alert Styling
+
+System feedback should be visually distinguishable from normal page content.
+
+Examples include:
+
+```text
+✓ Your suggestion has been submitted successfully.
+○ Your suggestion is awaiting administrator review.
+⚠ Please correct the errors below.
+```
+
+Messages should use consistent visual treatments for success, information, warning, and error states.
+
+The wording should remain concise and actionable.
+
+---
+
+### Imagery
+
+Images should support learning rather than being included purely for decoration.
+
+Useful imagery may include:
+
+- Bouldering techniques
+- Climbing holds
+- Equipment
+- Climbing walls
+- Outdoor boulders
+- Body positioning examples
+
+Images should:
+
+- Be relevant to the article
+- Be appropriately compressed
+- Include alternative text when informative
+- Scale responsively
+- Maintain suitable aspect ratios
+- Include attribution where licensing requires it
+
+Decorative images should use appropriate accessibility treatment so they do not add unnecessary screen-reader content.
+
+---
+
+### Iconography
+
+Icons can improve scanning when used alongside labels.
+
+Possible uses include:
+
+- Search
+- User account
+- Menu
+- Edit
+- Category
+- Approved
+- Pending
+- Rejected
+
+Icons should generally accompany text when their meaning may not be immediately obvious.
+
+For example:
+
+```text
+✎ Suggest an Edit
+```
+
+is clearer than presenting an unexplained pencil icon alone.
+
+---
+
+### Responsive Visual Design
+
+The visual identity should remain consistent across the project's four responsive ranges:
+
+| Device | Width |
+| --- | ---: |
+| Mobile | ≤ 767px |
+| Tablet | 768–1023px |
+| Laptop | 1024–1439px |
+| Desktop | ≥ 1440px |
+
+A desktop layout may present:
+
+```text
+┌──────────────────────────────────────────────┐
+│ Header                                       │
+├──────────────────────────────┬───────────────┤
+│                              │               │
+│ Article                      │ Table of      │
+│ Content                      │ Contents      │
+│                              │               │
+├──────────────────────────────┴───────────────┤
+│ Related Articles                             │
+└──────────────────────────────────────────────┘
+```
+
+On mobile, the content should stack into a logical single-column layout.
+
+The branding remains consistent while the layout adapts.
+
+---
+
+### Mobile Visual Priorities
+
+On smaller screens, the design should prioritise:
+
+1. Article title
+2. Essential metadata
+3. Main content
+4. Primary actions
+5. Related content
+
+Decorative elements should be reduced where necessary.
+
+Buttons and navigation controls should remain large enough for comfortable touch interaction.
+
+---
+
+### Accessibility and Visual Design
+
+Accessibility should influence every Surface Plane decision.
+
+The final interface should provide:
+
+- Strong text/background contrast
+- Visible keyboard focus indicators
+- Readable font sizes
+- Sufficient line spacing
+- Clearly identifiable links
+- Large enough interaction targets
+- Text labels for status information
+- Alternatives to colour-only communication
+- Responsive typography
+- Accessible form states
+- Alternative text for informative images
+
+Visual design should never reduce usability simply to create a more distinctive aesthetic.
+
+---
+
+### Visual Consistency
+
+Reusable components should follow the same visual rules throughout the application.
+
+| Component | Consistency Requirement |
+| --- | --- |
+| Header | Same branding and navigation pattern |
+| Buttons | Consistent hierarchy and states |
+| Forms | Same labels, inputs and validation |
+| Cards | Consistent spacing and typography |
+| Articles | Consistent reading layout |
+| Categories | Consistent card structure |
+| Statuses | Same terminology and visual treatment |
+| Alerts | Consistent success/error patterns |
+| Breadcrumbs | Same placement and styling |
+
+This also makes the frontend easier to maintain because shared CSS classes and Django template components can be reused.
+
+---
+
+### Design System
+
+Rather than styling every page independently, BoulderWiki should use a small reusable design system.
+
+```text
+Colours
+│
+├── Primary
+├── Secondary
+├── Background
+├── Text
+├── Success
+├── Warning
+└── Error
+
+Typography
+│
+├── H1
+├── H2
+├── H3
+├── Body
+└── Small / Metadata
+
+Components
+│
+├── Buttons
+├── Inputs
+├── Cards
+├── Alerts
+├── Navigation
+├── Breadcrumbs
+└── Status Badges
+
+Layout
+│
+├── Container widths
+├── Grid
+├── Spacing
+└── Breakpoints
+```
+
+This provides a single visual language across the project and makes later design changes easier because components can be updated centrally rather than individually.
+
+---
+
+### Surface Plane Success Criteria
+
+The Surface Plane can be considered successful when:
+
+- The visual identity is consistent across the application.
+- Articles are comfortable to read.
+- Navigation is immediately recognisable.
+- Primary and secondary actions are visually distinct.
+- Interactive elements provide hover and focus feedback.
+- Form states are easy to understand.
+- Suggestion statuses are identifiable without relying only on colour.
+- The interface works visually across all devices
+- Images support rather than distract from educational content.
+- Colour contrast meets accessibility requirements.
+- Components can be reused throughout the project.
+- The interface feels appropriate for a trustworthy educational bouldering resource.
+
+---
+
+### Surface Plane Summary
+
+The Surface Plane completes the UX design process by applying a coherent visual language to the structure established in the previous planes.
+
+BoulderWiki should have an interface that feels:
+
+**Informative → Approachable → Trustworthy**
+
+The design should combine a clean educational layout with subtle visual references to bouldering through colour, imagery, icons, and branding.
+
+The most important visual priority remains the content itself. Typography, spacing, colour, cards, buttons, imagery, and navigation should all make that content easier to discover, understand, and contribute to.
+
+A reusable visual system should establish consistent rules for:
+
+- Colour
+- Typography
+- Spacing
+- Navigation
+- Buttons
+- Forms
+- Cards
+- Status indicators
+- Alerts
+- Imagery
+- Responsive behaviour
+- Accessibility
+
+---
 
 ## Design Alterations/Additions
 
