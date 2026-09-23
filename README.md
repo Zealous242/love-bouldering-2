@@ -609,6 +609,8 @@ The simplified project narrative is:
 
 **Public knowledge base + authenticated contributions + controlled moderation**
 
+---
+
 ## Database Design
 
 Below is a picture of the ERD (entity relationship diagram) for the project
