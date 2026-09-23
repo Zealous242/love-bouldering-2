@@ -157,7 +157,10 @@ def suggestion_list(request):
     return render(
         request,
         'article/suggestion_list.html',
-        {'suggestions': suggestions},
+        {
+            'suggestions': suggestions,
+            'suggestion_count': suggestions.count(),
+        },
     )
 
 

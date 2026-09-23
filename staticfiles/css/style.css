@@ -201,6 +201,30 @@ body {
     text-decoration: underline;
 }
 
+.password-field-wrapper {
+    position: relative;
+}
+
+.password-field-wrapper input {
+    padding-right: 2.75rem;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    border: 0;
+    background: transparent;
+    color: #023047;
+    cursor: pointer;
+}
+
+.password-toggle:focus {
+    outline: 2px solid #0077b6;
+    outline-offset: 2px;
+}
+
 .underline:hover {
     text-decoration: underline;
 }
