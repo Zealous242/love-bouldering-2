@@ -2032,6 +2032,349 @@ The three central journeys can be summarised as:
 
 ---
 
+## UX Design — Skeleton Plane
+
+The **Skeleton Plane** defines how the application’s interface elements are arranged on each page. It focuses on three areas: **interface design**, **navigation design**, and **information design**.
+
+For BoulderWiki, the Skeleton Plane determines where key elements such as navigation, search, article content, forms, buttons, status messages, and administrative controls should appear so users can complete tasks efficiently and consistently.
+
+---
+
+### Interface Design
+
+The interface should prioritise clarity, consistency, and readability. BoulderingWiki is primarily an educational website, so content should remain the central focus.
+
+The interface should use a consistent page framework containing:
+
+```text
+Header
+│
+├── Logo / Site Name
+├── Primary Navigation
+└── Account Controls
+
+Main Content
+│
+├── Page Heading
+├── Page-Specific Content
+└── Primary Actions
+
+Footer
+│
+├── Secondary Navigation
+├── Project Information
+└── Supporting Links
+```
+
+This consistent layout helps users understand where to find common actions regardless of the page they are viewing.
+
+---
+
+### Global Header
+
+The global header should appear across the main public-facing pages.
+
+It should contain:
+
+- Logo or site name
+- Home
+- Articles
+- Categories
+- Login and Register for guests
+- Logout for authenticated users
+- Mobile menu control on smaller screens
+
+---
+
+### Mobile Navigation
+
+On smaller screens, the full navigation should collapse into a burger menu to conserve horizontal space.
+
+```text
+--------------------------------
+BoulderingWiki          Menu ☰
+--------------------------------
+```
+
+When opened:
+
+```text
+Home
+Categories
+Logout
+```
+
+The navigation should remain keyboard accessible and clearly indicate whether the menu is expanded or collapsed.
+
+---
+
+### Search Placement
+
+Search is a major discovery tool and should be easy to find.
+
+Search may appear:
+
+- In the global header on larger screens
+- As a dedicated search input on the homepage
+- On the Article Directory
+
+The homepage search should be more prominent than secondary search controls.
+
+```text
+-----------------------------------------
+What would you like to learn about?
+
+[ Search bouldering topics... ] [Search]
+-----------------------------------------
+```
+
+The search control should include a clear label or accessible name.
+
+---
+
+### Wireframes
+
+#### Laptops and Larger Devices:
+
+#### Tablets (Portrait mode):
+
+#### Tablets (Landscape mode):
+
+#### Mobiles:
+
+---
+
+### Article Readability
+
+Article content should use:
+
+- Clear H2 and H3 headings
+- Short paragraphs
+- Lists where appropriate
+- Comfortable line length
+- Adequate spacing
+- Images only where they support understanding
+- Descriptive captions where necessary
+
+The interface should avoid placing too many controls inside the reading area.
+
+---
+
+### Form Design
+
+Forms throughout the application should use a consistent structure:
+
+```text
+Label
+[ Input ]
+
+Supporting text or error message
+
+Label
+[ Input ]
+
+Supporting text or error message
+
+[ Primary Action ]
+```
+
+Form labels should remain visible rather than relying entirely on placeholder text.
+
+Validation errors should appear close to the relevant field.
+
+```text
+Username
+[ name ]
+
+This username is already in use.
+```
+
+This reduces the distance between the problem and its explanation.
+
+---
+
+### Information Design
+
+Information design determines how content is presented so users can understand it quickly.
+
+For BoulderWiki, the visual hierarchy should generally follow:
+
+```text
+Page Title
+↓
+Context / Metadata
+↓
+Primary Content
+↓
+Primary Action
+↓
+Related / Secondary Content
+```
+
+For example, on an article page:
+
+```text
+Dyno                        ← Page title
+Techniques · Updated ...    ← Metadata
+Article text                ← Primary content
+Suggest an Edit             ← Primary action
+```
+
+This keeps the user's attention on the reason they visited the page.
+
+---
+
+### Feedback Messages
+
+The application should provide immediate confirmation after important actions.
+
+Success examples:
+
+> Your suggested edit has been submitted and is awaiting review.
+
+> Your account has been created successfully.
+
+> The suggestion has been approved.
+
+Error examples:
+
+> Please correct the highlighted fields.
+
+> You must be logged in to suggest an edit.
+
+> You do not have permission to access this page.
+
+Feedback should appear near the relevant content and should not rely on colour alone.
+
+---
+
+### Empty States
+
+Pages should remain useful even when there is no content to display.
+
+For My Suggestions:
+
+```text
+You haven't submitted any suggestions yet.
+
+Browse an article and select "Suggest an Edit"
+if you would like to contribute.
+
+[ Browse Articles ]
+```
+
+For Search:
+
+```text
+No articles matched "campus board".
+
+Try another search or browse the categories.
+
+[ Browse Categories ]
+```
+
+Good empty states explain what happened and provide a useful next step.
+
+---
+
+### Responsive Skeleton
+
+The layout should adapt according to screen size without changing the core information architecture.
+
+| Device | Skeleton Behaviour |
+| --- | --- |
+| Mobile | Single column, collapsed navigation, stacked cards and forms |
+| Tablet | Wider single column or limited two-column layouts |
+| Laptop and larger devices | Full navigation, multi-column layouts where useful |
+
+The order of content should remain logical when columns collapse.
+
+---
+
+### Touch and Interaction Targets
+
+Interactive controls should be large enough to use comfortably on touch devices.
+
+This includes:
+
+- Navigation links
+- Buttons
+- Form controls
+- Search controls
+- Menu toggles
+- Pagination
+- Category cards
+
+Controls should also have enough spacing to reduce accidental selections.
+
+---
+
+### Consistency Across Pages
+
+Common elements should behave consistently throughout the website.
+
+For example:
+
+- The logo always returns to Home.
+- Search behaves consistently.
+- Primary buttons share the same styling.
+- Form validation follows the same pattern.
+- Statuses use consistent wording.
+- Article cards follow the same layout.
+- Navigation changes predictably after login.
+
+Consistency reduces the amount users need to learn.
+
+---
+
+### Accessibility Considerations
+
+The Skeleton Plane should support accessibility before visual styling is applied.
+
+The layout should include:
+
+- Logical heading order
+- Semantic landmarks
+- Visible form labels
+- Keyboard-accessible controls
+- Logical tab order
+- Skip-to-content support where appropriate
+- Clear focus states
+- Descriptive links
+- Accessible status messages
+- Responsive layouts that work with zoom
+- No essential information communicated through position or colour alone
+
+Accessibility should therefore be part of the interface structure rather than added only during the Surface Plane.
+
+---
+
+### Skeleton Plane Summary
+
+The Skeleton Plane defines how BoulderingWiki's information architecture and interaction flows are translated into usable page layouts.
+
+The interface prioritises:
+
+**Content → Navigation → Action → Feedback**
+
+Article content remains the dominant element of the application, while search, categories, authentication, contribution tools, and moderation controls are positioned according to their importance to each user journey.
+
+The skeleton establishes consistent patterns for:
+
+- Global navigation
+- Search
+- Article layouts
+- Categories
+- Authentication forms
+- Suggested edits
+- User suggestion tracking
+- Administrative review
+- Feedback and error states
+- Responsive layouts
+- Accessibility
+
+
+
 ## Design Alterations/Additions
 
 The website was originally going to have a hero secrion on the homepage but this was scrapped due to time constraints.
@@ -2039,6 +2382,14 @@ The website was originally going to have a hero secrion on the homepage but this
 The website was originally going to have custom user profiles where the user can change things like their profile pick and add details to their profile like a bio and links to their socials.
 
 A "Create a new post" page was added to the website to allow superusers to create a new post without needing to access the admin portal. 
+
+A "My suggestions" page was added to the website to allow registered users to keep track of the article changes they suggest. On this page they can see:
+- A list of suggestions 
+- What post they are for  
+- When they were created
+- If they have been approved or rejected
+
+The user can also update, edit or delete suggestions on this page. 
 
 The website was originally going to have breadcrumb navigation to communicate hierarchy across pages. This idea was scrapped though since there was not much depth to the hierarchy in the end.
 
