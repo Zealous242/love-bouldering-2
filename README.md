@@ -817,6 +817,7 @@ Intermediate climbers may look for more detailed information about:
 - Antagonist training
 - Hangboarding
 - Introduction to board climbing
+- Campus board training
 
 Their experience benefits from search, categories, and links between related subjects.
 
@@ -966,7 +967,505 @@ The project balances two primary objectives:
 
 The UX will therefore prioritise **clear navigation, search and categorisation, readable article content, responsive design, accessibility, straightforward authentication, transparent contribution status, and administrator-controlled moderation**.
 
+## UX Design — Scope plane
 
+For BoulderingWiki, the scope is divided into two areas:
+
+- **Functional requirements** - the features and interactions the application must provide
+- **Content requirements** - the information and content that users need to access
+
+The initial scope focuses on creating a practical **Minimum Viable Product (MVP)** while avoiding unnecessary features that could cause scope creep.
+
+### Functional Requirements
+
+#### Public Content Browsing
+
+Visitors must be able to access the educational content without creating an account.
+
+Users will be able to:
+
+- Visit the homepage.
+- Browse the article directory.
+- Open and read individual articles.
+- Browse articles by category.
+- Search for articles.
+- Navigate between related areas of the website.
+
+Requiring registration simply to read educational content would create an unnecessary barrier, so public content remains accessible to guests.
+
+---
+
+#### Article Management
+
+BoulderWiki will use a structured article system to store and present educational content.
+
+Each article will contain information such as:
+
+- Title
+- Slug
+- Content
+- Category
+- Date created
+- Last updated date
+
+Each article belongs to a category, while a category can contain multiple articles.
+
+Administrators will be able to:
+
+- Create articles.
+- Edit existing articles.
+- Delete articles.
+- Assign articles to categories.
+- Maintain and update published content.
+
+Normal registered users will not be able to directly modify published articles.
+
+---
+
+#### Categories
+
+Categories will organise articles into logical areas and make the knowledge base easier to explore.
+
+Example categories may include:
+
+- Bouldering Fundamentals
+- Techniques
+- Equipment
+- Safety
+- Training
+- Grading
+- Terminology
+- History
+
+Users will be able to select a category and view the articles associated with it.
+
+Administrators will be responsible for creating, editing, and managing categories.
+
+---
+
+#### Search
+
+The website will provide search functionality to help users locate specific information.
+
+Users should be able to search using keywords associated with:
+
+- Article titles
+- Article content
+
+Search results should provide enough information for the user to identify relevant articles and navigate to them.
+
+If no matching content is found, the website should provide a clear message rather than displaying an empty or confusing page.
+
+Search will be available to both guests and authenticated users.
+
+---
+
+#### User Registration
+
+Visitors who want to contribute to BoulderingWiki will be able to create an account.
+
+Registration will collect the information required by the authentication system, such as:
+
+- Username
+- Email address where required
+- Password
+- Password confirmation
+
+The system should validate submitted information and provide clear feedback when registration cannot be completed.
+
+Django's built-in authentication and password security functionality will be used wherever appropriate.
+
+---
+
+#### Login and Logout
+
+Registered users will be able to authenticate securely.
+
+The application must provide:
+
+- Login functionality
+- Logout functionality
+- Authentication-aware navigation
+- Appropriate redirects for protected functionality
+
+After authentication, users will gain access to contribution features that are unavailable to guests.
+
+---
+
+#### Suggest an Edit
+
+Registered users will be able to suggest improvements to existing articles.
+
+A suggestion will contain:
+
+- The article being changed
+- Proposed article content
+- A reason for the suggested change
+- The submitting user
+- Submission date
+- Review status
+
+All new suggestions will initially have a **Pending** status.
+
+Submitting a suggestion must **not immediately modify the published article**.
+
+The contribution workflow will be:
+
+**Registered User → Suggest Edit → Pending Review → Administrator Review → Approved / Rejected**
+
+This moderation process allows community participation while protecting the reliability of published content.
+
+---
+
+#### My Suggestions
+
+Authenticated users will be able to view the suggestions they have previously submitted.
+
+The page should show information such as:
+
+- Article
+- Submission date
+- Suggestion status
+- Administrator feedback where applicable
+
+Possible statuses are:
+
+- **Pending** — awaiting administrator review
+- **Approved** — accepted and applied to the article
+- **Rejected** — declined and not applied to the article
+
+Users must only be able to access suggestions associated with their own account.
+
+---
+
+#### Administrator Moderation
+
+Administrators will be responsible for reviewing user-submitted changes.
+
+They must be able to:
+
+- View pending suggestions.
+- Identify the article associated with a suggestion.
+- Identify the submitting user.
+- Review proposed content.
+- Review the user's reason for the change.
+- Approve a suggestion.
+- Reject a suggestion.
+- Add review feedback where appropriate.
+- Record when the suggestion was reviewed.
+
+When a suggestion is approved:
+
+1. The relevant article is updated.
+2. The suggestion becomes **Approved**.
+3. The review date is recorded.
+
+When a suggestion is rejected:
+
+1. The published article remains unchanged.
+2. The suggestion becomes **Rejected**.
+3. The review date is recorded.
+4. Administrator feedback can be stored for the user.
+
+Administrative functionality will initially be provided primarily through **Django Admin**, reducing the need to create a separate custom content-management system for the MVP.
+
+---
+
+#### User and Permission Management
+
+Different functionality will be available depending on the user's role.
+
+| Functionality | Guest | Registered User | Administrator |
+| --- | :---: | :---: | :---: |
+| View homepage | ✓ | ✓ | ✓ |
+| Browse articles | ✓ | ✓ | ✓ |
+| Read articles | ✓ | ✓ | ✓ |
+| Browse categories | ✓ | ✓ | ✓ |
+| Search | ✓ | ✓ | ✓ |
+| Register | ✓ | — | — |
+| Log in | ✓ | — | — |
+| Suggest an edit | ✗ | ✓ | ✓ |
+| View own suggestions | ✗ | ✓ | ✓ |
+| Directly edit published articles | ✗ | ✗ | ✓ |
+| Create/delete articles | ✗ | ✗ | ✓ |
+| Manage categories | ✗ | ✗ | ✓ |
+| Review suggestions | ✗ | ✗ | ✓ |
+| Manage users | ✗ | ✗ | ✓ |
+
+Permissions must be enforced by the backend rather than relying only on hiding interface controls.
+
+---
+
+### Content Requirements
+
+BoulderingWiki will require enough educational content to demonstrate how users can browse, search, and navigate the knowledge base.
+
+The initial project does not need to contain hundreds of articles. A smaller collection of representative content is sufficient for the MVP.
+
+#### Homepage Content
+
+The homepage should introduce the website and provide clear routes into the knowledge base.
+
+Content may include:
+
+- Website introduction
+- Search bar
+- Featured article
+- Category links
+- Popular or recommended topics
+- Explanation of how users can contribute
+
+The primary purpose of the homepage is to help users quickly understand the website and begin exploring.
+
+---
+
+#### Article Content
+
+Individual articles should provide clear educational information about a specific bouldering subject.
+
+Article pages may include:
+
+- Article title
+- Category
+- Last updated date
+- Main article content
+- Relevant imagery
+- Suggest an Edit action for authenticated users
+- Edit post action for administrators (superusers)
+
+Example article topics include:
+
+- What Is Bouldering?
+- Dynos
+- Climbing Holds
+- Bouldering Grades
+- Climbing Shoes
+- Crash Pads
+- Bouldering Safety
+- Training for Bouldering
+
+---
+
+#### Category Content
+
+Each category page should:
+
+- Identify the category
+- Display articles belonging to the category
+- Provide links to individual articles
+
+Categories should help users discover information even when they do not know exactly what to search for.
+
+---
+
+#### Search Results Content
+
+Search results should clearly identify relevant articles.
+
+Each search result should display a list of articles with:
+
+- Article title
+- Category
+- Short excerpt or description
+- Link to the full article 
+
+A useful alert message should be displayed when no results match the search query.
+
+---
+
+#### Contribution Content
+
+The website must provide explanatory content around the suggestion process so users understand that submissions are moderated.
+
+Users should be informed that:
+
+- Suggestions do not immediately change articles
+- Suggestions are reviewed by administrators
+- Suggestions may be approved or rejected
+- Their suggestion status can be viewed from their account
+
+Clear messaging will reduce confusion about how the contribution system works.
+
+---
+
+### Navigation Requirements
+
+The primary navigation should provide access to the most important areas of the website.
+
+For guests, this may include:
+
+- Home
+- Articles
+- Categories
+- Search
+- Login
+- Register
+
+For authenticated users, account-specific options may include:
+
+- My Suggestions
+- Profile or account area
+- Logout
+
+Article pages may also use breadcrumb navigation to communicate hierarchy, for example:
+
+**Home → Techniques → Dyno**
+
+Navigation should remain consistent across the website and adapt appropriately for smaller screen sizes.
+
+---
+
+### Responsiveness  Requirements
+
+The website must provide a usable experience across the responsive layouts established in the wireframes.
+
+| Device | Approximate Screen Width |
+| --- | --- |
+| Mobile | ≤ 767px |
+| Tablet | 768px–1023px |
+| Laptop | 1024px–1439px |
+| Desktop | ≥ 1440px |
+
+The functionality should remain consistent across devices, while the layout adapts to the available space.
+
+For example:
+
+- The articles page may adopt a 3-column layout on laptops and larger devices
+- The articles page may adopt a 3-column layout on tablets when in landscape mode
+- Articles may stack vertically in a single column on mobiles  
+- Articles may stack vertically in a single column on tablets when in portrait mode
+- Navigation may collapse into a burger menu on mobiles
+- Forms should expand appropriately to available width.
+- Article content should maintain a comfortable reading width.
+- Touch targets should remain usable on smaller devices
+
+---
+
+### Non-Functional Requirements
+
+In addition to the visible functionality, BoulderWiki must meet several quality requirements.
+
+#### Accessibility
+
+The application should use:
+
+- Semantic HTML5.
+- Logical heading structures.
+- Accessible form labels.
+- Keyboard-accessible navigation.
+- Visible focus states.
+- Alternative text for meaningful images.
+- Appropriate colour contrast.
+- Clear validation and error messages.
+- Text labels rather than colour alone to communicate status.
+
+---
+
+#### Security
+
+The application should:
+
+- Use Django's authentication system.
+- Store passwords securely using Django's password handling.
+- Use CSRF protection for forms.
+- Restrict protected views to authenticated users.
+- Restrict moderation functionality to authorised administrators.
+- Prevent users from accessing another user's private suggestions.
+- Validate submitted data.
+- Protect sensitive configuration values.
+
+---
+
+#### Performance
+
+The application should:
+
+- Load pages efficiently.
+- Avoid unnecessary database queries.
+- Use appropriate Django ORM queries.
+- Paginate large article lists where necessary.
+- Optimise images and static assets where practical.
+
+---
+
+#### Reliability and Error Handling
+
+The application should provide:
+
+- Form validation.
+- Clear success and error messages.
+- Appropriate handling of invalid URLs.
+- A custom 404 page where practical.
+- Protection against invalid or unauthorised requests.
+- Automated tests for important functionality.
+
+---
+
+### MVP Feature Prioritisation
+
+The project scope will be prioritised using **Must Have**, **Should Have**, and **Could Have** categories.
+
+#### Must Have
+
+The MVP requires:
+
+- Homepage
+- Article directory
+- Article detail pages
+- Categories
+- Search
+- Registration
+- Login
+- Logout
+- Suggest an Edit
+- Administrator moderation
+- Article management
+- Category management
+- Authentication and authorisation
+- Form validation
+- Responsive layouts
+- Core security measures
+
+These features are required for the primary BoulderingWiki workflow to function.
+
+### Excluded Features
+
+Defining what the application will **not** provide is important for preventing scope creep.
+
+The initial version will not attempt to provide:
+
+- Article revision history
+- Notifications
+- Revision comparison
+- Bookmarks
+- Social networking
+- Private messaging
+- Discussion forums
+- User comments
+- E-commerce
+- Personal climbing statistics
+- Training logs
+- Route tick lists
+- Real-time collaborative article editing
+- AI-generated articles
+- Advanced Wikipedia-style citation management
+- Recommendation algorithms
+
+The features listed above are outside the initial scope of the project. These features could be considered in future development but are not required to satisfy the current project objectives.
+
+---
+
+### Scope Plane Summary
+
+The Scope Plane translates the objectives established during the Strategy Plane into a defined set of functional and content requirements.
+
+BoulderWiki will provide a public educational knowledge base where visitors can browse,  search for, and read bouldering information without creating an account. Registered users will be able to contribute improvements through suggested edits, while administrators will retain control over published content through a moderation process.
+
+The MVP prioritises the complete journey from:
+
+**Discover Content → Read Article → Register/Login → Suggest Improvement → Administrator Review → Approved/Rejected**
+
+More advanced social, collaborative, and personal climbing features remain outside the initial scope so that the project stays focused, maintainable, and achievable.
 
 ---
 
@@ -974,9 +1473,11 @@ The UX will therefore prioritise **clear navigation, search and categorisation, 
 
 The website was originally going to have a hero secrion on the homepage but this was scrapped due to time constraints.
 
-The website was originally going to have custom user profiles where the user can change things like their profile pick and add details to their profile like a bio and links to their socials
+The website was originally going to have custom user profiles where the user can change things like their profile pick and add details to their profile like a bio and links to their socials.
 
 A "Create a new post" page was added to the website to allow superusers to create a new post without needing to access the admin portal. 
+
+The website was originally going to have breadcrumb navigation to communicate hierarchy across pages. This idea was scrapped though since there was not much depth to the hierarchy in the end.
 
 ## AI Usage
 
