@@ -617,7 +617,7 @@ Below is a picture of the ERD (entity relationship diagram) for the project
 
 ![Diagram of ERD](/documentation/boulder-wiki-erd-white-bg.png)
 
-## Strategy Plane
+## UX Design - Strategy Plane
 
 ### Project Purpose
 
@@ -1471,7 +1471,7 @@ More advanced social, collaborative, and personal climbing features remain outsi
 
 ---
 
-## UX Design — Structure Plane
+## UX Design — Structural Plane
 
 The **Structure Plane** defines how the features and content established in the Scope Plane are organised into an understandable system. It focuses on **interaction design** and **information architecture**.
 

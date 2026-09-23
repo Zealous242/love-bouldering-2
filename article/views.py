@@ -147,6 +147,59 @@ def suggestion_create(request, slug):
             messages.error(request, 'Please correct the errors in your suggestion.')
 
     return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
+
+@login_required
+def suggestion_list(request):
+    suggestions = Suggestions.objects.filter(
+        submitted_by=request.user
+    ).select_related('post')
+    return render(
+        request,
+        'article/suggestion_list.html',
+        {'suggestions': suggestions},
+    )
+
+
+@login_required
+def suggestion_edit(request, suggestion_id):
+    suggestion = get_object_or_404(
+        Suggestions,
+        pk=suggestion_id,
+        submitted_by=request.user,
+    )
+
+    if request.method == 'POST':
+        form = SuggestionForm(request.POST, instance=suggestion)
+        if form.is_valid():
+            suggestion = form.save(commit=False)
+            suggestion.status = 'pending'
+            suggestion.save()
+            messages.success(request, 'Your suggestion was updated and sent for review.')
+            return HttpResponseRedirect(reverse('suggestion_list'))
+    else:
+        form = SuggestionForm(instance=suggestion)
+
+    return render(
+        request,
+        'article/suggestion_edit.html',
+        {'form': form, 'suggestion': suggestion},
+    )
+
+
+@login_required
+def suggestion_delete(request, suggestion_id):
+    suggestion = get_object_or_404(
+        Suggestions,
+        pk=suggestion_id,
+        submitted_by=request.user,
+    )
+
+    if request.method == 'POST':
+        suggestion.delete()
+        messages.success(request, 'Your suggestion was deleted.')
+
+    return HttpResponseRedirect(reverse('suggestion_list'))
     
 def comment_edit(request, slug, comment_id):
     """
