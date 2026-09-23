@@ -15,8 +15,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('article/', include('article.urls'))
 """
 
-print(">>> LOADED BUILDERWIKI URLS.PY <<<")
-
 from django.contrib import admin
 from django.urls import path, include
 
