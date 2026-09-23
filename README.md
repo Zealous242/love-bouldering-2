@@ -1469,6 +1469,567 @@ More advanced social, collaborative, and personal climbing features remain outsi
 
 ---
 
+## UX Design — Structure Plane
+
+The **Structure Plane** defines how the features and content established in the Scope Plane are organised into an understandable system. It focuses on **interaction design** and **information architecture**.
+
+For BoulderingWiki, the Structure Plane answers questions such as:
+
+- How do users move through the website?
+- How is information grouped?
+- What happens after a user performs an action?
+- How are public, authenticated, and administrative areas separated?
+- How does the contribution workflow behave?
+
+The structure is designed around three core user activities:
+
+**Learn → Explore → Contribute**
+
+---
+
+### Information Architecture
+
+The main content hierarchy is:
+
+```text
+Homepage
+│
+├── Articles
+│   ├── Article Directory
+│   └── Article Details
+│
+├── Search
+│   └── Search Results
+│       └── Relevant articles
+│
+├── Authentication
+│   ├── Register
+│   ├── Login
+│   └── Logout
+│
+└── Administration
+    ├── Articles
+    ├── Categories
+    ├── Users
+    ├── Suggested Edits
+    ├── Users
+    └── Comments
+```
+
+This hierarchy keeps the public knowledge base at the centre of the application while placing contribution and moderation functionality in clearly defined areas.
+
+---
+
+### Primary Navigation Structure
+
+For guest users:
+
+```text
+Home | Articles | Categories | Search | Login | Register
+```
+
+For authenticated users:
+
+```text
+Home | Articles | Categories | Search | My Suggestions | Logout
+```
+
+Administrative functionality can remain accessible through Django Admin or an administrator-specific link where appropriate, keeping the public interface focused on educational content.
+
+---
+
+### Homepage Structure
+
+The homepage acts as the main entry point into the knowledge base:
+
+```text
+Homepage
+│
+├── Introduction / Hero Section
+├── Search
+├── Explore Categories
+├── Article List
+```
+
+The most important user actions should appear early on the page:
+
+1. Search for information.
+2. Browse articles.
+3. Explore categories.
+
+Contribution information should remain secondary to the educational purpose of the website.
+
+---
+
+### Article Directory Structure
+
+```text
+Article Directory
+│
+├── Search / Filtering
+├── Article List
+│   ├── Article Title
+│   ├── Category
+│   └── Short Summary
+└── Pagination
+```
+
+Selecting an article takes the user to its Article Detail page. The directory should prioritise scanability so users can quickly identify useful topics.
+
+---
+
+### Article Detail Structure
+
+The Article Detail page is the application's primary content page:
+
+```text
+Article Detail
+│
+├── Article Title
+├── Category
+├── Last Updated
+├── Main Article Content
+├── Comments
+└── Suggest an Edit
+```
+
+Longer articles may also contain a table of contents.
+
+The **Suggest an Edit** action should be visible to authenticated users without distracting from the article. Guests attempting to contribute should be directed towards authentication.
+
+---
+
+### Category Structure
+
+Categories provide an alternative way to explore content:
+
+```text
+Categories
+    ↓
+Articles in Category
+    ↓
+Article List
+```
+
+For example:
+
+```text
+Categories
+    ↓
+Board Climbing
+    ↓
+Moonboard 
+Tension baord
+Kilter board
+Introduction to board climbing
+```
+
+This supports users who want to browse conceptually rather than relying only on search.
+
+---
+
+### Search Structure
+
+```text
+Enter Search Query
+        ↓
+Submit Search
+        ↓
+Search Results
+        ↓
+Select Result
+        ↓
+Article Detail
+```
+
+If no results are found:
+
+```text
+Search Query
+      ↓
+No Results
+      ↓
+Helpful Message
+      ↓
+Try Another Search / Browse Categories
+```
+
+The structure should avoid dead ends by providing alternative routes when a search is unsuccessful.
+
+---
+
+### Authentication Structure
+
+Authentication is required only for contribution and account-specific functionality.
+
+Registration:
+
+```text
+Register
+   ↓
+Submit Details
+   ↓
+Validation
+   ↓
+Account Created
+   ↓
+Login / Authenticated State
+```
+
+Login:
+
+```text
+Login
+  ↓
+Credentials Submitted
+  ↓
+Authentication
+  ↓
+Return to Intended Page
+```
+
+Where possible, users should return to the action they originally intended to complete:
+
+```text
+Article
+   ↓
+Suggest an Edit
+   ↓
+Login Required
+   ↓
+Login
+   ↓
+Return to Suggest Edit
+```
+
+This reduces unnecessary friction in the contribution journey.
+
+---
+
+### Suggest an Edit Interaction Structure
+
+The suggested-edit workflow is one of the application's central interactions:
+
+```text
+Article Detail
+      ↓
+Suggest an Edit
+      ↓
+Edit Form
+      ↓
+Submit Suggestion
+      ↓
+Pending Status
+      ↓
+Admin Review
+     ↙     ↘
+Approved   Rejected
+```
+
+The published article remains unchanged while the suggestion is pending, maintaining a clear distinction between **published content** and **proposed content**.
+
+---
+
+### Suggestion Form Structure
+
+```text
+Suggest an Edit
+│
+├── Article being edited
+├── Proposed Content
+├── Reason for Change
+└── Submit Suggestion
+```
+
+The article should be identified automatically rather than asking the user to select it again. The submitting user should also be identified through the authenticated session.
+
+This reduces unnecessary input and helps prevent mistakes.
+
+---
+
+### My Suggestions Structure
+
+```text
+My Suggestions
+│
+├── Pending
+├── Approved
+└── Rejected
+```
+
+Each suggestion should include:
+
+- Article title
+- Date submitted
+- Status
+- Review feedback where available
+
+Only suggestions belonging to the authenticated user should be accessible.
+
+---
+
+### Administrator Moderation Structure
+
+```text
+Admin
+  ↓
+Suggested Edits
+  ↓
+Pending Suggestions
+  ↓
+Review Suggestion
+  ↓
+Compare Existing / Proposed Content
+       ↓
+Approve or Reject
+```
+
+If approved:
+
+```text
+Approve
+   ↓
+Manually Update Article Content
+   ↓
+Mark Suggestion Approved
+   ↓
+Record Review Date
+```
+
+If rejected:
+
+```text
+Reject
+   ↓
+Article Unchanged
+   ↓
+Store Feedback
+   ↓
+Mark Suggestion Rejected
+```
+
+The administrator workflow should make pending work and previously reviewed contributions easy to distinguish.
+
+---
+
+### Role-Based Interaction Structure
+
+| Feature | Guest | Registered User | Administrator |
+| --- | :---: | :---: | :---: |
+| Browse content | ✓ | ✓ | ✓ |
+| Search | ✓ | ✓ | ✓ |
+| Read articles | ✓ | ✓ | ✓ |
+| Register | ✓ | — | — |
+| Login | ✓ | — | — |
+| Suggest edits | ✗ | ✓ | ✓ |
+| View own suggestions | ✗ | ✓ | ✓ |
+| Create new articles | ✗ | ✗ | ✓ |
+| Directly edit articles | ✗ | ✗ | ✓ |
+| Delete articles | ✗ | ✗ | ✓ |
+| Review suggestions | ✗ | ✗ | ✓ |
+| Manage categories | ✗ | ✗ | ✓ |
+| Manage users | ✗ | ✗ | ✓ |
+
+These boundaries must be enforced by the backend even if a user manually attempts to access a protected URL.
+
+---
+
+### Error and Recovery Structure
+
+#### Invalid URL
+
+```text
+Invalid URL
+   ↓
+404 Page
+   ↓
+Return Home / Browse Articles
+```
+
+#### Invalid Form
+
+```text
+Invalid Form
+   ↓
+Input Validation Message
+   ↓
+Correct Input
+   ↓
+Resubmit
+```
+
+#### Unauthorised Action
+
+```text
+Unauthorised Action
+   ↓
+Login or Permission Message
+   ↓
+Return to Appropriate Page
+```
+
+Users should rarely encounter a dead end. Error states should provide an appropriate next action wherever possible.
+
+---
+
+### Responsive Structural Behaviour
+
+The information architecture remains consistent across devices while its presentation adapts to available space.
+
+Larger screens:
+
+```text
+Header
+------------------------------------------------
+Main Page or Article Content     
+------------------------------------------------
+Footer
+```
+
+Mobile:
+
+```text
+Header
+Search
+Main Page or Article Content
+Footer
+```
+
+This preserves a consistent mental model across desktop, laptop, tablet, and mobile layouts.
+
+---
+
+### Interaction Design Principles
+
+#### Predictability
+
+Interface labels should clearly communicate their action, for example:
+
+- Read Article
+- Suggest an Edit
+- Submit Suggestion
+- Approve
+- Reject
+- View My Suggestions
+
+#### Feedback
+
+Important actions should produce clear feedback, for example:
+
+> Your suggested edit has been submitted and is awaiting review.
+
+#### Prevention
+
+The design should prevent avoidable mistakes. For example:
+
+- The authenticated user is automatically associated with their suggestion.
+- The current article is automatically associated with the Suggest an Edit form.
+- Normal users are not presented with administrator controls.
+- Invalid form data is identified before processing.
+
+#### Recovery
+
+When an error occurs, users should receive clear information about what went wrong and how to correct it.
+
+---
+
+### Core User Flows
+
+#### Learning Journey
+
+```text
+Homepage
+   ↓
+Search / Category / Articles
+   ↓
+Article Detail
+```
+
+#### Contribution Journey
+
+```text
+Article Detail
+   ↓
+Suggest an Edit
+   ↓
+Login if Required
+   ↓
+Suggestion Form
+   ↓
+Submit
+   ↓
+Pending
+   ↓
+My Suggestions
+```
+
+#### Moderation Journey
+
+```text
+Admin
+   ↓
+Pending Suggestions
+   ↓
+Review Suggestion
+   ↓
+Approve / Reject
+   ↓
+Article and Status Updated
+```
+
+These three flows represent the central structure of BoulderingWiki.
+
+---
+
+### Relationship to the Database Structure
+
+The interaction structure is supported by the application's core data relationships:
+
+```text
+Category
+   │
+   └────< Article
+              │
+              └────< Suggestion >──── User
+```
+
+These relationships support the main journeys:
+
+- Categories organise Articles.
+- Articles provide educational content.
+- Users submit SuggestedEdits against Articles.
+- Administrators review SuggestedEdits.
+- Approved changes can update the relevant Article.
+
+The database therefore supports the information architecture rather than determining the user experience independently.
+
+---
+
+### Structure Plane Summary
+
+The Structure Plane organises BoulderWiki into a clear information architecture and a predictable set of user interactions.
+
+The website is structured around three primary activities:
+
+**Learn → Explore → Contribute**
+
+Public users can browse, search, and read educational content without authentication. Registered users can move from reading an article into a controlled contribution workflow, while administrators manage content quality through moderation.
+
+The structure deliberately keeps the article system at the centre of the application, with authentication, contribution, and administrative functionality supporting the educational experience rather than interrupting it.
+
+The three central journeys can be summarised as:
+
+**Learning Journey:**  
+**Discover → Explore → Read → Continue Learning**
+
+**Contribution Journey:**  
+**Read → Suggest → Submit → Track**
+
+**Moderation Journey:**  
+**Review → Approve/Reject → Update**
+
+---
+
 ## Design Alterations/Additions
 
 The website was originally going to have a hero secrion on the homepage but this was scrapped due to time constraints.
