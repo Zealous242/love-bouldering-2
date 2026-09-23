@@ -29,14 +29,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
-        @media (min-width: 992px) {
-            .navbar-search {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        }
-
         nav-link {
             
         }
@@ -91,13 +83,6 @@
                     {% endif %}
 
                 </ul>
-                <form id="site-search-form" method="get" action="{% url 'home' %}" class="navbar-search d-flex me-lg-3 mb-2 mb-lg-0" role="search">
-                    <label for="site-search" class="visually-hidden">Search articles</label>
-                    <input id="site-search" name="q" value="{{ search_query|default:'' }}"
-                        class="form-control me-2" type="search" placeholder="Search articles"
-                        aria-label="Search articles">
-                    <button class="btn btn-info btn-outline-dark" type="submit" style="">Search</button>
-                </form>
                 <span class="navbar-text text-dark" id = "adventures-of-a-climber">
                     {% if user.is_authenticated %}Logged in as <strong>{{ user }}</strong>
                     {% else %}You are not logged in

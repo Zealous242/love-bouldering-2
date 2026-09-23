@@ -32,6 +32,15 @@ body {
     z-index: 1000;
 }
 
+.navbar-search {
+    position: fixed;
+    top: 4.25rem;
+    left: 50%;
+    z-index: 999;
+    width: min(92vw, 32rem);
+    transform: translateX(-50%);
+}
+
 
 .brand {
     font-family: Lato, sans-serif;
