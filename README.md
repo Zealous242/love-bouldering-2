@@ -8,6 +8,14 @@ A Django-based Wikipedia-style website dedicated to bouldering. The purpose of t
 
 **Live site:** [**Boulder Wiki**](https://love-bouldering-2-69300253a310.herokuapp.com/)
 
+## Project Board Link
+
+**Link:** [**Project Board**](https://github.com/users/Zealous242/projects/11/views/1?visibleFields=%5B%22Title%22%2C%22Status%22%2C%22Labels%22%2C%22Linked+pull+requests%22%2C%22Sub-issues+progress%22%5D&layout=table)
+
+## Device Views
+
+![AmIResponsiveImage](/documentation/boulder-wiki-erd-white-bg.png)
+
 ## Project Overview
 
 BoulderWiki is a Wikipedia-style knowledge base about **bouldering as a sport**.
@@ -616,6 +624,10 @@ The simplified project narrative is:
 Below is a picture of the ERD (entity relationship diagram) for the project
 
 ![Diagram of ERD](/documentation/boulder-wiki-erd-white-bg.png)
+
+- The database is designed using PostreSQL
+- Tables are created for created for Users, Profiles, Articles, Comments, Suggestions and Categories
+- The ERD shows the relationships between these entities
 
 ## UX Design - Strategy Plane
 
@@ -1430,6 +1442,8 @@ The MVP requires:
 
 These features are required for the primary BoulderingWiki workflow to function.
 
+---
+
 ### Excluded Features
 
 Defining what the application will **not** provide is important for preventing scope creep.
@@ -1454,6 +1468,119 @@ The initial version will not attempt to provide:
 - Recommendation algorithms
 
 The features listed above are outside the initial scope of the project. These features could be considered in future development but are not required to satisfy the current project objectives.
+
+---
+
+### Project Constraints
+
+- Only authenticated users can comment or submit article suggestions.
+- Users can edit and delete only their own comments and suggestions.
+- Only superusers can create or edit posts outside Django Admin.
+- Draft posts are not visible on the public website.
+- Published posts are visible to visitors.
+- Suggestions require moderation and use pending, approved, or rejected statuses.
+- Editing a reviewed suggestion returns it to pending status.
+- Posts may have multiple categories managed through the Category model.
+- Post images must use supported Cloudinary image formats.
+- Cloudinary credentials must be configured through environment variables.
+- User-submitted forms require CSRF protection.
+- Comment submissions use POST/Redirect/GET to prevent duplicate comments on refresh.
+- Search results are limited to published articles.
+- Users cannot access another user’s suggestions by changing the URL.
+- Article titles and slugs must be unique.
+- The project depends on Django, PostgreSQL-compatible database configuration, Cloudinary, Bootstrap, Summernote, and django-allauth.
+- The website must remain usable on desktop and mobile screen sizes.
+- Rich-text editors depend on Summernote assets and JavaScript.
+- Public article content is rendered as trusted HTML and therefore requires controlled content entry.
+- Existing user and database records must be preserved when migrations are applied.
+- New functionality must remain consistent with the existing design palette, Bootstrap layout, and shared templates.
+
+---
+
+### Project Deliverables
+
+#### Functional Deliverables
+
+- Public homepage displaying published bouldering articles
+- Article detail pages with:
+   - Title
+   - Author
+   -  Categories
+   - Featured image
+   - Article content
+   - Creation and update dates
+   - Comments
+   
+- Multiple article categories.
+- Category filtering.
+- Article search by title, content, excerpts, and categories.
+- Helpful no-results search messages.
+- User registration, login, logout, and password management.
+- Comment creation, editing, deletion, and timestamps.
+- Article change suggestion submission.
+- Current article content import into suggestion forms.
+- Rich-text suggestion editing.
+- User suggestion history page.
+- Suggestion status display: pending, approved, or rejected.
+- Suggestion editing and deletion by the submitting user.
+- Duplicate-comment prevention after page refresh.
+
+---
+
+#### Adiministrative Deliverables
+
+- Django Admin configuration for:
+   - Posts
+   - Categories
+   - Comments
+   - Suggestions
+   - Users
+
+- Superuser-only post creation page outside Django Admin
+- Superuser-only post editing page outside Django Admin
+- Post image uploads through Cloudinary
+- Rich-text post editing through Summernote
+- Multiple category assignment
+- Draft and published post statuses
+- Suggestion moderation workflow
+- Adjustable Posts and Comments admin columns
+- Superuser-only create and edit controls
+
+---
+
+#### Technical Deliverables
+
+- Django models and relationships for:
+   - Posts
+   - Categories
+   - Comments
+   - Suggestions
+   - About content
+   - Collaboration requests
+
+- Database migrations for all schema changes.
+- Django forms with validation.
+- Authentication and authorisation controls.
+- CSRF protection on submitted forms.
+- Cloudinary configuration for image storage.
+- Responsive Bootstrap templates.
+- Shared navigation and footer templates.
+- Static CSS and JavaScript assets.
+- Summernote rich-text integration.
+- Search and category filtering using Django ORM queries.
+
+---
+
+#### Quality Deliverables
+
+- Responsive layouts for mobile, tablet, laptop, and desktop.
+- Accessible labels, focus states, and controls.
+- Helpful success, error, and empty-state messages.
+- Permission checks for protected views.
+- Ownership checks for user suggestions and comments.
+- Django system checks passing.
+- Tested authentication and contribution workflows.
+- Secure handling of environment variables and Cloudinary credentials.
 
 ---
 
@@ -2913,6 +3040,78 @@ The user can also update, edit or delete suggestions on this page.
 
 The website was originally going to have breadcrumb navigation to communicate hierarchy across pages. This idea was scrapped though since there was not much depth to the hierarchy in the end.
 
+---
+
+## Website Features
+
+### Visitor Features
+
+- View published bouldering articles.
+- Browse article cards with titles, excerpts, images, authors, dates, and categories.
+- Open detailed article pages.
+- Search articles by title, content, excerpt, or category.
+- Filter articles by category.
+- Receive a helpful message when no search results are found.
+- View article comments.
+- Register for an account.
+- Log in and log out.
+- Reset or manage account passwords.
+
+### Registered User Features
+
+- Submit comments on articles.
+- Edit personal comments.
+- Delete personal comments.
+- View comment creation and edit dates.
+- Submit article change suggestions.
+- Import existing article content into a suggestion editor.
+- Edit submitted suggestions.
+- Delete submitted suggestions.
+- View suggestion history.
+- View whether suggestions are pending, approved, or rejected.
+- See the total number of submitted suggestions in the navbar.
+
+### Administrator (Superuser) Features
+
+- Create new posts without accessing Django Admin.
+- Edit existing posts without accessing Django Admin.
+- Upload post images through Cloudinary.
+- Add rich-text article content.
+- Assign multiple categories to posts.
+- Publish posts or save them as drafts.
+- Access Django Admin for full content management.
+- Manage categories.
+- Review and manage comments.
+- Review user suggestions.
+- Approve or reject suggestions.
+- Resize columns in the Posts and Comments admin tables.
+
+### Content Features
+
+- Rich-text article editing through Summernote.
+- Rich-text suggestion editing.
+- Featured images stored with Cloudinary.
+- Multiple categories per article.
+- Draft and published post statuses.
+- Article excerpts and full content.
+- Automatic post creation and update timestamps.
+- Automatic comment edit timestamps.
+- User-specific suggestion records.
+
+### Interface Features
+
+- Responsive Bootstrap layout.
+- Fixed navbar.
+- Home-page search bar.
+- Fixed, centered search bar beneath the navbar.
+- Dismissible notification alerts.
+- Password visibility toggle with Font Awesome icons.
+- Responsive article cards with consistent heights.
+- Superuser-only Create post and Edit post controls.
+- Accessible labels and button descriptions.
+
+---
+
 ## AI Usage
 
 AI was used to:
@@ -2920,3 +3119,31 @@ AI was used to:
 - Make code suggestions for styling
 - Enhance the UI of the admin portal in sections like comments
 - Create the Category model in article/models.py and allow articles to be sorted by categories
+- Create the Suggestions model article/models.py to allow users to make article change suggestions 
+- Test and debug the application
+
+---
+
+## Tools & Technologies
+
+| Tool / Tech | Use |
+| --- | --- |
+| [![badge](https://img.shields.io/badge/Markdown_Builder-grey?logo=markdown&logoColor=000000)](https://markdown.2bn.dev) | Generate README and TESTING templates. |
+| [![badge](https://img.shields.io/badge/Git-grey?logo=git&logoColor=F05032)](https://git-scm.com) | Version control. (`git add`, `git commit`, `git push`) |
+| [![badge](https://img.shields.io/badge/GitHub-grey?logo=github&logoColor=181717)](https://github.com) | Secure online code storage. |
+| [![badge](https://img.shields.io/badge/VSCode-grey?logo=htmx&logoColor=007ACC)](https://code.visualstudio.com) | Local IDE for development. |
+| [![badge](https://img.shields.io/badge/HTML-grey?logo=html5&logoColor=E34F26)](https://en.wikipedia.org/wiki/HTML) | Main site content and layout. |
+| [![badge](https://img.shields.io/badge/CSS-grey?logo=css&logoColor=1572B6)](https://en.wikipedia.org/wiki/CSS) | Design and layout. |
+| [![badge](https://img.shields.io/badge/JavaScript-grey?logo=javascript&logoColor=F7DF1E)](https://www.javascript.com) | User interaction on the site. |
+| [![badge](https://img.shields.io/badge/Python-grey?logo=python&logoColor=3776AB)](https://www.python.org) | Back-end programming language. |
+| [![badge](https://img.shields.io/badge/Heroku-grey?logo=heroku&logoColor=430098)](https://www.heroku.com) | Hosting the deployed back-end site. |
+| [![badge](https://img.shields.io/badge/Bootstrap-grey?logo=bootstrap&logoColor=7952B3)](https://getbootstrap.com) | Front-end CSS framework for modern responsiveness and pre-built components. |
+| [![badge](https://img.shields.io/badge/Django-grey?logo=django&logoColor=092E20)](https://www.djangoproject.com) | Python framework for the site. |
+| [![badge](https://img.shields.io/badge/PostgreSQL-grey?logo=postgresql&logoColor=4169E1)](https://www.postgresql.org) | Relational database management. |
+| [![badge](https://img.shields.io/badge/Cloudinary-grey?logo=cloudinary&logoColor=3448C5)](https://cloudinary.com) | Online static file storage. |
+| [![badge](https://img.shields.io/badge/WhiteNoise-grey?logo=python&logoColor=FFFFFF)](https://whitenoise.readthedocs.io) | Serving static files with Heroku. |
+| [![badge](https://img.shields.io/badge/Font_Awesome-grey?logo=fontawesome&logoColor=528DD7)](https://fontawesome.com) | Icons. |
+| [![badge](https://img.shields.io/badge/ChatGPT-grey?logo=openai&logoColor=75A99C)](https://chat.openai.com) | Help debug, troubleshoot, and explain things. |
+| [![badge](https://img.shields.io/badge/W3Schools-grey?logo=w3schools&logoColor=04AA6D)](https://www.w3schools.com) | Tutorials/Reference Guide |
+| [![badge](https://img.shields.io/badge/StackOverflow-grey?logo=stackoverflow&logoColor=F58025)](https://stackoverflow.com) | Troubleshooting and Debugging |
+| [![badge](https://img.shields.io/badge/Copilot-grey?logo=githubcopilot&logoColor=##000000)](https://github.com/copilot) | Help debug, troubleshoot, and explain things. |

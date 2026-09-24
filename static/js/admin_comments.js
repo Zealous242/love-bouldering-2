@@ -1,3 +1,5 @@
+/* jshint esversion: 11 */
+
 document.addEventListener("DOMContentLoaded", function () {
     const filterMenu = document.querySelector("#changelist-filter");
 
