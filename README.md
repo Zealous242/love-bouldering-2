@@ -3042,49 +3042,49 @@ The website was originally going to have breadcrumb navigation to communicate hi
 
 ### Visitor Features
 
-- View published bouldering articles.
-- Browse article cards with titles, excerpts, images, authors, dates, and categories.
-- Open detailed article pages.
-- Search articles by title, content, excerpt, or category.
-- Filter articles by category.
-- Receive a helpful message when no search results are found.
-- View article comments.
-- Register for an account.
-- Log in and log out.
-- Reset or manage account passwords.
+- View published bouldering articles
+- Browse article cards with titles, excerpts, images, authors, dates, and categories
+- Open detailed article pages
+- Search articles by title, content, excerpt, or category
+- Filter articles by category
+- Receive a helpful message when no search results are found
+- View article comments
+- Register for an account
+- Log in and log out
+- Reset or manage account passwords
 
 ### Registered User Features
 
-- Submit comments on articles.
-- Edit personal comments.
-- Delete personal comments.
-- View comment creation and edit dates.
-- Submit article change suggestions.
-- Import existing article content into a suggestion editor.
-- Edit submitted suggestions.
-- Delete submitted suggestions.
-- View suggestion history.
-- View whether suggestions are pending, approved, or rejected.
-- See the total number of submitted suggestions in the navbar.
+- Submit comments on articles
+- Edit personal comments
+- Delete personal comments
+- View comment creation and edit dates
+- Submit article change suggestions
+- Import existing article content into a suggestion editor
+- Edit submitted suggestions
+- Delete submitted suggestions
+- View suggestion history
+- View whether suggestions are pending, approved, or rejected
+- See the total number of submitted suggestions in the navbar
 
 ### Administrator (Superuser) Features
 
-- Create new posts without accessing Django Admin.
-- Edit existing posts without accessing Django Admin.
-- Upload post images through Cloudinary.
-- Add rich-text article content.
-- Assign multiple categories to posts.
-- Publish posts or save them as drafts.
-- Access Django Admin for full content management.
-- Manage categories.
-- Review and manage comments.
-- Review user suggestions.
-- Approve or reject suggestions.
-- Resize columns in the Posts and Comments admin tables.
+- Create new posts without accessing Django Admin
+- Edit existing posts without accessing Django Admin
+- Upload post images through Cloudinary
+- Add rich-text article content
+- Assign multiple categories to posts
+- Publish posts or save them as drafts
+- Access Django Admin for full content management
+- Manage categories
+- Review and manage comments
+- Review user suggestions
+- Approve or reject suggestions
+- Resize columns in the Posts and Comments admin tables
 
 ### Content Features
 
-- Rich-text article editing through Summernote.
+- Rich-text article editing through Summernote
 - Rich-text suggestion editing.
 - Featured images stored with Cloudinary.
 - Multiple categories per article.
@@ -3120,6 +3120,17 @@ The website was originally going to have breadcrumb navigation to communicate hi
 - AI-generated articles
 - Private messaging
 - Discussion forums
+
+---
+
+## Bug Fxing
+
+
+---
+
+## Testing
+
+A detailed documentation of the testing done can be found at [Testing](/TESTING.md)
 
 ---
 
@@ -3379,3 +3390,5 @@ AI was used to:
 | [![badge](https://img.shields.io/badge/W3Schools-grey?logo=w3schools&logoColor=04AA6D)](https://www.w3schools.com) | Tutorials/Reference Guide |
 | [![badge](https://img.shields.io/badge/StackOverflow-grey?logo=stackoverflow&logoColor=F58025)](https://stackoverflow.com) | Troubleshooting and Debugging |
 | [![badge](https://img.shields.io/badge/Copilot-grey?logo=githubcopilot&logoColor=##000000)](https://github.com/copilot) | Help debug, troubleshoot, and explain things. |
+
+## Credits
