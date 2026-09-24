@@ -646,7 +646,7 @@ Registered users can also:
 
 - Log in securely
 - Suggest improvements to existing articles
-- Make comments on posts
+- Make comments on articles
 - Update comments
 - Delete comments
 
@@ -655,9 +655,9 @@ Administrators can:
 - Manage articles and categories by accessing the Django admin portal
 - Review suggested edits by accessing the Django admin portal
 - Approve or reject proposed changes
-- Create new posts
-- Edit existing posts
-- Delete posts
+- Create new articles
+- Edit existing articles
+- Delete articles
 
 To protect the reliability and accuracy of published information, suggested changes enter a moderation workflow rather than immediately changing an article. An administrator reviews each suggestion before approving or rejecting it.
 
@@ -686,7 +686,7 @@ The project objectives are to:
 3. **Encourage community contributions**  
    Allow registered users to:
    - Suggest improvements when they identify missing, inaccurate, or outdated information
-   - Make comments on posts
+   - Make comments on articles
    - Update existing comments
    - Delete existing comments
 
@@ -1245,7 +1245,7 @@ Article pages may include:
 - Main article content
 - Relevant imagery
 - Suggest an Edit action for authenticated users
-- Edit post action for administrators (superusers)
+- Edit articles action for administrators (superusers)
 
 Example article topics include:
 
@@ -1471,13 +1471,13 @@ The features listed above are outside the initial scope of the project. These fe
 
 - Only authenticated users can comment or submit article suggestions.
 - Users can edit and delete only their own comments and suggestions.
-- Only superusers can create or edit posts outside Django Admin.
-- Draft posts are not visible on the public website.
-- Published posts are visible to visitors.
+- Only superusers can create or edit articles outside Django Admin.
+- Draft articles are not visible on the public website.
+- Published articles are visible to visitors.
 - Suggestions require moderation and use pending, approved, or rejected statuses.
 - Editing a reviewed suggestion returns it to pending status.
-- Posts may have multiple categories managed through the Category model.
-- Post images must use supported Cloudinary image formats.
+- Articles may have multiple categories managed through the Category model.
+- Articles images must use supported Cloudinary image formats.
 - Cloudinary credentials must be configured through environment variables.
 - User-submitted forms require CSRF protection.
 - Comment submissions use POST/Redirect/GET to prevent duplicate comments on refresh.
@@ -1526,20 +1526,20 @@ The features listed above are outside the initial scope of the project. These fe
 #### Adiministrative Deliverables
 
 - Django Admin configuration for:
-   - Posts
+   - Articles
    - Categories
    - Comments
    - Suggestions
    - Users
 
-- Superuser-only post creation page outside Django Admin
-- Superuser-only post editing page outside Django Admin
-- Post image uploads through Cloudinary
-- Rich-text post editing through Summernote
+- Superuser-only article creation page outside Django Admin
+- Superuser-only article editing page outside Django Admin
+- Article image uploads through Cloudinary
+- Rich-text articles editing through Summernote
 - Multiple category assignment
-- Draft and published post statuses
+- Draft and published articles statuses
 - Suggestion moderation workflow
-- Adjustable Posts and Comments admin columns
+- Adjustable articles and Comments admin columns
 - Superuser-only create and edit controls
 
 ---
@@ -1547,7 +1547,7 @@ The features listed above are outside the initial scope of the project. These fe
 #### Technical Deliverables
 
 - Django models and relationships for:
-   - Posts
+   - Articles
    - Categories
    - Comments
    - Suggestions
@@ -3024,11 +3024,11 @@ The website was originally going to have a hero secrion on the homepage but this
 
 The website was originally going to have custom user profiles where the user can change things like their profile pick and add details to their profile like a bio and links to their socials.
 
-A "Create a new post" page was added to the website to allow superusers to create a new post without needing to access the admin portal. 
+A "Create a new article" page was added to the website to allow superusers to create a new article without needing to access the admin portal. 
 
 A "My suggestions" page was added to the website to allow registered users to keep track of the article changes they suggest. On this page they can see:
 - A list of suggestions 
-- What post they are for  
+- What articles they are for  
 - When they were created
 - If they have been approved or rejected
 
@@ -3069,18 +3069,18 @@ The website was originally going to have breadcrumb navigation to communicate hi
 
 ### Administrator (Superuser) Features
 
-- Create new posts without accessing Django Admin
-- Edit existing posts without accessing Django Admin
-- Upload post images through Cloudinary
+- Create new articles without accessing Django Admin
+- Edit existing articles without accessing Django Admin
+- Upload articles images through Cloudinary
 - Add rich-text article content
-- Assign multiple categories to posts
-- Publish posts or save them as drafts
+- Assign multiple categories to articles
+- Publish articles or save them as drafts
 - Access Django Admin for full content management
 - Manage categories
 - Review and manage comments
 - Review user suggestions
 - Approve or reject suggestions
-- Resize columns in the Posts and Comments admin tables
+- Resize columns in the articles and Comments admin tables
 
 ### Content Features
 
@@ -3088,9 +3088,9 @@ The website was originally going to have breadcrumb navigation to communicate hi
 - Rich-text suggestion editing.
 - Featured images stored with Cloudinary.
 - Multiple categories per article.
-- Draft and published post statuses.
+- Draft and published articles statuses.
 - Article excerpts and full content.
-- Automatic post creation and update timestamps.
+- Automatic articles creation and update timestamps.
 - Automatic comment edit timestamps.
 - User-specific suggestion records.
 
@@ -3103,7 +3103,7 @@ The website was originally going to have breadcrumb navigation to communicate hi
 - Dismissible notification alerts.
 - Password visibility toggle with Font Awesome icons.
 - Responsive article cards with consistent heights.
-- Superuser-only Create post and Edit post controls.
+- Superuser-only Create article and Edit article controls.
 - Accessible labels and button descriptions.
 
 ### Future Features
@@ -3125,6 +3125,84 @@ The website was originally going to have breadcrumb navigation to communicate hi
 
 ## Bug Fxing
 
+### Pagination
+
+Fixed a bug where the "START" page button wouldn’t show on "LAST" page. 
+
+#### Before
+
+![pagination before](/documentation/bug-fixing/pagination/start-page-button-before.png)
+
+#### After
+
+![pagination after](/documentation/bug-fixing/pagination/start-page-button-after.png)
+
+### Comment Duplication
+
+Fixed a bug where comments would get duplicated when the page is refreshed.
+
+#### Before Refreshing
+
+![comment duplication before](/documentation/bug-fixing/comment-duplication/before.png)
+
+When the refresh button was clicked you would get a "Confirm 'Form Resubmission" dialogue. 
+
+#### After Refreshing
+
+![comment duplication before](/documentation/bug-fixing/comment-duplication/before-2.png)
+
+When you clicked continue a comment you just wrote would get duplicated as shown in the image below. 
+
+This was fixed by adding:
+
+```python
+return HttpResponseRedirect(reverse('post_detail', args=[slug])) 
+```
+to the comment_delete() function in article/views.py at the bottom of the function block
+
+### Article Heights
+
+Fixed a bug where the heights of article entries were uneven across rows and columns. 
+
+#### Before
+
+![article heights before](/documentation/bug-fixing/article-heights/articles-before.png)
+
+As you can see from the screenshot above, the heights of the article cards are uneven across the row.
+
+#### After
+
+![article heights after](/documentation/bug-fixing/article-heights/articles-after.png)
+
+Article heights are now even across rows. 
+
+### Incorrect Comment Counts
+
+Fixed a bug where the incorrect number of comments was being displayed on articles. 
+
+#### Before
+
+![comment count before](/documentation/bug-fixing/comments-count/comments-count-before.png)
+
+As you can see in the screenshot above, the number of comments is being displayed as "0" when it is quite clearly 2. 
+
+#### After
+
+![comment count after](/documentation/bug-fixing/comments-count/comments-count-after.png)
+
+Correct comment count now shows above comments. This was fixed by changing the value of the comment_count variable in article/views.py from:
+
+```python
+   comment_count = post.comments.filter(approved=True).count()
+```
+
+to:
+
+```python
+   comment_count = post.comments.count()
+```
+
+This way, the website displays all comments on an article and not just the ones that have been approved. 
 
 ---
 
@@ -3151,10 +3229,11 @@ Deployment steps are as follows, after account setup:
 > [!IMPORTANT]  
 > This is a sample only; you would replace the values with your own if cloning/forking my repository.
 
-!!! IMPORTANT !!! 
+!!! WARNING !!! 
 
-- ⚠️ DO NOT update the environment variables to your own! These should never be public; only use the demo values below! 
+- ⚠️ DO NOT update the environment variables you see below to your own! These should never be public; only use the demo values below! 
 - ⚠️ Replace the keys below with your own actual keys used; example: if not using Cloudinary, then remove those keys, or replace with whatever ones you're using. 
+- ⚠️ Make sure you add your env.py file to a .gitignore in your root directory before pushing to GitHub and writing your secret keys in it
 
 | Key | Value |
 | --- | --- |
@@ -3274,12 +3353,12 @@ You will need to create a new file called `env.py` at the root-level, and includ
 > [!IMPORTANT]  
 > This is a sample only; you would replace the values with your own if cloning/forking my repository.
 
-🛑 !!! ATTENTION Zealous242 !!! 🛑
+!!! WARNING !!! 
 
-⚠️ DO NOT update the environment variables to your own! These should never be public; only use the demo values below! ⚠️
-⚠️ Replace the keys below with your own actual keys used; example: if not using Cloudinary | AWS, then replace those keys with whatever keys you're using. ⚠️
+- ⚠️ DO NOT update the environment variables listed below to your own! These should never be public; only use the demo values below! ⚠️
+- ⚠️ Replace the keys below with your own actual keys used; example: if not using Cloudinary | AWS, then replace those keys with whatever keys you're using. ⚠️
+- ⚠️ Make sure you add your env.py file to a .gitignore in your root directory before pushing to GitHub and writing your secret keys in it
 
-🛑 --- END --- 🛑
 
 Sample `env.py` file:
 
@@ -3343,31 +3422,21 @@ By forking the GitHub Repository, you make a copy of the original repository on 
 
 ---
 
-### Local VS Deployment
-
-⚠️ INSTRUCTIONS ⚠️
-
-Use this space to discuss any differences between the local version you've developed, and the live deployment site. Generally, there shouldn't be [m]any major differences, so if you honestly cannot find any differences, feel free to use the following example:
-
-⚠️ --- END --- ⚠️
-
-There are no remaining major differences between the local version when compared to the deployed version online.
-
----
-
 ## AI Usage
 
+During development, ChatGPT and GitHub Copilot were used as AI assistants to help with several tasks. 
+
 AI was used to:
-- Generate user stories
-- Make code suggestions for styling
-- Enhance the UI of the admin portal in sections like comments
-- Create the Category model in article/models.py and allow articles to be sorted by categories
-- Create the Suggestions model article/models.py to allow users to make article change suggestions 
-- Test and debug the application
+- Generate user stories (ChatGPT)
+- Make code suggestions for styling (GitHub Copilot)
+- Enhance the UI of the admin portal in sections like comments (GitHub Copilot)
+- Create the Category model in article/models.py and allow articles to be sorted by categories (GitHub Copilot)
+- Create the Suggestions model article/models.py to allow users to make article change suggestions (GitHub Copilot)
+- Test and debug the application (GitHub Copilot and ChatGPT)
 
 ---
 
-## Tools & Technologies
+## Tools & Technologies Used
 
 | Tool / Tech | Use |
 | --- | --- |

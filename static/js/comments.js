@@ -1,4 +1,5 @@
 /* jshint esversion: 11 */
+/* global bootstrap */
 
 const editButtons = document.getElementsByClassName("btn-edit");
 const editCommentModalElement = document.getElementById("editCommentModal");

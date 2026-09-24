@@ -61,7 +61,7 @@
                     {% if user.is_superuser %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/create/' %}active{% endif %}"
-                            href="{% url 'post_create' %}">Create post</a>
+                            href="{% url 'post_create' %}">Create Article</a>
                     </li>
                     {% endif %}
                     {% if user.is_authenticated %}

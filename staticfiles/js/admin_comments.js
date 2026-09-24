@@ -1,3 +1,6 @@
+/* jshint esversion: 11 */
+/* global bootstrap */
+
 document.addEventListener("DOMContentLoaded", function () {
     const filterMenu = document.querySelector("#changelist-filter");
 
