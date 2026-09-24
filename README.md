@@ -14,7 +14,7 @@ A Django-based Wikipedia-style website dedicated to bouldering. The purpose of t
 
 ## Device Views
 
-![AmIResponsiveImage](/documentation/boulder-wiki-erd-white-bg.png)
+![AmIResponsiveImage](/documentation/device-views.png)
 
 ## Project Overview
 
