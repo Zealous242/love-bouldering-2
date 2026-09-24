@@ -96,18 +96,18 @@
     {% if is_paginated %}
     <nav aria-label="Page navigation" class="page-navigation">
         <ul class="pagination justify-content-center">
-            <li><a href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"> <<</a></li> <!-- Link to the first page -->
+            <li><a href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"> Start</a></li> <!-- Link to the first page -->
             {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"><</a></li> <!-- Link to the previous page -->
+            <li><a href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link">Previous</a></li> <!-- Link to the previous page -->
             {% endif %}
             <li class="page-item disabled">
                 <a class="page-link" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a> <!-- Display the current page number and total pages -->
             </li>
             {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"> ></a></li> <!-- Link to the next page -->
+            <li><a href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link">Next</a></li> <!-- Link to the next page -->
             {% endif %}
             {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"> >></a></li> <!-- Link to the last page -->
+            <li><a href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"> End</a></li> <!-- Link to the last page -->
             {% endif %}
         </ul>
         
