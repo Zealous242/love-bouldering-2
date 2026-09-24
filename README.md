@@ -3123,6 +3123,71 @@ The website was originally going to have breadcrumb navigation to communicate hi
 
 ---
 
+## CRUD Functionality
+
+Only registered users and administrators (superusers) can perform CRUD functionality. Guest users are only able to browse the site for information.
+
+### Registered Users 
+
+#### "CREATE" Criteria
+
+Registered users can:
+
+- Create comments
+- Create article suggestions
+
+#### "UPDATE" Criteria
+
+Registered users can: 
+
+- Edit their own comments
+- Edit suggestions they made and submitted
+
+#### "DELETE" Criteria
+
+Registered users can:
+
+- Delete their own comments
+- Delete their own suggestions 
+
+Registered users cannot:
+
+- Create, edit, or delete posts
+- Manage categories
+- Approve or reject suggestions
+- Access Django Admin
+- Modify another user’s content
+
+### Administrators (Superusers)
+
+Administrators have full content-management access and can do everything registered users can do (and more). Administrators are also able to access the Django admin portal. 
+
+#### "CREATE" Criteria
+
+Administrators can:
+
+- Create articles
+- Create categories
+- Create new users  in the Django admin portal
+
+#### "UPDATE" Criteria
+
+Administrators can:
+
+- Edit articles
+- Edit categories
+- Edit user details like their paswords in the Django admin portal
+
+#### "DELETE" Criteria
+
+Administrators can:
+
+- Delete articles
+- Delete users
+- Delete categories in the Django admin portal
+
+---
+
 ## Bug Fxing
 
 ### Pagination
