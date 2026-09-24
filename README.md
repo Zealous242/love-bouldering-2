@@ -10,7 +10,7 @@ A Django-based Wikipedia-style website dedicated to bouldering. The purpose of t
 
 ## Project Board Link
 
-**Link:** [**Project Board**](https://github.com/users/Zealous242/projects/11/views/1?visibleFields=%5B%22Title%22%2C%22Status%22%2C%22Labels%22%2C%22Linked+pull+requests%22%2C%22Sub-issues+progress%22%5D&layout=table){:target="_blank" rel="noopener"}
+**Link:** [**Project Board**](https://github.com/users/Zealous242/projects/11/views/1?visibleFields=%5B%22Title%22%2C%22Status%22%2C%22Labels%22%2C%22Linked+pull+requests%22%2C%22Sub-issues+progress%22%5D&layout=table)
 
 ## Device Views
 
