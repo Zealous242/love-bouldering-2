@@ -52,15 +52,21 @@ def post_edit(request, slug):
 
 @user_passes_test(is_superuser)
 def post_list_owned(request):
-    posts = Post.objects.filter(author=request.user).prefetch_related(
+    own_posts = Post.objects.filter(author=request.user).prefetch_related(
         'categories'
     )
-    return render(request, 'article/post_list_owned.html', {'posts': posts})
+    other_posts = Post.objects.exclude(author=request.user).prefetch_related(
+        'categories'
+    )
+    return render(request, 'article/post_list_owned.html', {
+        'own_posts': own_posts,
+        'other_posts': other_posts,
+    })
 
 
 @user_passes_test(is_superuser)
 def post_delete(request, slug):
-    post = get_object_or_404(Post, slug=slug, author=request.user)
+    post = get_object_or_404(Post, slug=slug)
 
     if request.method == 'POST':
         post.delete()

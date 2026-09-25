@@ -2275,6 +2275,16 @@ A set of wireframes for desktops was not required since the website would look t
 
 ![Diagram of mobile wireframes](/documentation/wireframes/mobile/mobile-wireframes.png)
 
+#### Note:
+
+These were the original designs of the wireframes for the wireframes and they suggest that the website only has four pages. The final website ended up having more pages than this and the number of pages the user can browse varies based on the type of user that they are. The wireframes you see above correspond to the MVP of the project. 
+
+The ERD was never changed throughtout the project but more pages were added to allow a superuser to perform important administrative tasks like managing suggestions, without needing to access the Django admin portal. 
+
+The number of pages that a non-superuser and guest user can access are more or less the same as it looks in the wireframes above. The only distinctions are that the "Categories" page was scrapped and a "My Suggestions" page was added. A  "Categories" page still exists for superusers but this page does more than what was originally intended. The additional features that have been added are mostly just for quality of life improvements. 
+
+You can find more information about the changes to the original design in the [Design Alterations](#-design-alterations) section
+
 ---
 
 ### Article Readability
@@ -2562,6 +2572,38 @@ These influences should remain subtle. The interface should not become overly de
 ### Color Palette
 
 ![Diagram of ERD](/documentation/color-palette.png)
+
+#### Primary Colours
+- Sky Blue: ``` #85D6FF``` - Main page background
+
+- Turquoise: ``` #23BBBB``` - Navbar and interactive brand elements.
+
+- Deep Navy: ``` #023047``` - Footer, borders, and strong contrast areas.
+
+- Slate: ``` #445261``` - Masthead backgrounds, article text, and headings.
+
+#### Accent Colours
+- Ocean Blue: ``` #0077B6``` - Focus states, controls, and secondary actions.
+
+- Bright Blue: ``` #008CFF``` - Links and pagination states.
+
+- Teal: ``` #188181``` - Primary action buttons.
+
+- Light Cyan: ``` #83DDFB``` - Supporting interface backgrounds.
+
+#### Supporting Colours
+- Off-white: ``` #F9FAFC``` - Main content background.
+
+- White: ``` #FFFFFF``` - Text on dark backgrounds and button labels.
+
+- Black: ``` #000000``` - Brand and primary dark text.
+
+- Muted Gray: ``` rgb(172, 175, 175)``` - Secondary or faded text.
+
+#### Warning and Destructive Colours
+- Orange-red: ``` #E84610``` - Like and delete-related elements.
+
+- Approval Pink: ``` rgb(222, 146, 168)``` - Approval or moderation-related messaging.
 
 ### Typography
 
@@ -3018,7 +3060,7 @@ A reusable visual system should establish consistent rules for:
 
 ---
 
-## Design Alterations/Additions
+## Design Alterations
 
 The website was originally going to have a hero secrion on the homepage but this was scrapped due to time constraints.
 
@@ -3042,69 +3084,52 @@ The website was originally going to have breadcrumb navigation to communicate hi
 
 ### Visitor Features
 
-- View published bouldering articles
-- Browse article cards with titles, excerpts, images, authors, dates, and categories
-- Open detailed article pages
-- Search articles by title, content, excerpt, or category
-- Filter articles by category
-- Receive a helpful message when no search results are found
-- View article comments
-- Register for an account
-- Log in and log out
-- Reset or manage account passwords
+- Browse published article cards showing titles, excerpts, images, authors, dates, and categories.
+- Open detailed article pages with rich-text content and featured images.
+- Search articles by title, content, excerpt, or category.
+- Filter articles by category.
+- Receive helpful feedback when a search returns no matches.
+- Read comments on articles.
+- Register, log in, log out, and manage account passwords.
 
 ### Registered User Features
 
-- Submit comments on articles
-- Edit personal comments
-- Delete personal comments
-- View comment creation and edit dates
-- Submit article change suggestions
-- Import existing article content into a suggestion editor
-- Edit submitted suggestions
-- Delete submitted suggestions
-- View suggestion history
-- View whether suggestions are pending, approved, or rejected
-- See the total number of submitted suggestions in the navbar
+- Submit comments on articles.
+- Edit and delete personal comments.
+- View comment creation and edit dates.
+- Submit article change suggestions with proposed content and a reason.
+- Import existing article content into the rich-text suggestion editor.
+- View, edit, and delete personal suggestions.
+- Track suggestion status as pending, approved, or rejected.
+- See the personal suggestion count in the navbar across the website.
 
 ### Administrator (Superuser) Features
 
-- Create new articles without accessing Django Admin
-- Edit existing articles without accessing Django Admin
-- Upload articles images through Cloudinary
-- Add rich-text article content
-- Assign multiple categories to articles
-- Publish articles or save them as drafts
-- Access Django Admin for full content management
-- Manage categories
-- Review and manage comments
-- Review user suggestions
-- Approve or reject suggestions
-- Resize columns in the articles and Comments admin tables
+- Create, edit, publish, draft, and delete articles without accessing Django Admin.
+- View created articles on a dedicated My Articles page with creation and last-updated dates.
+- Manually resize My Articles table columns.
+- Upload supported article images through Cloudinary.
+- Create, edit, list, and delete categories through a dedicated Categories page.
+- Assign multiple categories to articles.
+- Review comments and manage content through Django Admin.
+- View all suggestions in separate My Suggestions and Other Suggestions tables.
+- See submitter names and suggestion counts when reviewing other users' suggestions.
+- Approve or reject other users' pending suggestions.
+- Apply approved suggestion content to the relevant article while leaving rejected articles unchanged.
+- Resize columns in the Posts and Comments Django Admin tables.
 
-### Content Features
+### Shared Content and Interface Features
 
-- Rich-text article editing through Summernote
-- Rich-text suggestion editing.
-- Featured images stored with Cloudinary.
-- Multiple categories per article.
-- Draft and published articles statuses.
-- Article excerpts and full content.
-- Automatic articles creation and update timestamps.
-- Automatic comment edit timestamps.
-- User-specific suggestion records.
-
-### Interface Features
-
-- Responsive Bootstrap layout.
-- Fixed navbar.
-- Home-page search bar.
-- Fixed, centered search bar beneath the navbar.
-- Dismissible notification alerts.
-- Password visibility toggle with Font Awesome icons.
-- Responsive article cards with consistent heights.
-- Superuser-only Create article and Edit article controls.
-- Accessible labels and button descriptions.
+- Edit article and suggestion content with Summernote rich-text editors.
+- Store featured article images with Cloudinary.
+- Use draft and published article statuses.
+- Display article excerpts and creation/update timestamps.
+- Display comment update timestamps.
+- Use responsive Bootstrap layouts for mobile, tablet, laptop, and desktop devices.
+- Provide a fixed navigation bar, home-page search, and category filtering.
+- Show dismissible Bootstrap alerts for success and error feedback.
+- Provide Font Awesome icons, including password visibility controls and pagination controls.
+- Use consistent article card heights, accessible labels, keyboard focus states, and descriptive controls.
 
 ### Future Features
 
@@ -3176,6 +3201,7 @@ Administrators can:
 
 - Edit articles
 - Edit categories
+- Approve or reject suggestions
 - Edit user details like their paswords in the Django admin portal
 
 #### "DELETE" Criteria
@@ -3184,7 +3210,7 @@ Administrators can:
 
 - Delete articles
 - Delete users
-- Delete categories in the Django admin portal
+- Delete categories
 
 ---
 
@@ -3315,15 +3341,21 @@ Heroku needs some additional files in order to deploy properly.
 
 You can install this project's **[requirements.txt](requirements.txt)** (*where applicable*) using:
 
-- `pip3 install -r requirements.txt`
+```bash
+pip3 install -r requirements.txt
+```
 
 If you have your own packages that have been installed, then the requirements file needs updated using:
 
-- `pip3 freeze --local > requirements.txt`
+```bash
+pip3 freeze --local > requirements.txt
+```
 
 The **[Procfile](Procfile)** can be created with the following command:
 
-- `echo web: gunicorn app_name.wsgi > Procfile`
+```bash
+echo web: gunicorn app_name.wsgi > Procfile
+```
 - *replace `app_name` with the name of your primary Django app name; the folder where `settings.py` is located*
 
 The **[.python-version](.python-version)** file tells Heroku the specific version of Python to use when running your application.
@@ -3338,10 +3370,25 @@ Either (*recommended*):
 
 Or:
 
-- In the Terminal/CLI, connect to Heroku using this command: `heroku login -i`
-- Set the remote for Heroku: `heroku git:remote -a app_name` (*replace `app_name` with your app name*)
-- After performing the standard Git `add`, `commit`, and `push` to GitHub, you can now type:
-	- `git push heroku main`
+- In the Terminal/CLI, connect to Heroku using this command:
+
+```bash
+heroku login -i
+```
+
+- Set the remote for Heroku:
+
+```bash
+heroku git:remote -a app_name
+```
+
+   *Replace `app_name` with your app name.*
+
+- After performing the standard Git `add`, `commit`, and `push` to GitHub, run:
+
+```bash
+git push heroku main
+```
 
 The project should now be connected and deployed to Heroku!
 
@@ -3389,9 +3436,16 @@ This project uses the [WhiteNoise](https://whitenoise.readthedocs.io/en/latest/)
 To include WhiteNoise in your own projects:
 
 - Install the latest WhiteNoise package:
-    - `pip install whitenoise`
+
+```bash
+pip install whitenoise
+```
+
 - Update the `requirements.txt` file with the newly installed package:
-    - `pip freeze --local > requirements.txt`
+
+```bash
+pip freeze --local > requirements.txt
+```
 - Edit your `settings.py` file and add WhiteNoise to the `MIDDLEWARE` list, above all other middleware (apart from Django’s "SecurityMiddleware"):
 
 ```python
@@ -3411,7 +3465,9 @@ This project can be cloned or forked in order to make a local copy on your own s
 
 For either method, you will need to install any applicable packages found within the [requirements.txt](requirements.txt) file.
 
-- `pip3 install -r requirements.txt`.
+```bash
+pip3 install -r requirements.txt
+```
 
 You will need to create a new file called `env.py` at the root-level, and include the same environment variables listed above from the Heroku deployment steps.
 
@@ -3440,17 +3496,56 @@ os.environ.setdefault("DEBUG", "True")
 
 Once the project is cloned or forked, in order to run it locally, you'll need to follow these steps:
 
-- Start the Django app: `python3 manage.py runserver`
+- Start the Django app:
+
+```bash
+python3 manage.py runserver
+```
+
 - Stop the app once it's loaded: `CTRL+C` (*Windows/Linux*) or `⌘+C` (*Mac*)
-- Make any necessary migrations: `python3 manage.py makemigrations --dry-run` then `python3 manage.py makemigrations`
-- Migrate the data to the database: `python3 manage.py migrate --plan` then `python3 manage.py migrate`
-- Create a superuser: `python3 manage.py createsuperuser`
-- Load fixtures (*if applicable*): `python3 manage.py loaddata file-name.json` (*repeat for each file*)
-- Everything should be ready now, so run the Django app again: `python3 manage.py runserver`
+- Make any necessary migrations:
+
+```bash
+python3 manage.py makemigrations --dry-run
+```
+```bash
+python3 manage.py makemigrations
+```
+
+- Migrate the data to the database:
+
+```bash
+python3 manage.py migrate --plan
+```
+```bash
+python3 manage.py migrate
+```
+
+- Create a superuser:
+
+```bash
+python3 manage.py createsuperuser
+```
+
+- Load fixtures (*if applicable*):
+
+```bash
+python3 manage.py loaddata file-name.json
+```
+
+   *Repeat for each fixture file.*
+
+- Everything should be ready now, so run the Django app again:
+
+```bash
+python3 manage.py runserver
+```
 
 If you'd like to backup your database models, use the following command for each model you'd like to create a fixture for:
 
-- `python3 manage.py dumpdata your-model > your-model.json`
+```bash
+python3 manage.py dumpdata your-model > your-model.json
+```
 - *repeat this action for each model you wish to backup*
 - **NOTE**: You should never make a backup of the default *admin* or *users* data with confidential information.
 
@@ -3465,8 +3560,12 @@ You can clone the repository by following these steps:
 3. Select whether you prefer to clone using "HTTPS", "SSH", or "GitHub CLI", and click the "copy" button to copy the URL to your clipboard.
 4. Open "Git Bash" or "Terminal".
 5. Change the current working directory to the location where you want the cloned directory.
-6. In your IDE Terminal, type the following command to clone the repository:
-	- `git clone https://www.github.com/Zealous242/love-bouldering-2.git`
+6. In your IDE Terminal, copy and run the following command:
+
+```bash
+git clone https://www.github.com/Zealous242/love-bouldering-2.git
+```
+
 7. Press "Enter" to create your local clone.
 
 Alternatively, if using Ona (formerly Gitpod), you can click below to create your own workspace using this repository.
