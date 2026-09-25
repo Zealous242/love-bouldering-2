@@ -48,9 +48,9 @@
     <!-- Displaying count of comments -->
     <div class="row">
         <div class="col-12">
-            <div class="card-body">
-        <strong class="text-secondary">
-            <i class="far fa-comments"></i> {{ comment_count }}
+            <div class="card-body" >
+        <strong style="color: #3e4042;">
+            <i class="far fa-comments"  style="color: #3e4042;"></i> {{ comment_count }}
         </strong>
         </div>
         </div>
@@ -72,7 +72,7 @@
         <div class="col-12">
         <div class="card-body">
             {% if user.is_authenticated %}
-            <h3>Leave a comment:</h3>
+            <h2>Leave a comment:</h2>
             <p>Posting as: {{ user.username }}</p>
             <form id="commentForm" method="post"
             style="margin-top: 1.3em;">
@@ -85,7 +85,7 @@
             <p>Log in to leave a comment</p>
             {% endif %}
             
-            <h3>Comments:</h3>
+            <h2>Comments:</h2>
             <!-- We want a for loop inside the empty control tags
             to iterate through each comment in comments -->
             {% for comment in comments %}
@@ -155,7 +155,7 @@
     <div class="row">
         <div class="col-12">
             {% if user.is_authenticated %}
-        <h3>Suggest a change:</h3>
+        <h2>Suggest a change:</h2>
         <form method="post" action="{% url 'suggestion_create' post.slug %}" class="suggestion-form">
             {% csrf_token %}
             <button type="button" id="importPostContent" class="btn btn-secondary mb-3" style="border-color: #023047;">
