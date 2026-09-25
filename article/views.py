@@ -50,6 +50,25 @@ def post_edit(request, slug):
     return render(request, 'article/post_edit.html', {'form': form, 'post': post})
 
 
+@user_passes_test(is_superuser)
+def post_list_owned(request):
+    posts = Post.objects.filter(author=request.user).prefetch_related(
+        'categories'
+    )
+    return render(request, 'article/post_list_owned.html', {'posts': posts})
+
+
+@user_passes_test(is_superuser)
+def post_delete(request, slug):
+    post = get_object_or_404(Post, slug=slug, author=request.user)
+
+    if request.method == 'POST':
+        post.delete()
+        messages.success(request, 'Post deleted successfully.')
+
+    return HttpResponseRedirect(reverse('post_list_owned'))
+
+
 class PostList(generic.ListView):
     template_name = "article/index.html"
     paginate_by = 6
