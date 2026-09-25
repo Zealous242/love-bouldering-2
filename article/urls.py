@@ -12,6 +12,8 @@ urlpatterns = [
          name='suggestion_edit'),
     path('suggestions/<int:suggestion_id>/delete/', views.suggestion_delete,
          name='suggestion_delete'),
+    path('suggestions/<int:suggestion_id>/<str:decision>/',
+         views.suggestion_review, name='suggestion_review'),
     path('<slug:slug>/edit/', views.post_edit, name='post_edit'),
     path('<slug:slug>/', views.post_detail, name="post_detail"),
     path('<slug:slug>/suggest/', views.suggestion_create,

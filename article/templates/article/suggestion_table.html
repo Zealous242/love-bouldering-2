@@ -47,6 +47,24 @@
                             Delete
                         </button>
                     </form>
+                    {% if show_submitter and suggestion.status == 'pending' %}
+                    <form method="post"
+                        action="{% url 'suggestion_review' suggestion.id 'approve' %}"
+                        class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-success">
+                            Approve
+                        </button>
+                    </form>
+                    <form method="post"
+                        action="{% url 'suggestion_review' suggestion.id 'reject' %}"
+                        class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-warning">
+                            Reject
+                        </button>
+                    </form>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

@@ -234,6 +234,28 @@ def suggestion_delete(request, suggestion_id):
         messages.success(request, 'Your suggestion was deleted.')
 
     return HttpResponseRedirect(reverse('suggestion_list'))
+
+
+@user_passes_test(is_superuser)
+def suggestion_review(request, suggestion_id, decision):
+    suggestion = get_object_or_404(Suggestions, pk=suggestion_id)
+
+    if request.method == 'POST':
+        if decision == 'approve':
+            suggestion.post.content = suggestion.proposed_content
+            suggestion.post.save()
+            suggestion.status = 'approved'
+            messages.success(request, 'Suggestion approved and applied to the post.')
+        elif decision == 'reject':
+            suggestion.status = 'rejected'
+            messages.success(request, 'Suggestion rejected.')
+        else:
+            messages.error(request, 'Invalid suggestion decision.')
+            return HttpResponseRedirect(reverse('suggestion_list'))
+
+        suggestion.save()
+
+    return HttpResponseRedirect(reverse('suggestion_list'))
     
 def comment_edit(request, slug, comment_id):
     """
