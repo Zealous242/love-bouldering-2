@@ -1,4 +1,4 @@
-from .models import Comment, Post, Suggestions
+from .models import Category, Comment, Post, Suggestions
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 
@@ -41,3 +41,9 @@ class PostCreateForm(forms.ModelForm):
         self.fields['featured_image'].widget.attrs['accept'] = (
             'image/jpeg,image/png,image/webp,image/gif'
         )
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name',)
