@@ -32,10 +32,13 @@
     pointer-events: none;
 }
 
+.resizable-table th,
 #result_list th {
     position: relative;
 }
 
+.resizable-table th,
+.resizable-table td,
 #result_list th,
 #result_list td {
     overflow: hidden;
@@ -56,6 +59,14 @@
     bottom: 0;
     width: 8px;
     cursor: col-resize;
+    touch-action: none;
+    background: transparent;
+}
+
+.resizable-table .column-resize-handle:hover,
+#result_list .column-resize-handle:hover {
+    background: var(--link-fg, #417690);
+    opacity: 0.35;
 }
 
 .is-resizing-column,
