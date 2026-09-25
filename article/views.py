@@ -170,15 +170,25 @@ def suggestion_create(request, slug):
 
 @login_required
 def suggestion_list(request):
-    suggestions = Suggestions.objects.filter(
+    own_suggestions = Suggestions.objects.filter(
         submitted_by=request.user
-    ).select_related('post')
+    ).select_related('post', 'submitted_by')
+    other_suggestions = Suggestions.objects.none()
+
+    if request.user.is_superuser:
+        other_suggestions = Suggestions.objects.exclude(
+            submitted_by=request.user
+        ).select_related('post', 'submitted_by')
+
     return render(
         request,
         'article/suggestion_list.html',
         {
-            'suggestions': suggestions,
-            'suggestion_count': suggestions.count(),
+            'own_suggestions': own_suggestions,
+            'other_suggestions': other_suggestions,
+            'suggestion_count': own_suggestions.count(),
+            'other_suggestion_count': other_suggestions.count(),
+            'is_suggestions_admin': request.user.is_superuser,
         },
     )
 
@@ -188,8 +198,9 @@ def suggestion_edit(request, suggestion_id):
     suggestion = get_object_or_404(
         Suggestions,
         pk=suggestion_id,
-        submitted_by=request.user,
     )
+    if not request.user.is_superuser and suggestion.submitted_by != request.user:
+        return HttpResponseRedirect(reverse('suggestion_list'))
 
     if request.method == 'POST':
         form = SuggestionForm(request.POST, instance=suggestion)
@@ -214,8 +225,9 @@ def suggestion_delete(request, suggestion_id):
     suggestion = get_object_or_404(
         Suggestions,
         pk=suggestion_id,
-        submitted_by=request.user,
     )
+    if not request.user.is_superuser and suggestion.submitted_by != request.user:
+        return HttpResponseRedirect(reverse('suggestion_list'))
 
     if request.method == 'POST':
         suggestion.delete()
