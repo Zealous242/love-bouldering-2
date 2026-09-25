@@ -23,6 +23,11 @@
       <form class="signup" id="signup_form" method="post"
         action="{% url 'account_signup' %}">
         {% csrf_token %}
+        {% if form.username.errors %}
+        <div class="alert alert-danger text-danger" role="alert">
+          This username already exists. Please choose a different username.
+        </div>
+        {% endif %}
         {{ form.as_p }}
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}"
@@ -32,6 +37,15 @@
           {% trans "Sign Up" %} &raquo;</button>
       </form>
         <script>
+            const usernameInput = document.querySelector('#signup_form input[name="username"]');
+            const usernameField = usernameInput ? usernameInput.closest('p') : null;
+
+            if (usernameField) {
+              usernameField.querySelectorAll('.errorlist').forEach(function (errorList) {
+                errorList.remove();
+              });
+            }
+
             document.querySelectorAll('#signup_form input[name="username"], #signup_form input[type="email"]').forEach(function (input) {
               input.classList.add('form-control');
             });
