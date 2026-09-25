@@ -1462,6 +1462,7 @@ The initial version will not attempt to provide:
 - AI-generated articles
 - Private messaging
 - Discussion forums
+- The ability to reorder posts via drag-and-drop
 
 The features listed above are outside the initial scope of the project. These features could be considered in future development but are not required to satisfy the current project objectives.
 
@@ -3145,6 +3146,7 @@ The website was originally going to have breadcrumb navigation to communicate hi
 - AI-generated articles
 - Private messaging
 - Discussion forums
+- The ability to reorder posts via drag-and-drop
 
 ---
 

@@ -23,6 +23,8 @@ def post_create(request):
             post.save()
             form.save_m2m()
             messages.success(request, 'Post created successfully.')
+            if post.status == 0:
+                return HttpResponseRedirect(reverse('home'))
             return HttpResponseRedirect(reverse('post_detail', args=[post.slug]))
     else:
         form = PostCreateForm()
