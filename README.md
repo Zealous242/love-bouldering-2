@@ -3297,6 +3297,28 @@ to:
 
 This way, the website displays all comments on an article and not just the ones that have been approved. 
 
+### Submitting Draft Posts
+
+Fixed a bug where users would get directed to a 404 error page when submitting a draft article rather than being directed to the homepage 
+
+![Image before submitting draft](/documentation/bug-fixing/submitting-draft-posts/input-draft.png)
+
+When the user would click submit, they would be redirected to the following page:
+
+![404 error page](/documentation/bug-fixing/submitting-draft-posts/404-error-page.png)
+
+This was fixed by adding:
+
+```python
+   if post.status == 0:
+                return HttpResponseRedirect(reverse('home'))
+```
+to the article/views.py file in the ```post_create()``` method
+
+![Post submission alert](/documentation/bug-fixing/submitting-draft-posts/result-after-fix.png)
+
+The user is now redirected back to the homepage after submitting a draft post and recieves a Bootstrap alert message for confirmation. 
+
 ---
 
 ## Testing
