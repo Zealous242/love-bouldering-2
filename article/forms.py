@@ -24,12 +24,8 @@ class HTML5SummernoteWidget(SummernoteWidget):
             rendered,
         )
         rendered = re.sub(
-            r'<div\b[^>]*class="summernote-div[^"]*"[^>]*>',
-            lambda match: re.sub(
-                r'\s+(?:cols|rows|width|height)="[^"]*"',
-                '',
-                match.group(0),
-            ),
+            r'<div\b[^>]*class="([^"]*summernote-div[^"]*)"[^>]*>',
+            r'<div class="\1">',
             rendered,
         )
         rendered = rendered.replace(' frameborder="0"', '')
