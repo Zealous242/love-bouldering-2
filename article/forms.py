@@ -29,7 +29,12 @@ class HTML5SummernoteWidget(SummernoteWidget):
             rendered,
         )
         rendered = rendered.replace(' frameborder="0"', '')
-        return rendered.replace('hidden="true"', 'hidden')
+        rendered = rendered.replace('hidden="true"', 'hidden')
+        return re.sub(
+            r'(<(?:input|img|hr|meta|link|br|area|base|col|embed|param|source|track|wbr)\b[^>]*?)\s*/>',
+            r'\1>',
+            rendered,
+        )
 
 
 class CommentForm(forms.ModelForm):
