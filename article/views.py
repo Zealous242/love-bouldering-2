@@ -181,7 +181,7 @@ def post_detail(request, slug):
             comment.save()
             messages.add_message(
                 request, messages.SUCCESS,
-                'Comment submitted and awaiting approval'
+                'Comment submitted!'
             )
             return HttpResponseRedirect(reverse('post_detail', args=[slug]))
 
@@ -215,7 +215,7 @@ def suggestion_create(request, slug):
             suggestion.save()
             messages.success(
                 request,
-                'Your suggestion has been submitted for review.',
+                'Your suggestion has been submitted for review!',
             )
         else:
             messages.error(request, 'Please correct the errors in your suggestion.')

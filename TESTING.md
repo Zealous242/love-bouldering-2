@@ -60,4 +60,6 @@ Accessibility could be improved by changing background, foreground and text colo
 
 ## HTML5 Validation
 
-The deployed BoulderWiki website was tested using the [W3C HTML Validator](https://validator.w3.org/) 
+The deployed BoulderWiki website was tested using the [W3C HTML Validator](https://validator.w3.org/).
+
+For the validation testing, HTML5 code was copied from the page sources of the pages on the deployed site and pasted into the validators direct-input field. The URI link was also pasted into the validator for comparison. 
