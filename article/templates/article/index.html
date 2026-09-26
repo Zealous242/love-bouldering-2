@@ -99,7 +99,7 @@
     {% if is_paginated %}
     <nav aria-label="Page navigation" class="page-navigation">
         <ul class="pagination justify-content-center">
-            <li><a href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"> <i class="fas fa-chevron-left" aria-hidden="true"></i><i class="fas fa-chevron-left" aria-hidden="true"></i></a></li> <!-- Link to the first page -->
+            <li><a href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"><i class="fas fa-chevron-left" aria-hidden="true"></i><i class="fas fa-chevron-left" aria-hidden="true"></i></a></li> <!-- Link to the first page -->
             {% if page_obj.has_previous %}
             <li><a href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}" class="page-link"><i class="fas fa-chevron-left" aria-hidden="true"></i></a></li> <!-- Link to the previous page -->
             {% endif %}
