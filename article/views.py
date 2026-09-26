@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponseRedirect
 from django.db.models import Q
+import re
 
 # Create your views here.
 def is_superuser(user):
@@ -169,6 +170,12 @@ def post_detail(request, slug):
 
     queryset = Post.objects.filter(status=1)
     post = get_object_or_404(queryset, slug=slug)
+    display_content = re.sub(
+        r'</?h3\b',
+        lambda match: match.group(0).replace('h3', 'h2'),
+        post.content,
+        flags=re.IGNORECASE,
+    )
     comments = post.comments.all().order_by("-created_on")
     comment_count = post.comments.count()
     
@@ -194,6 +201,7 @@ def post_detail(request, slug):
         "article/post_detail.html",
         {
             "post": post,
+            "display_content": display_content,
             "comments": comments,
             "comment_count": comment_count,
             "comment_form": comment_form,
