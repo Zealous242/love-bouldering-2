@@ -35,13 +35,13 @@
             
             <div class="card-body">
                 {% if user.is_superuser %}
-                <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary" style="border-color: #023047;">Edit Article</a>
+                <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary" style="border-color: #023047; margin-bottom: 20px;">Edit Article</a>
                 {% endif %}
                 <!-- The post content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
-                <p class="card-text">
+                <div class="card-text">
                     {{ post.content | safe }}
-                </p>
+                </div>
             </div>
         </div>
     </div>
