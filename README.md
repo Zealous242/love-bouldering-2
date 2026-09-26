@@ -3620,7 +3620,9 @@ AI was used to:
 - Enhance the UI of the admin portal in sections like comments (GitHub Copilot)
 - Create the Category model in article/models.py and allow articles to be sorted by categories (GitHub Copilot)
 - Create the Suggestions model article/models.py to allow users to make article change suggestions (GitHub Copilot)
-- Test and debug the application (GitHub Copilot and ChatGPT)
+- Test and debug the application (GitHub Copilot and ChatGPT):
+   - Copilot was used to debug and resolve errors that were returned during HTML5 code validation
+   - ChatGPT was used to debug and resolve issues that occured when trying to access the Django admin portal from its homepage
 
 ---
 
