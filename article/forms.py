@@ -3,6 +3,12 @@ from django import forms
 from django_summernote.widgets import SummernoteWidget
 
 
+class HTML5SummernoteWidget(SummernoteWidget):
+    def render(self, name, value, attrs=None, **kwargs):
+        rendered = super().render(name, value, attrs, **kwargs)
+        return rendered.replace('hidden="true"', 'hidden')
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -29,7 +35,7 @@ class PostCreateForm(forms.ModelForm):
         fields = ('title', 'slug', 'featured_image', 'content', 'categories',
                   'status', 'excerpt')
         widgets = {
-            'content': SummernoteWidget(),
+            'content': HTML5SummernoteWidget(),
             'excerpt': forms.Textarea(attrs={'rows': 4}),
         }
 
