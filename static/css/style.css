@@ -110,6 +110,19 @@ body {
     resize: horizontal;
 }
 
+iframe.note-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 4000;
+}
+
+.summernote-div iframe {
+    border: 0;
+}
+
 .image-container {
     position: relative;
 }

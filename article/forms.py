@@ -1,11 +1,38 @@
 from .models import Category, Comment, Post, Suggestions
 from django import forms
 from django_summernote.widgets import SummernoteWidget
+import re
 
 
 class HTML5SummernoteWidget(SummernoteWidget):
     def render(self, name, value, attrs=None, **kwargs):
         rendered = super().render(name, value, attrs, **kwargs)
+        rendered = rendered.replace(
+            '<style>\niframe.note-fullscreen {\n'
+            '  position: fixed;\n'
+            '  top: 0;\n'
+            '  left: 0;\n'
+            '  width: 100vw!important;\n'
+            '  height: 100vh!important;\n'
+            '  z-index: 4000;\n'
+            '}\n</style>\n',
+            '',
+        )
+        rendered = re.sub(
+            r'<div class="summernote-div"\s+class="([^"]*)"',
+            r'<div class="summernote-div \1"',
+            rendered,
+        )
+        rendered = re.sub(
+            r'<div\b[^>]*class="summernote-div[^"]*"[^>]*>',
+            lambda match: re.sub(
+                r'\s+(?:cols|rows|width|height)="[^"]*"',
+                '',
+                match.group(0),
+            ),
+            rendered,
+        )
+        rendered = rendered.replace(' frameborder="0"', '')
         return rendered.replace('hidden="true"', 'hidden')
 
 
