@@ -144,6 +144,14 @@ No errors returned
 
 No errors returned
 
-###  Page
+###  Logout Page
 
-![Page]()
+![Logout Page Validation](/documentation/testing/html-css-js-validation/html-validation/logout.png)
+
+No errors returned
+
+### Login Page
+
+![Login Page Validation](/documentation/testing/html-css-js-validation/html-validation/login.png)
+
+No errors returned

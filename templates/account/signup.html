@@ -28,7 +28,40 @@
           This username already exists. Please choose a different username.
         </div>
         {% endif %}
-        {{ form.as_p }}
+        <div id="username-field" class="mb-3">
+          {{ form.username.label_tag }}
+          {{ form.username }}
+          {{ form.username.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+          {{ form.email.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.password1.label_tag }}
+          <div class="input-group">
+            {{ form.password1 }}
+            <button type="button" class="btn btn-outline-secondary password-toggle"
+              data-password-target="id_password1" aria-label="Show password"
+              title="Show password" aria-pressed="false">
+              <i class="fas fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+          {{ form.password1.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.password2.label_tag }}
+          <div class="input-group">
+            {{ form.password2 }}
+            <button type="button" class="btn btn-outline-secondary password-toggle"
+              data-password-target="id_password2" aria-label="Show password"
+              title="Show password" aria-pressed="false">
+              <i class="fas fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+          {{ form.password2.errors }}
+        </div>
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}"
           value="{{ redirect_field_value }}" />
@@ -37,32 +70,18 @@
           {% trans "Sign Up" %} &raquo;</button>
       </form>
         <script>
-            const usernameInput = document.querySelector('#signup_form input[name="username"]');
-            const usernameField = usernameInput ? usernameInput.closest('p') : null;
-
-            if (usernameField) {
-              usernameField.querySelectorAll('.errorlist').forEach(function (errorList) {
-                errorList.remove();
-              });
-            }
-
-            document.querySelectorAll('#signup_form input[name="username"], #signup_form input[type="email"]').forEach(function (input) {
+          document.querySelectorAll('#signup_form input').forEach(function (input) {
+            if (input.type !== 'hidden' && input.type !== 'checkbox') {
               input.classList.add('form-control');
-            });
+            }
+          });
 
-          document.querySelectorAll('#signup_form input[type="password"]').forEach(function (passwordInput) {
-            const toggleButton = document.createElement('button');
-            toggleButton.type = 'button';
-            toggleButton.className = 'btn btn-outline-secondary';
-            toggleButton.innerHTML = '<i class="fas fa-eye" aria-hidden="true"></i>';
-            toggleButton.setAttribute('aria-label', 'Show password');
-            toggleButton.title = 'Show password';
+          document.querySelectorAll('#username-field .errorlist').forEach(function (errorList) {
+            errorList.remove();
+          });
 
-            const inputGroup = document.createElement('div');
-            inputGroup.className = 'input-group';
-            passwordInput.classList.add('form-control');
-            passwordInput.parentNode.insertBefore(inputGroup, passwordInput);
-            inputGroup.append(passwordInput, toggleButton);
+          document.querySelectorAll('#signup_form .password-toggle').forEach(function (toggleButton) {
+            const passwordInput = document.getElementById(toggleButton.dataset.passwordTarget);
 
             toggleButton.addEventListener('click', function () {
               const isPasswordVisible = passwordInput.type === 'text';
@@ -72,8 +91,8 @@
                 : '<i class="fas fa-eye-slash" aria-hidden="true"></i>';
               toggleButton.setAttribute('aria-label', isPasswordVisible ? 'Show password' : 'Hide password');
               toggleButton.title = isPasswordVisible ? 'Show password' : 'Hide password';
+              toggleButton.setAttribute('aria-pressed', String(!isPasswordVisible));
             });
-
           });
         </script>
     </div>
