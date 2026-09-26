@@ -52,7 +52,7 @@ class SuggestionForm(forms.ModelForm):
             'reason': 'Reason for suggestion',
         }
         widgets = {
-            'proposed_content': SummernoteWidget(),
+            'proposed_content': HTML5SummernoteWidget(),
             'reason': forms.Textarea(attrs={'rows': 4}),
         }
 

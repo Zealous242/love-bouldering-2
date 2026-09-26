@@ -155,3 +155,52 @@ No errors returned
 ![Login Page Validation](/documentation/testing/html-css-js-validation/html-validation/login.png)
 
 No errors returned
+
+### Registration Page
+
+![Registration Page Validation](/documentation/testing/html-css-js-validation/html-validation/registration.png)
+
+The first error was being caused by the ```{{ form.as_p }}``` django template code in signup.html with more explicit valid field wrappers. Password input groups were also moved into valid div elements. 
+
+The following code was implemented in ```templates\account\signup.html``` to acheive the fixes: 
+
+```html
+    <div id="username-field" class="mb-3">
+          {{ form.username.label_tag }}
+          {{ form.username }}
+          {{ form.username.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+          {{ form.email.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.password1.label_tag }}
+          <div class="input-group">
+            {{ form.password1 }}
+            <button type="button" class="btn btn-outline-secondary password-toggle"
+              data-password-target="id_password1" aria-label="Show password"
+              title="Show password" aria-pressed="false">
+              <i class="fas fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+          {{ form.password1.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.password2.label_tag }}
+          <div class="input-group">
+            {{ form.password2 }}
+            <button type="button" class="btn btn-outline-secondary password-toggle"
+              data-password-target="id_password2" aria-label="Show password"
+              title="Show password" aria-pressed="false">
+              <i class="fas fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+          {{ form.password2.errors }}
+        </div>
+
+```
+
+Some JavaScript and other code was also added. The exact implementation details can be found by looking at the commit history of this project. 
+
