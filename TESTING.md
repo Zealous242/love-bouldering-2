@@ -63,3 +63,87 @@ Accessibility could be improved by changing background, foreground and text colo
 The deployed BoulderWiki website was tested using the [W3C HTML Validator](https://validator.w3.org/).
 
 For the validation testing, HTML5 code was copied from the page sources of the pages on the deployed site and pasted into the validators direct-input field. The URI link was also pasted into the validator for comparison. 
+
+### Homepage
+
+![Homepage validations](/documentation/testing/html-css-js-validation/html-validation/homepage.png)
+
+The error message in the top-left image were fixed by appending px to ```style="top: 70```. 
+
+A h1 tag was added to the top of the Homepage.
+
+The info messages didn't matter that much but were resolved by removing trailing slashes from hr and meta tags. 
+
+### About Page
+
+![About Page Validation](/documentation/testing/html-css-js-validation/html-validation/about.png)
+
+No errors returned
+
+### Create Article Page
+
+![Create Article Page Validation](/documentation/testing/html-css-js-validation/html-validation/create-article.png)
+
+The errors and warnings shown in the image above were being caused by the Summernote rich text field. 
+
+These errors were fixed by adding the HTML5SummernoteWidget class in article/forms.py and adding some properties and methods to the class. The code below was implemented in the article/forms.py file to achieve this:
+
+```python
+class HTML5SummernoteWidget(SummernoteWidget):
+    def render(self, name, value, attrs=None, **kwargs):
+        rendered = super().render(name, value, attrs, **kwargs)
+        rendered = rendered.replace(
+            '<style>\niframe.note-fullscreen {\n'
+            '  position: fixed;\n'
+            '  top: 0;\n'
+            '  left: 0;\n'
+            '  width: 100vw!important;\n'
+            '  height: 100vh!important;\n'
+            '  z-index: 4000;\n'
+            '}\n</style>\n',
+            '',
+        )
+        rendered = re.sub(
+            r'<div class="summernote-div"\s+class="([^"]*)"',
+            r'<div class="summernote-div \1"',
+            rendered,
+        )
+        rendered = re.sub(
+            r'<div\b[^>]*class="([^"]*summernote-div[^"]*)"[^>]*>',
+            r'<div class="\1">',
+            rendered,
+        )
+        rendered = rendered.replace(' frameborder="0"', '')
+        rendered = rendered.replace('hidden="true"', 'hidden')
+        return re.sub(
+            r'(<(?:input|img|hr|meta|link|br|area|base|col|embed|param|source|track|wbr)\b[^>]*?)\s*/>',
+            r'\1>',
+            rendered,
+        )
+```
+
+After implementing the code above, the errors in the validator disappeared with the exception of the info message for the URI input. The remaining info message was not addressed because trying to fix it wasn't that necessary. 
+
+###  Manage Articles Page
+
+![Manage Articles Page Validation](/documentation/testing/html-css-js-validation/html-validation/manage-articles.png)
+
+The warning message that occured from URI input was fixed by adding h1 tags to the login.html, logout.html and signup.html files as top-level headings. 
+
+h2 tags were replaced by h1 tags.  
+
+###  Categories Page
+
+![Categories Page Validation](/documentation/testing/html-css-js-validation/html-validation/categories.png)
+
+No errors returned
+
+### Suggestions Page
+
+![Suggestions Page Validation](/documentation/testing/html-css-js-validation/html-validation/suggestions.png)
+
+No errors returned
+
+###  Page
+
+![Page]()
