@@ -6,6 +6,8 @@ from django.utils import timezone
 STATUS = ((0, "Draft"), (1, "Published"))
 
 # Create your models here.
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
@@ -28,16 +30,17 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     excerpt = models.TextField(blank=True)
     updated_on = models.DateTimeField(auto_now=True)
-    
+
     class Meta:
         ordering = ["-created_on"]
-    
+
     def __str__(self):
         return f"{self.title} | written by {self.author}"
-    
+
+
 class Comment(models.Model):
     list_display = ('post', 'author', 'approved', 'created_on')
-    
+
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(
@@ -46,7 +49,7 @@ class Comment(models.Model):
     approved = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(null=True, blank=True)
-    
+
     class Meta:
         ordering = ["-created_on"]
 
@@ -57,19 +60,20 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment: {self.body} by {self.author}"
-    
+
+
 class Category(models.Model):
     """
-    Categories can be added in the admin panel by superusers. 
+    Categories can be added in the admin panel by superusers.
     Our create/edit forms will be dynamically populated with the categories.
     """
     class Meta:
-        verbose_name_plural = 'categories'  # Assign a plural name to prevent default pluralization of the model name. (Catagory(s))
+        verbose_name_plural = 'categories'  # Assign a plural name
 
     name = models.CharField(max_length=255)  # The name of the category.
-    
+
     def __str__(self):
-        return self.name  # Assign a string representation for each category object. This will be used in the admin panel.
+        return self.name  # Assign a string representation for each category
 
 
 class Suggestions(models.Model):

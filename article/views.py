@@ -1,56 +1,65 @@
-from django.shortcuts import render, get_object_or_404, reverse
-from django.views import generic
-from requests import post
-from .models import Category, Comment, Post, Suggestions
-from .forms import CategoryForm, CommentForm, PostCreateForm, SuggestionForm
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import HttpResponseRedirect
-from django.db.models import Q
 import re
 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, reverse
+from django.views import generic
+
+from .forms import CategoryForm, CommentForm, PostCreateForm, SuggestionForm
+from .models import Category, Comment, Post, Suggestions
+
 # Create your views here.
+
+
 def is_superuser(user):
     return user.is_authenticated and user.is_superuser
 
 
 @user_passes_test(is_superuser)
 def post_create(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PostCreateForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
             form.save_m2m()
-            messages.success(request, 'Post created successfully.')
+            messages.success(request, "Post created successfully.")
             if post.status == 0:
-                return HttpResponseRedirect(reverse('home'))
-            return HttpResponseRedirect(reverse('post_detail', args=[post.slug]))
+                return HttpResponseRedirect(reverse("home"))
+            return HttpResponseRedirect(
+                reverse("post_detail", args=[post.slug])
+            )
     else:
         form = PostCreateForm()
 
-    return render(request, 'article/post_create.html', {'form': form})
+    return render(request, "article/post_create.html", {"form": form})
 
 
 @user_passes_test(is_superuser)
 def post_edit(request, slug):
     post = get_object_or_404(Post, slug=slug)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PostCreateForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
-            messages.success(request, 'Post updated successfully.')
+            messages.success(request, "Post updated successfully.")
             if post.status == 1:
                 return HttpResponseRedirect(
-                    reverse('post_detail', args=[post.slug])
+                    reverse("post_detail", args=[post.slug])
                 )
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse("home"))
     else:
         form = PostCreateForm(instance=post)
 
-    return render(request, 'article/post_edit.html', {'form': form, 'post': post})
+    return render(
+        request,
+        "article/post_edit.html",
+        {"form": form, "post": post},
+    )
 
 
 @user_passes_test(is_superuser)
@@ -61,9 +70,9 @@ def post_list_owned(request):
     other_posts = Post.objects.exclude(author=request.user).prefetch_related(
         'categories'
     )
-    return render(request, 'article/post_list_owned.html', {
-        'own_posts': own_posts,
-        'other_posts': other_posts,
+    return render(request, "article/post_list_owned.html", {
+        "own_posts": own_posts,
+        "other_posts": other_posts,
     })
 
 
@@ -71,58 +80,70 @@ def post_list_owned(request):
 def post_delete(request, slug):
     post = get_object_or_404(Post, slug=slug)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         post.delete()
-        messages.success(request, 'Post deleted successfully.')
+        messages.success(request, "Post deleted successfully.")
 
-    return HttpResponseRedirect(reverse('post_list_owned'))
+    return HttpResponseRedirect(reverse("post_list_owned"))
 
 
 @user_passes_test(is_superuser)
 def category_list(request):
-    categories = Category.objects.order_by('name')
-    return render(request, 'article/category_list.html', {'categories': categories})
+    categories = Category.objects.order_by("name")
+    return render(
+        request,
+        "article/category_list.html",
+        {"categories": categories},
+    )
 
 
 @user_passes_test(is_superuser)
 def category_create(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Category created successfully.')
-            return HttpResponseRedirect(reverse('category_list'))
+            messages.success(request, "Category created successfully.")
+            return HttpResponseRedirect(reverse("category_list"))
     else:
         form = CategoryForm()
 
-    return render(request, 'article/category_form.html', {'form': form, 'title': 'Create category'})
+    return render(
+        request,
+        "article/category_form.html",
+        {"form": form, "title": "Create category"},
+    )
 
 
 @user_passes_test(is_superuser)
 def category_edit(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Category updated successfully.')
-            return HttpResponseRedirect(reverse('category_list'))
+            messages.success(request, "Category updated successfully.")
+            return HttpResponseRedirect(reverse("category_list"))
     else:
         form = CategoryForm(instance=category)
 
-    return render(request, 'article/category_form.html', {'form': form, 'title': 'Edit category'})
+    return render(
+        request,
+        "article/category_form.html",
+        {"form": form, "title": "Edit category"},
+    )
 
 
 @user_passes_test(is_superuser)
 def category_delete(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         category.delete()
-        messages.success(request, 'Category deleted successfully.')
+        messages.success(request, "Category deleted successfully.")
 
-    return HttpResponseRedirect(reverse('category_list'))
+    return HttpResponseRedirect(reverse("category_list"))
 
 
 class PostList(generic.ListView):
@@ -153,7 +174,8 @@ class PostList(generic.ListView):
         context["selected_category"] = self.request.GET.get("category", "")
         context["search_query"] = self.request.GET.get("q", "")
         return context
-    
+
+
 def post_detail(request, slug):
     """
     Display an individual :model:`article.Post`.
@@ -178,7 +200,7 @@ def post_detail(request, slug):
     )
     comments = post.comments.all().order_by("-created_on")
     comment_count = post.comments.count()
-    
+
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
@@ -186,13 +208,9 @@ def post_detail(request, slug):
             comment.author = request.user
             comment.post = post
             comment.save()
-            messages.add_message(
-                request, messages.SUCCESS,
-                'Comment submitted!'
-            )
-            return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+            messages.success(request, "Comment submitted!")
+            return HttpResponseRedirect(reverse("post_detail", args=[slug]))
 
-    
     comment_form = CommentForm()
     suggestion_form = SuggestionForm()
 
@@ -223,12 +241,15 @@ def suggestion_create(request, slug):
             suggestion.save()
             messages.success(
                 request,
-                'Your suggestion has been submitted for review!',
+                "Your suggestion has been submitted for review!",
             )
         else:
-            messages.error(request, 'Please correct the errors in your suggestion.')
+            messages.error(
+                request,
+                "Please correct the errors in your suggestion.",
+            )
 
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+    return HttpResponseRedirect(reverse("post_detail", args=[slug]))
 
 
 @login_required
@@ -241,17 +262,17 @@ def suggestion_list(request):
     if request.user.is_superuser:
         other_suggestions = Suggestions.objects.exclude(
             submitted_by=request.user
-        ).select_related('post', 'submitted_by')
+        ).select_related("post", "submitted_by")
 
     return render(
         request,
-        'article/suggestion_list.html',
+        "article/suggestion_list.html",
         {
-            'own_suggestions': own_suggestions,
-            'other_suggestions': other_suggestions,
-            'suggestion_count': own_suggestions.count(),
-            'other_suggestion_count': other_suggestions.count(),
-            'is_suggestions_admin': request.user.is_superuser,
+            "own_suggestions": own_suggestions,
+            "other_suggestions": other_suggestions,
+            "suggestion_count": own_suggestions.count(),
+            "other_suggestion_count": other_suggestions.count(),
+            "is_suggestions_admin": request.user.is_superuser,
         },
     )
 
@@ -262,24 +283,30 @@ def suggestion_edit(request, suggestion_id):
         Suggestions,
         pk=suggestion_id,
     )
-    if not request.user.is_superuser and suggestion.submitted_by != request.user:
-        return HttpResponseRedirect(reverse('suggestion_list'))
+    if (
+        not request.user.is_superuser
+        and suggestion.submitted_by != request.user
+    ):
+        return HttpResponseRedirect(reverse("suggestion_list"))
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SuggestionForm(request.POST, instance=suggestion)
         if form.is_valid():
             suggestion = form.save(commit=False)
             suggestion.status = 'pending'
             suggestion.save()
-            messages.success(request, 'Your suggestion was updated and sent for review.')
-            return HttpResponseRedirect(reverse('suggestion_list'))
+            messages.success(
+                request,
+                "Your suggestion was updated and sent for review.",
+            )
+            return HttpResponseRedirect(reverse("suggestion_list"))
     else:
         form = SuggestionForm(instance=suggestion)
 
     return render(
         request,
         'article/suggestion_edit.html',
-        {'form': form, 'suggestion': suggestion},
+        {"form": form, "suggestion": suggestion},
     )
 
 
@@ -289,41 +316,46 @@ def suggestion_delete(request, suggestion_id):
         Suggestions,
         pk=suggestion_id,
     )
-    if not request.user.is_superuser and suggestion.submitted_by != request.user:
-        return HttpResponseRedirect(reverse('suggestion_list'))
+    if (
+        not request.user.is_superuser
+        and suggestion.submitted_by != request.user
+    ):
+        return HttpResponseRedirect(reverse("suggestion_list"))
 
-    if request.method == 'POST':
+    if request.method == "POST":
         suggestion.delete()
-        messages.success(request, 'Your suggestion was deleted.')
+        messages.success(request, "Your suggestion was deleted.")
 
-    return HttpResponseRedirect(reverse('suggestion_list'))
+    return HttpResponseRedirect(reverse("suggestion_list"))
 
 
 @user_passes_test(is_superuser)
 def suggestion_review(request, suggestion_id, decision):
     suggestion = get_object_or_404(Suggestions, pk=suggestion_id)
 
-    if request.method == 'POST':
-        if decision == 'approve':
+    if request.method == "POST":
+        if decision == "approve":
             suggestion.post.content = suggestion.proposed_content
             suggestion.post.save()
-            suggestion.status = 'approved'
-            messages.success(request, 'Suggestion approved and applied to the post.')
-        elif decision == 'reject':
-            suggestion.status = 'rejected'
-            messages.success(request, 'Suggestion rejected.')
+            suggestion.status = "approved"
+            messages.success(
+                request,
+                "Suggestion approved and applied to the post.",
+            )
+        elif decision == "reject":
+            suggestion.status = "rejected"
+            messages.success(request, "Suggestion rejected.")
         else:
-            messages.error(request, 'Invalid suggestion decision.')
-            return HttpResponseRedirect(reverse('suggestion_list'))
+            messages.error(request, "Invalid suggestion decision.")
+            return HttpResponseRedirect(reverse("suggestion_list"))
 
         suggestion.save()
 
-    return HttpResponseRedirect(reverse('suggestion_list'))
-    
+    return HttpResponseRedirect(reverse("suggestion_list"))
+
+
 def comment_edit(request, slug, comment_id):
-    """
-    view to edit comments
-    """
+    """Update a comment owned by the authenticated user."""
     if request.method == "POST":
 
         queryset = Post.objects.filter(status=1)
@@ -335,27 +367,23 @@ def comment_edit(request, slug, comment_id):
             comment = comment_form.save(commit=False)
             comment.post = post
             comment.save()
-            messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
+            messages.success(request, "Comment updated!")
         else:
-            messages.add_message(request, messages.ERROR,
-                                    'Error updating comment!')
+            messages.error(request, "Error updating comment!")
 
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+    return HttpResponseRedirect(reverse("post_detail", args=[slug]))
 
 
 def comment_delete(request, slug, comment_id):
-    """
-    view to delete comment
-    """
+    """Delete a comment owned by the authenticated user."""
     queryset = Post.objects.filter(status=1)
     post = get_object_or_404(queryset, slug=slug)
     comment = get_object_or_404(Comment, pk=comment_id)
 
     if comment.author == request.user:
         comment.delete()
-        messages.add_message(request, messages.SUCCESS, 'Comment deleted!')
+        messages.success(request, "Comment deleted!")
     else:
-        messages.add_message(request, messages.ERROR,
-                             'You can only delete your own comments!')
+        messages.error(request, "You can only delete your own comments!")
 
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+    return HttpResponseRedirect(reverse("post_detail", args=[slug]))

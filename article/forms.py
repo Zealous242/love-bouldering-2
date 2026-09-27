@@ -1,7 +1,9 @@
-from .models import Category, Comment, Post, Suggestions
+import re
+
 from django import forms
 from django_summernote.widgets import SummernoteWidget
-import re
+
+from .models import Category, Comment, Post, Suggestions
 
 
 class HTML5SummernoteWidget(SummernoteWidget):
@@ -31,7 +33,8 @@ class HTML5SummernoteWidget(SummernoteWidget):
         rendered = rendered.replace(' frameborder="0"', '')
         rendered = rendered.replace('hidden="true"', 'hidden')
         return re.sub(
-            r'(<(?:input|img|hr|meta|link|br|area|base|col|embed|param|source|track|wbr)\b[^>]*?)\s*/>',
+            r'(<(?:input|img|hr|meta|link|br|area|base|col|embed|param|'
+            r'source|track|wbr)\b[^>]*?)\s*/>',
             r'\1>',
             rendered,
         )
@@ -52,32 +55,35 @@ class SuggestionForm(forms.ModelForm):
             'reason': 'Reason for suggestion',
         }
         widgets = {
-            'proposed_content': HTML5SummernoteWidget(),
-            'reason': forms.Textarea(attrs={'rows': 4}),
+            "proposed_content": HTML5SummernoteWidget(),
+            "reason": forms.Textarea(attrs={"rows": 4}),
         }
 
 
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'slug', 'featured_image', 'content', 'categories',
-                  'status', 'excerpt')
+        fields = (
+            "title", "slug", "featured_image", "content", "categories",
+            "status", "excerpt",
+        )
         widgets = {
-            'content': HTML5SummernoteWidget(),
-            'excerpt': forms.Textarea(attrs={'rows': 4}),
+            "content": HTML5SummernoteWidget(),
+            "excerpt": forms.Textarea(attrs={"rows": 4}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['categories'].help_text = (
-            'To select multiple categories hold down ctrl then choose the categories'
+        self.fields["categories"].help_text = (
+            "To select multiple categories hold down ctrl then choose the "
+            "categories"
         )
-        self.fields['featured_image'].widget.attrs['accept'] = (
-            'image/jpeg,image/png,image/webp,image/gif'
+        self.fields["featured_image"].widget.attrs["accept"] = (
+            "image/jpeg,image/png,image/webp,image/gif"
         )
 
 
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ('name',)
+        fields = ("name",)

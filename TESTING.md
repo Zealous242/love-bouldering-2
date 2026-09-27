@@ -254,7 +254,31 @@ For validation purposes:
 
 ![my_posts.js validation](/documentation/testing/html-css-js-validation/js-validation/my_posts.png)
 
-## Python Validation Testing 
+## Python Validation Testing (PEP8)
+
+### file: about/admin.py
+
+![](/documentation/testing/python-validation/about/admin.png)
+
+### file: about/apps.py
+
+![](/documentation/testing/python-validation/about/apps.png)
+
+### file: about/forms.py
+
+![](/documentation/testing/python-validation/about/forms.png)
+
+### file: about/models.py
+
+![](/documentation/testing/python-validation/about/models.png)
+
+### file: about/urls.py
+
+![](/documentation/testing/python-validation/about/urls.png)
+
+### file: about/views.py
+
+![](/documentation/testing/python-validation/about/views.png)
 
 
 
