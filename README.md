@@ -3651,3 +3651,11 @@ AI was used to:
 | [![badge](https://img.shields.io/badge/Copilot-grey?logo=githubcopilot&logoColor=##000000)](https://github.com/copilot) | Help debug, troubleshoot, and explain things. |
 
 ## Credits
+
+- W3Schools
+- Code Institute
+- Tim Nelson Markdown Builder
+- JSHint
+- W3C HTML Validator
+- W3C CSS Validator
+- 

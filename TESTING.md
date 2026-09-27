@@ -204,3 +204,104 @@ The following code was implemented in ```templates\account\signup.html``` to ach
 
 Some JavaScript and other code was also added. The exact implementation details can be found by looking at the commit history of this project. 
 
+### Article Details Page
+
+![Article Details Page Validation](/documentation/testing/html-css-js-validation/html-validation/article-details.png)
+
+The errors in the image above were fixed by replacing the SummernoteWidget() with HTML5SummernoteWidget() in the SuggestionForm class in article/forms.py. The exact implementation details of these changes can be found by looking at the commit history of this project. 
+
+## CSS3 Validation
+
+The CSS3 files for the deployed website were tested using the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
+
+### ```style.css```
+
+![style.css validation](/documentation/testing/html-css-js-validation/css-validation/style.png)
+
+The validator returned two warnings before implementing the fixes. These warnings were resolved by removing the two vendor extension styles. 
+
+### ```adming_comments.css```
+
+![adming_comments.css validation](/documentation/testing/html-css-js-validation/css-validation/admin-comments.png)
+
+The validator returned two warnings before implementing the fixes. These warnings were resolved by removing the two deprecated styles. 
+
+## JavaScript Validation
+
+The JavaScript files for the deployed website were tested using [JSHint](https://jshint.com/)
+
+For validation purposes:
+
+ - ```/* jshint esversion: 11 */``` was added to line in all JavaScript files
+
+ - ```/* global bootstrap */``` was added to line 2 of JavaScript files containing Bootstrap components
+
+ No errors were found during validation testing.
+
+### admin_comments.js
+
+![admin_comments.js validation](/documentation/testing/html-css-js-validation/js-validation/admin_comments.png)
+
+### admin_posts.js
+
+![admin_posts.js validation](/documentation/testing/html-css-js-validation/js-validation/admin_posts.png)
+
+### comments.js
+
+![comments.js validation](/documentation/testing/html-css-js-validation/js-validation/comments.png)
+
+### my_posts.js
+
+![my_posts.js validation](/documentation/testing/html-css-js-validation/js-validation/my_posts.png)
+
+## Python Validation Testing 
+
+
+
+## Responsiveness Testing
+
+BoulderWiki was manually tested for responsiveness on all relevant device viewports using the Chrome dev tools. The viewports that were tested were: laptops and larger devices, tablets and mobiles. 
+
+I've tested my deployed project to check for responsiveness issues and tested all pages that a user would visit.
+
+On laptops and larger devices, the homepage adopts a three-column layout, while on tablets (in portrait mode) and mobiles the homepage adopts a single column layout. The single column layout makes the homepage easier to read on narrower screens. 
+
+The screenshots for mobile were taken on my phone - a Samsung Galaxy S22 - this would be approximately 350 x 750 in the Chrome dev tools
+
+The following viewport dimensions have been chosen for each device:
+
+- Laptop - 1440 x 830
+- Tablet - 750 x 830 
+- Mobile - Samsung Galaxy S22
+
+| Page | Mobile | Tablet | Laptops | Result |
+| --- | --- | --- | --- | --- |
+| Homepage | ![screenshot](/documentation/testing/responsiveness/mobile/homepage.jpg) | ![screenshot](/documentation/testing/responsiveness/tablets//homepage.png) | ![screenshot](/documentation/testing/responsiveness/laptops/homepage.png) | Works as expected |
+| About  | ![screenshot](/documentation/testing/responsiveness/mobile/about.jpg) | ![screenshot](/documentation/testing/responsiveness/tablets/about.png) | ![screenshot](/documentation/testing/responsiveness/laptops/about.png) | Works as expected |
+| Create Article | ![screenshot](/documentation/testing/responsiveness/mobile/create-article.jpg) | ![screenshot](/documentation/testing/responsiveness/tablets/create-article.png) | ![screenshot](/documentation/testing/responsiveness/laptops/create-article.png) | Works as expected |
+| Manage Articles  | ![screenshot](/documentation/testing/responsiveness/mobile/manage-articles.jpg) | ![screenshot](/documentation/testing/responsiveness/tablets/manage-articles.png) | ![screenshot](/documentation/testing/responsiveness/laptops/manage-articles.png) | Works as expected |
+| Categories | ![screenshot](/documentation/testing/responsiveness/mobile/categories.jpg) | ![screenshot](/documentation/testing/responsiveness/tablets/categories.png) | ![screenshot](/documentation/testing/responsiveness/laptops/categories.png) | Works as expected |
+| Suggestions | ![screenshot](/documentation/testing/responsiveness/mobile/suggestions.jpg) | ![screenshot](/documentation/testing/responsiveness/tablets/suggestions.png) | ![screenshot](/documentation/testing/responsiveness/laptops/suggestions.png) | Works as expected |
+| Article Details | ![screenshot](/documentation/testing/responsiveness/mobile/article-details.jpg) | ![screenshot](/documentation/testing/responsiveness/tablets/article-details.png) | ![screenshot](/documentation/testing/responsiveness/laptops/article-details.png) | Works as expected |
+| Registration | ![screenshot](/documentation/testing/responsiveness/mobile/registration.jpg) | ![screenshot](/documentation/testing/responsiveness/tablets/registration.png) | ![screenshot](/documentation/testing/responsiveness/laptops/registration.png) | Works as expected |
+| Login | ![screenshot](/documentation/testing/responsiveness/mobile/login.jpg) | ![screenshot](/documentation/testing/responsiveness/tablets/login.png) | ![screenshot](/documentation/testing/responsiveness/laptops/login.png) | Works as expected |
+
+Overall, the website worked well on all devices. No layout issues were encountered, unwanted overflow or unwanted spacing was encountered during device responsiveness testing. 
+
+## Cross-Browser Compatibility Testing
+
+
+I've tested my deployed project on multiple browsers to check for compatibility issues.
+
+| Page | Chrome | Firefox | Microsoft Edge | Result |
+| --- | --- | --- | --- | --- |
+| Homepage | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/homepage.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/homepage.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/homepage.png) | Works as expected |
+| Article Details | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/article-details.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/article-details.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/article-details.png) | Works as expected |
+| About | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/about.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/about.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge//about.png) | Works as expected |
+| Create Article | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/create-article.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/create-article.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/create-article.png) | Works as expected |
+| Manage Articles | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/manage-articles.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/manage-articles.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/manage-articles.png) | Works as expected |
+| Categories | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/categories.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/categories.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/categories.png) | Works as expected |
+| Suggestions | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/suggestions.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/suggestions.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/suggestions.png) | Works as expected |
+| Login | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/login.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/login.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/login.png) | Works as expected |
+| Registration | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/registration.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/registration.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/registration.png) | Works as expected |
+
