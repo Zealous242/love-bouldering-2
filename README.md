@@ -116,12 +116,12 @@ Administrators can:
 
 **User Story**
 
-As a visitor, I want to view the homepage so that I can understand what BoulderingWiki is and begin exploring bouldering content.
+As a visitor, I want to view the homepage so that I can understand what →BoulderWiki is and begin exploring bouldering content.
 
 **Acceptance Criteria**
 
 - The homepage loads successfully at `/`.
-- The page clearly identifies the website as BoulderingWiki.
+- The page clearly identifies the website as →BoulderWiki.
 - A short introduction explains the purpose of the website.
 - Users can access article search from the homepage.
 - Users can navigate to Articles and Categories.
@@ -388,7 +388,7 @@ As a logged-in user, I want to log out so that I can securely end my session.
 
 **User Story**
 
-As a registered user, I want to suggest changes to an article so that I can help improve BoulderingWiki.
+As a registered user, I want to suggest changes to an article so that I can help improve →BoulderWiki.
 
 **Acceptance Criteria**
 
@@ -450,7 +450,7 @@ As the site owner, I want guests prevented from suggesting edits so that contrib
 
 **User Story**
 
-As an administrator, I want to access the Django Admin so that I can manage BoulderingWiki content.
+As an administrator, I want to access the Django Admin so that I can manage →BoulderWiki content.
 
 **Acceptance Criteria**
 
@@ -579,7 +579,7 @@ As an administrator, I want to create, update, and delete articles and categorie
 | High | US-01, US-02, US-05, US-15 |
 | Medium | US-06 |
 
-If development time becomes limited, **Search is the safest feature to simplify or postpone**. The moderated edit workflow is more important because it differentiates BoulderingWiki from a basic Django blog.
+If development time becomes limited, **Search is the safest feature to simplify or postpone**. The moderated edit workflow is more important because it differentiates →BoulderWiki from a basic Django blog.
 
 ---
 
@@ -628,6 +628,8 @@ Below is a picture of the ERD (entity relationship diagram) for the project
 - The database is designed using PostreSQL
 - Tables are created for created for Users, Profiles, Articles, Comments, Suggestions and Categories
 - The ERD shows the relationships between these entities
+
+---
 
 ## UX Design - Strategy Plane
 
@@ -787,7 +789,7 @@ The administrator experience should therefore prioritise efficient moderation an
 
 The following table connects key user needs with the functionality that BoulderWiki will provide.
 
-| User Need | BoulderingWiki Response |
+| User Need | →BoulderWiki Response |
 | --- | --- |
 | Learn about bouldering | Educational articles |
 | Find specific information | Search functionality |
@@ -837,7 +839,7 @@ Their experience benefits from search, categories, and links between related sub
 
 **Experienced Climbers**
 
-Experienced users may use BoulderingWiki as a reference resource or contribute improvements to existing material.
+Experienced users may use →BoulderWiki as a reference resource or contribute improvements to existing material.
 
 The **Suggest an Edit** workflow is particularly relevant to users who have knowledge or experience they want to contribute without giving them unrestricted access to published content.
 
@@ -972,7 +974,7 @@ Success criteria include:
 
 ### Strategy Plane Summary
 
-The strategy for **BoulderingWiki** is to create an accessible and trustworthy educational resource that allows anyone to explore information about bouldering while enabling registered users to contribute improvements through a controlled moderation process.
+The strategy for **→BoulderWiki** is to create an accessible and trustworthy educational resource that allows anyone to explore information about bouldering while enabling registered users to contribute improvements through a controlled moderation process.
 
 The project balances two primary objectives:
 
@@ -981,9 +983,11 @@ The project balances two primary objectives:
 
 The UX will therefore prioritise **clear navigation, search and categorisation, readable article content, responsive design, accessibility, straightforward authentication, transparent contribution status, and administrator-controlled moderation**.
 
+---
+
 ## UX Design — Scope plane
 
-For BoulderingWiki, the scope is divided into two areas:
+For →BoulderWiki, the scope is divided into two areas:
 
 - **Functional requirements** - the features and interactions the application must provide
 - **Content requirements** - the information and content that users need to access
@@ -1076,7 +1080,7 @@ Search will be available to both guests and authenticated users.
 
 #### User Registration
 
-Visitors who want to contribute to BoulderingWiki will be able to create an account.
+Visitors who want to contribute to →BoulderWiki will be able to create an account.
 
 Registration will collect the information required by the authentication system, such as:
 
@@ -1212,7 +1216,7 @@ Permissions must be enforced by the backend rather than relying only on hiding i
 
 ### Content Requirements
 
-BoulderingWiki will require enough educational content to demonstrate how users can browse, search, and navigate the knowledge base.
+→BoulderWiki will require enough educational content to demonstrate how users can browse, search, and navigate the knowledge base.
 
 The initial project does not need to contain hundreds of articles. A smaller collection of representative content is sufficient for the MVP.
 
@@ -1440,7 +1444,7 @@ The MVP requires:
 - Responsive layouts
 - Core security measures
 
-These features are required for the primary BoulderingWiki workflow to function.
+These features are required for the primary →BoulderWiki workflow to function.
 
 ---
 
@@ -1600,7 +1604,7 @@ More advanced social, collaborative, and personal climbing features remain outsi
 
 The **Structure Plane** defines how the features and content established in the Scope Plane are organised into an understandable system. It focuses on **interaction design** and **information architecture**.
 
-For BoulderingWiki, the Structure Plane answers questions such as:
+For →BoulderWiki, the Structure Plane answers questions such as:
 
 - How do users move through the website?
 - How is information grouped?
@@ -2104,7 +2108,7 @@ Approve / Reject
 Article and Status Updated
 ```
 
-These three flows represent the central structure of BoulderingWiki.
+These three flows represent the central structure of →BoulderWiki.
 
 ---
 
@@ -2167,7 +2171,7 @@ For BoulderWiki, the Skeleton Plane determines where key elements such as naviga
 
 ### Interface Design
 
-The interface should prioritise clarity, consistency, and readability. BoulderingWiki is primarily an educational website, so content should remain the central focus.
+The interface should prioritise clarity, consistency, and readability. →BoulderWiki is primarily an educational website, so content should remain the central focus.
 
 The interface should use a consistent page framework containing:
 
@@ -2217,7 +2221,7 @@ On smaller screens, the full navigation should collapse into a burger menu to co
 
 ```text
 --------------------------------
-BoulderingWiki          Menu ☰
+→BoulderWiki          Menu ☰
 --------------------------------
 ```
 
@@ -2496,7 +2500,7 @@ Accessibility should therefore be part of the interface structure rather than ad
 
 ### Skeleton Plane Summary
 
-The Skeleton Plane defines how BoulderingWiki's information architecture and interaction flows are translated into usable page layouts.
+The Skeleton Plane defines how →BoulderWiki's information architecture and interaction flows are translated into usable page layouts.
 
 The interface prioritises:
 
@@ -2520,7 +2524,7 @@ The skeleton establishes consistent patterns for:
 
 ## UX Design — Surface Plane
 
-The **Surface Plane** defines the final visual appearance of BoulderingWiki. It brings together the decisions made throughout the previous UX planes and determines how the interface should **look and feel** to the user.
+The **Surface Plane** defines the final visual appearance of →BoulderWiki. It brings together the decisions made throughout the previous UX planes and determines how the interface should **look and feel** to the user.
 
 It focuses on areas such as:
 
@@ -2557,7 +2561,7 @@ The main visual goals are:
 
 ### Visual Identity
 
-BoulderingWiki should combine the clarity of an educational reference website with the visual character of modern climbing environments.
+→BoulderWiki should combine the clarity of an educational reference website with the visual character of modern climbing environments.
 
 Visual inspiration can come from:
 
@@ -2609,7 +2613,7 @@ These influences should remain subtle. The interface should not become overly de
 
 ### Typography
 
-Typography is especially important because BoulderingWiki is a content-heavy application.
+Typography is especially important because →BoulderWiki is a content-heavy application.
 
 The type system should prioritise readability over decorative styling.
 
@@ -3066,7 +3070,7 @@ A reusable visual system should establish consistent rules for:
 
 The website was originally going to have a hero secrion on the homepage but this was scrapped due to time constraints.
 
-The website was originally going to have custom user profiles where the user can change things like their profile pick and add details to their profile like a bio and links to their socials.
+The website was originally going to have custom user profiles where the user can change things like their profile pick and add details to their profile like a bio and links to their socials. This was also scrapped due to time constraints. 
 
 A "Create a new article" page was added to the website to allow superusers to create a new article without needing to access the admin portal. 
 
@@ -3078,7 +3082,11 @@ A "My suggestions" page was added to the website to allow registered users to ke
 
 The user can also update, edit or delete suggestions on this page. 
 
+Next to the "Suggestions" link in the navbar, the user can see the number of suggestions they've made - the first number - and the number of suggestions other users have made.
+
 The website was originally going to have breadcrumb navigation to communicate hierarchy across pages. This idea was scrapped though since there was not much depth to the hierarchy in the end.
+
+A categories page was added to allow superusers to create new categories without needing to access the Django admin portal. Superusers can also edit or delete existing categories. 
 
 ---
 
