@@ -256,31 +256,71 @@ For validation purposes:
 
 ## Python Validation Testing (PEP8)
 
-### file: about/admin.py
+**Note:** the filename at the end of the urls in the screenshot didn't match with the names of the files being tested because the code for different files were being copied and pasted into the same validator in the same tab
+
+### File: about/admin.py
 
 ![](/documentation/testing/python-validation/about/admin.png)
 
-### file: about/apps.py
+### File: about/apps.py
 
 ![](/documentation/testing/python-validation/about/apps.png)
 
-### file: about/forms.py
+### File: about/forms.py
 
 ![](/documentation/testing/python-validation/about/forms.png)
 
-### file: about/models.py
+### File: about/models.py
 
 ![](/documentation/testing/python-validation/about/models.png)
 
-### file: about/urls.py
+### File: about/urls.py
 
 ![](/documentation/testing/python-validation/about/urls.png)
 
-### file: about/views.py
+### File: about/views.py
 
 ![](/documentation/testing/python-validation/about/views.png)
 
+### File: article/admin.py
 
+![](/documentation/testing/python-validation/article/admin.png)
+
+### File: article/apps.py
+
+![](/documentation/testing/python-validation/article/apps.png)
+
+### File: article/context_processors.py
+
+![](/documentation/testing/python-validation/article/context-processors.png)
+
+### File: article/forms.py
+
+![](/documentation/testing/python-validation/article/forms.png)
+
+### File: article/models.py
+
+![](/documentation/testing/python-validation/article/models.png)
+
+### File: article/urls.py
+
+![](/documentation/testing/python-validation/article/urls.png)
+
+### File: article/views.py
+
+![](/documentation/testing/python-validation/article/views.png)
+
+### File: boulderWiki/settings.py
+
+![](/documentation/testing/python-validation/boulderWiki/settings.png)
+
+### File: boulderWiki/urls.py
+
+![](/documentation/testing/python-validation/boulderWiki/urls.png)
+
+### File: manage.py
+
+![](/documentation/testing/python-validation/manage.png)
 
 ## Responsiveness Testing
 
@@ -329,3 +369,547 @@ I've tested my deployed project on multiple browsers to check for compatibility 
 | Login | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/login.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/login.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/login.png) | Works as expected |
 | Registration | ![screenshot](/documentation/testing/cross-browser-compatibility/chrome/registration.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/firefox/registration.png) | ![screenshot](/documentation/testing/cross-browser-compatibility/microsoft-edge/registration.png) | Works as expected |
 
+## Defensive Programming
+
+Defensive programming measures were implemented into BoulderWiki to:
+- Prevent non-superusers from having superuser privelages such as creating articles
+- Protect sensitive data 
+- Prevent destructive actions (such as deleting) from being done accidently
+- Validate user input.
+
+The criteria that was tested against can be seen below:
+
+### Authentication and Security
+
+Tests include:
+- Does the application prevent users from trying to log in with incorrect credentials?
+- Does the application prevent users from registering with a username that has already been taken?
+- Does the application prevent users from registering with no password?
+- Does the application prevent users from registering with weak passwords that are less than 8 characters and aren't alphanumeric?
+
+### Access Control
+
+Tests include:
+- Access restrictions to pages only administrators should have access to
+- Can non-superusers access the admin portal?
+- Can non-superusers create articles?
+- Can non-superusers mange articles?
+- Can non-superusers create or delete categories?
+- Can non-superusers delete other users suggestions?
+
+- Can guest users create articles?
+- Can guest users create categories?
+- Can guest users leave comments?
+- Can guest users make suggestions?
+
+### Destructive Actions
+- Does the application have a confirmation message that occurs when the user tries to delete a post?
+- Does the application have a confirmation message that occurs when the user tries to delete a comment?
+- Does the application have a confirmation message that occurs when the user tries to delete a suggestion?
+- Does the application have a confirmation message that occurs when the user tries to delete a category?
+
+### Form and Data Validation
+
+Login
+- Does the application prevent users from leaving "Username" field blank?
+- Does the application prevent users from leaving "Password" field blank?
+
+Registration:
+- Does the application prevent users from leaving the "Username" field blank?
+- Does the application prevent users from inputting invalid data into the "Email" field?
+
+Comments and Suggestions
+- Can users submit blank comments?
+- Can users submit blank suggestions?
+
+Creating Articles
+- Can users leave the title field blank?
+- Can users leave the slug field blank?
+- Can users leave the content field blank?
+- Can users leave the excerpt field blank?
+
+---
+
+### Logging In With Incorrect Credentials
+
+![](/documentation/testing/defensive-programming/authentication-and-security/incorrect-credentials.png)
+
+When the user tries to login with incorrect credentials, they are greeted with a warning message above the "Username" field
+
+### Registering With An Existing Username
+
+![](/documentation/testing/defensive-programming/authentication-and-security/existing-username.png)
+
+If the user tries registering with a username that another user has already chosen, the user will be greeted with a warning message instructing them to "choose a different username".
+
+### Registering With No Password
+
+![](/documentation/testing/defensive-programming/authentication-and-security/no-password.png)
+
+A user is unable to register with no password because the "Password" field has been given a "required" attribute. 
+
+### Registering With Weak Passwords
+
+![](/documentation/testing/defensive-programming/authentication-and-security/weak-passwords.png)
+
+If the user tries registering with a weak password that does not meet the minimum criteria for password, they will be given some warning messages that tells them the password criteria that has not been met
+
+---
+
+###  Restricting Access To Administrator Exclusive Pages
+
+![](/documentation/testing/defensive-programming/access-control/restricting-access.png)
+
+A non-superuser is unable to access administrator-exclusive pages such as: 
+- "Create Article"
+- "Manage Articles"
+- "Categories". 
+
+This is because the links to these pages don't appear in the navbar for them. 
+
+Also, if a non-superuser tries accessing these pages by appending them to the URL (in the URL bar of the browser), they will be led to an error page as shown in the screenshot below:
+
+![](/documentation/testing/defensive-programming/access-control/error-page.png)
+
+Since a non-superuser is unable to access the pages outlined above, they are unable to:
+- Create articles
+- Manage articles by editing or deleting them
+- Add (or delete) categories
+
+ If a non-superuser is unable to perform these tasks, then this automatically means a guest user also cannot.
+
+### Restricting Non-Superusers From Editing or Deleting Other Users Suggestions
+
+![](/documentation/testing/defensive-programming/access-control/deleting-suggestions.png)
+
+From the screenshot above, you can see that a non-superuser can only see the suggestions that they've made. This means that they have no way of deleting or editing suggestions made by other users. 
+
+### Restricting Access To the Django Admin Portal
+
+If a non-superuser tries to access the Django admin portal by appending ```/admin``` to the end of the URL (in the browser URL bar), they are led to the page in the screenshot below:
+
+![](/documentation/testing/defensive-programming/access-control/accessing-django-admin.png)
+
+### Leaving Comments and Making Suggestions As A Guest User
+
+![](/documentation/testing/defensive-programming/access-control/guest-user-comments.png)
+
+When you are browsing as a guest user, there is no button to write a comment and the suggestions panel does not appear. Therefore, a guest user is unable to leave any comments on a post or make any suggestions. 
+
+---
+
+When the user performs the destructive actions outlined below, they get a confirmation prompt before proceeding.
+
+### Deleting A Post
+
+![](/documentation/testing/defensive-programming/destructive-actions/delete-post-confirmation.png)
+
+### Deleting A Comment
+
+![](/documentation/testing/defensive-programming/destructive-actions/delete-comment-confirmation.png)
+
+### Deleting A Suggestion
+
+![](/documentation/testing/defensive-programming/destructive-actions/delete-suggestion-confirmation.png)
+
+### Deleting A Category
+
+![](/documentation/testing/defensive-programming/destructive-actions/delete-category-confirmation.png)
+
+---
+
+### Login
+
+![](/documentation/testing/defensive-programming/form-and-data-validation/blank-username-field.png)
+
+When the user tries to leave the "Username" field blank, they get a warning message. 
+
+![](/documentation/testing/defensive-programming/form-and-data-validation/blank-password-field.png)
+
+When the user tries to leave the "Password" field blank, they get a warning message. 
+
+### Registration
+
+![](/documentation/testing/defensive-programming/form-and-data-validation/sign-up-blank-username-field.png)
+
+When the user tries to leave the "Username" field blank, they get a warning message. 
+
+![](/documentation/testing/defensive-programming/form-and-data-validation/invalid-email-input.png)
+
+When the user tries to enter invalid data into the "Email" field, they get a warning message. 
+
+### Submitting Blank Comments
+
+![](/documentation/testing/defensive-programming/form-and-data-validation/submitting-blank-comments.png)
+
+When the user tries to submit a blank comment, they get a warning message.
+
+### Submitting Blank Suggestions
+
+![](/documentation/testing/defensive-programming/form-and-data-validation/submitting-blank-suggestions.png)
+
+When the user tries to submit a blank suggestion, they get a Bootstrap alert message.
+
+### Creating Articles
+
+- Can users leave the title field blank?
+- Can users leave the slug field blank?
+- Can users leave the content field blank?
+
+![](/documentation/testing/defensive-programming/form-and-data-validation/creating-articles/blank-title.png)
+
+If the user tries to leave the title field blank, they get a warning message.
+
+![](/documentation/testing/defensive-programming/form-and-data-validation/creating-articles/blank-slug.png)
+
+If the user tries to leave the slug field blank, they get a warning message.
+
+![](/documentation/testing/defensive-programming/form-and-data-validation/creating-articles/blank-content-2.png)
+
+If the user tries to leave the content field blank, they get a warning message.
+
+---
+
+## User Story Testing
+
+### US-01 — View the Homepage (Should Have)
+
+**User Story**
+
+As a visitor, I want to view the homepage so that I can understand what BoulderingWiki is and begin exploring bouldering content.
+
+Test:
+- The homepage should be presented to the user when they load up the site
+
+Expected Result:
+- The homepage and everything on it should be clearly visible to all users
+
+The screenshot below shows how the homepage looks for guests, registered users (non-superusers) and administrators (superusers)
+
+![](/documentation/testing/user-story-testing/us-01.png)
+
+Actual Result: Same as expected
+
+
+**Overall Result/Outcome: PASS**
+
+### US-02 — Navigate the Website (Should Have)
+
+**User Story**
+
+As a visitor, I want consistent navigation so that I can move between the main areas of the website easily.
+
+Test:
+- The user should be able to:
+    - Get around the site with ease using the navbar
+    - Switch between pages in the article directory
+
+Expected Result: 
+- There should be be plenty of navigational elements in place for users to use to browse the site, including, a navbar and pagination elements
+
+The screenshot below shows the pages that a user is able to access. Across each page, the user has access to a navbar that stays fixed in place at the top of the page. This allows users to get around the site with ease. 
+
+Furthermore, the user can navigate between paginated article lists on the homepage using pagination elements that stay fixed at the bottom of the page. 
+
+|  |  |  |
+| :---         |     :---:      |          ---: |
+| ![](/documentation/testing/responsiveness/laptops/homepage.png)   | ![](/documentation/testing/responsiveness/laptops/about.png)    | ![](/documentation/testing/responsiveness/laptops/create-article.png)|
+| ![](/documentation/testing/responsiveness/laptops/manage-articles.png)| ![](/documentation/testing/responsiveness/laptops/categories.png) | ![](/documentation/testing/responsiveness/laptops/suggestions.png) |
+| ![](/documentation/testing/responsiveness/laptops/article-details.png) | ![](/documentation/testing/responsiveness/laptops/login.png) | ![](/documentation/testing/responsiveness/laptops/registration.png) |
+
+Actual Result: 
+- Same as expected
+
+**Overall Result/Outcome: PASS**
+
+### US-03 — View the Article Directory (Must Have) 
+
+**User Story**
+
+As a visitor, I want to view a list of bouldering articles so that I can discover available content. 
+
+Test: 
+- Can the user browse a list of articles in the article directory?
+
+Expected: 
+- The user should be able to clearly see a list of articles
+
+![](/documentation/testing/user-story-testing/us-03.png)  
+
+Actual result: 
+- The user is able to view a list of articles on the homepage which are paginated in groups of 6 across multiple pages
+- To navigate between pages to view articles, the user can use the pagination components at the bottom of the page
+- The user can also search for articles using the search bar and/or filter articles by category
+
+**Overall Result/Outcome: PASS**
+
+### US-04 — Read an Article (Must Have)
+
+**User Story**
+
+As a visitor, I want to read a bouldering article so that I can learn about a particular topic.
+
+**Acceptance Criteria**
+
+Test: 
+- Can a user read an articles title and content?
+
+Expected result: 
+- A user should be able to click on an article in the article directory and read its contents
+
+The screenshot below shows an example of a page that the user is directed to when they click on an article. On this page, the user can see the contents of an article. 
+
+![](/documentation/testing/responsiveness/laptops/article-details.png)
+
+Actual Result: 
+- Same as expected
+
+**Overall Result/Outcome: PASS**
+
+### US-05 — Browse Categories (Should Have)
+
+**User Story**
+
+As a visitor, I want to browse bouldering categories so that I can explore articles by subject.
+
+Test:
+- Can a user sort articles by categories?
+
+Expected Result:
+- A user should be able to sort articles on the page by certain categories that have been created by superusers
+
+In the screenshot below, you can see that the homepage has a "filter by category" field that brings up a drop-down menu containing a list of categories to choose from.
+
+![](/documentation/testing/user-story-testing/us-03.png) 
+
+Actual Result:
+- The user is able to view a list of categories available in a drop-down menu and filter articles by categories so that only articles of the selected category appear on the page
+
+**Overall Result/Outcome: PASS**
+
+### Epic 3 — Search
+
+### US-06 — Search for Articles (Could Have)
+
+**User Story**
+
+As a visitor, I want to search for articles so that I can quickly find information about a particular bouldering topic.
+
+Test:
+- Can the user search for specific content using a search bar?
+
+Expected Result:
+- The user should be able to use a search bar on the homepage to search for specific article content
+- The search bar should be able to read articles for specified keywords in the title, content, excerpt and categories - not just the title
+
+The screenshots below show some example searches:
+
+| Search: kilter | Search: outdoor | Search: hangboard |
+| :---:         |     :---:      |          :---: |
+| ![](/documentation/testing/user-story-testing/search-kilter.png)   | ![](/documentation/testing/user-story-testing/search-outdoor.png)    | ![](/documentation/testing/user-story-testing/search-hangboard.png)    |
+
+Actual Result:
+- When the user uses the search bar, it filters the article directory to only show the posts that contain the specified keyword
+- The search bar looks at the post title, post content, categories, and excerpt content
+
+**Overall Result/Outcome: PASS**
+
+### US-07 — Register for an Account (Must Have)
+
+**User Story**
+
+As a visitor, I want to create an account so that I can suggest improvements to articles.
+
+Test:
+- Can the user register to create an account?
+
+Expected Result:
+- A guest user should be able to register for an account
+
+The screenshots below show an example of an account registration. 
+
+| Registration | Homepage and alert |
+| :---:         |     :---:      | 
+| ![](/documentation/testing/user-story-testing/registration-details.png)   | ![](/documentation/testing/user-story-testing/resgistration-success-alert.png) | 
+
+Actual Result:
+- A guest user is able to sign up and create an account on the "Registration" page
+- Here they can enter the username and password they want to use
+- After submitting the relevant information, the user is directed to the homepage and greeted with an alert saying "Successfully signed in as [username]"
+
+**Overall Result/Outcome: PASS**
+
+### US-08 — Log In (Must Have)
+
+**User Story**
+
+As a registered user, I want to log in so that I can access contribution functionality.
+
+Test: 
+- Can the user login after creating an account?
+
+Expected Result:
+- The user should be able to login after creating an account in the registration page
+
+The screenshots below shows an example of a user logging in from the login page. 
+
+| Registration | Homepage and alert |
+| :---:         |     :---:      | 
+| ![](/documentation/testing/user-story-testing/sign-in-page.png) | ![](/documentation/testing/user-story-testing/sign-in-alert.png) | 
+
+Actual Result:
+- As you can see from the test of US-07 the user is automatically logged in when they create an account and are directed to the homepage
+- If the user logs out, they have to log back in again on the login page
+- When the user logs in from the login page, they are directed to the homepage recieve an alert saying "Successfully signed in as [username]"
+
+**Overall Result/Outcome: PASS**
+
+### US-09 — Log Out (Must Have)
+
+**User Story**
+
+As a logged-in user, I want to log out so that I can securely end my session.
+
+Test:
+- The user should be able to log out of their account
+
+Expected:
+- The user should have the option to log out of their account and be returned to the homepage when succesfully logged out
+
+| Sign-Out Page | Homepage and logout alert |
+| :---:         |     :---:      | 
+| ![](/documentation/testing/user-story-testing/sign-out.png) | ![](/documentation/testing/user-story-testing/sign-out-alert.png) | 
+
+Actual Result:
+- When the user clicks the logout button in the navbar, they are redirected to the confirmation page shown in the left screenshot above
+- Then when they click the "Sign Out" button on this page, they are redirected to the homepage and recieve an alert saying "You have signed out"
+
+**Overall Result/Outcome: PASS**
+
+### US-10 — Suggest a Change to an Article (Must Have)
+
+**User Story**
+
+As a registered user, I want to suggest changes to an article so that I can help improve BoulderingWiki.
+
+Test:
+- Can the user make suggestions to articles?
+
+Expected result:
+- The user should be able to click on an article, read the article, make a suggestion for improvement, then submit the suggestion for administrators to review
+
+| Suggestion Form | Suggestion Alert | Admin Suggestion Page |
+| :---:         |     :---:      |          :---: |
+| ![](/documentation/testing/user-story-testing/suggestion-panel.png)  | ![](/documentation/testing/user-story-testing/suggestion-submission.png) | ![](/documentation/testing/user-story-testing/suggestion-in-admin-page.png) |
+
+Actual Result:
+- When the user scrolls down to the bottom of an article, they can find a suggestion panel where they suggestion what improvements can be made to the articles content
+- When the user submits the suggestion they get an alert message saying "Your suggestion has been submitted for review!"
+- When submitted, the suggestion appears in the "Suggestions" page for administrators to review
+
+**Overall Result/Outcome: PASS**
+
+### US-11 — Prevent Guests from Submitting Suggestions (Must Have)
+
+**User Story**
+
+As the site owner, I want guests prevented from suggesting edits so that contributions can be linked to authenticated accounts.
+
+Test:
+- Can guest user submit suggestions?
+
+Expected Result:
+- As a guest user, there should be no way to submit suggestions
+
+The screenshot below shows that the suggestions panel does not appear as a guest user.
+
+![](/documentation/testing/user-story-testing/no-guest-user-suggestions.png)
+
+Actual Result:
+- The suggestions panel does not appear unless you're logged in as a registered user so guest users have no way of submitting suggestions
+
+**Overall Result/Outcome: PASS**
+
+### US-12 — Access Django Admin (Must Have)
+
+**User Story**
+
+As an administrator, I want to access the Django Admin so that I can manage BoulderingWiki content.
+
+Test:
+- Can the user access the Django Admin portal?
+
+Expected Result:
+- A superuser should be able to access the Django Admin portal by appending "/admin" to the end of the URL in the browsers URL bar from the homepage
+
+| Logged In As Superuser | Appending "/admin" To URL | Admin Portal Redirect |
+| :---:         |     :---:      |          :---: |
+| ![](/documentation/testing/user-story-testing/logged-in-as-superuser.png)  | ![](/documentation/testing/user-story-testing/appending-admin.png) | ![](/documentation/testing/user-story-testing/admin-portal.png) |
+
+Actual Result:
+- A user needs to be an administrator (superuser) to access the Django Admin portal
+- A superuser can append "/admin" to the URL in the URL bar to access the Django Admin portal
+- When the user clicks enter, they are redirected to the Django Admin portal as shown in the right screenshot above
+
+**Overall Result/Outcome: PASS**
+
+### US-13 — View Pending Suggestions (Must Have)
+
+**User Story**
+
+As an administrator, I want to view pending suggestions so that I can review community contributions.
+
+Test:
+- Can an administrator view a list of suggestions?
+
+Expected Result:
+- An administrator should be able to view a list of pending suggestions either in the Django Admin portal or on an administrator-exclusive page on the website
+
+The screenshot below shows an administrator-exclusive page where a list of suggestions can be viewed. 
+
+![](/documentation/testing/user-story-testing/suggestion-in-admin-page.png)
+
+Actual Result:
+- An administrator is able to view a list of suggestions on a "Suggestions" page which only they can access
+- On this page suggestions are sorted into two tables - one for the users own suggestions and one for other users suggestions
+
+**Overall Result/Outcome: PASS**
+
+### US-14 — Approve or Reject a Suggestion (Must Have)
+
+**User Story**
+
+As an administrator, I want to approve or reject suggested edits so that only reviewed changes affect published articles.
+
+Test:
+- Can a superuser approve or reject suggestions?
+
+Expected Result:
+- A superuser should be able to approve or reject suggestions either in the Django Admin portal or on an administrator-exclusive page on the website
+
+| Suggestions Page | Suggestion Approval Alert | Suggestion Rejection Alert |
+| :---:         |     :---:      |          :---: |
+| ![](/documentation/testing/user-story-testing/suggestions-page.png)  | ![](/documentation/testing/user-story-testing/suggestion-approval-alert.png) | ![](/documentation/testing/user-story-testing/suggestion-rejection-alert.png) |
+
+Actual Result:
+- On the "Suggestions" page, an administrator has the option to reject or approve suggestions by clicking "Approve" or "Reject" buttons in the last column of the table
+- When an administrator approves a suggestion, the content of the corresponding post gets updated and overwritten by the user-suggested content and an alert message appears saying "Suggestion approved applied to the post"
+- An alert message appears when an administrator rejects a suggestion saying "Suggestion rejected"
+
+**Overall Result/Outcome: PASS**
+
+### US-15 — Manage Articles and Categories (Should Have)
+
+**User Story**
+
+As an administrator, I want to create, update, and delete articles and categories so that I can maintain the website's content.
+
+Test:
+- Can an administrator create, update and/or delete articles?
+- Can an administrator create, update and/or delete categories?
+
+Expected Result:
+- A superuser should be able to create, update and/or delete articles?
+- A superuser should be able to create, update and/or delete categories?
+
+The 

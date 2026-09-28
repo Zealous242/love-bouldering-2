@@ -26,7 +26,7 @@ def post_create(request):
             post.author = request.user
             post.save()
             form.save_m2m()
-            messages.success(request, "Post created successfully.")
+            messages.success(request, "Article created successfully.")
             if post.status == 0:
                 return HttpResponseRedirect(reverse("home"))
             return HttpResponseRedirect(
@@ -46,7 +46,7 @@ def post_edit(request, slug):
         form = PostCreateForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
-            messages.success(request, "Post updated successfully.")
+            messages.success(request, "Article updated successfully.")
             if post.status == 1:
                 return HttpResponseRedirect(
                     reverse("post_detail", args=[post.slug])
@@ -82,7 +82,7 @@ def post_delete(request, slug):
 
     if request.method == "POST":
         post.delete()
-        messages.success(request, "Post deleted successfully.")
+        messages.success(request, "Article deleted successfully.")
 
     return HttpResponseRedirect(reverse("post_list_owned"))
 

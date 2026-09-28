@@ -450,7 +450,7 @@ As the site owner, I want guests prevented from suggesting edits so that contrib
 
 **User Story**
 
-As an administrator, I want to access Django Admin so that I can manage BoulderingWiki content.
+As an administrator, I want to access the Django Admin so that I can manage BoulderingWiki content.
 
 **Acceptance Criteria**
 
@@ -478,7 +478,7 @@ As an administrator, I want to access Django Admin so that I can manage Boulderi
 
 **User Story**
 
-As an administrator, I want to view pending edit suggestions so that I can review community contributions.
+As an administrator, I want to view pending suggestions so that I can review community contributions.
 
 **Acceptance Criteria**
 
@@ -1463,6 +1463,7 @@ The initial version will not attempt to provide:
 - Private messaging
 - Discussion forums
 - The ability to reorder posts via drag-and-drop
+- Password recovery/reset
 
 The features listed above are outside the initial scope of the project. These features could be considered in future development but are not required to satisfy the current project objectives.
 
@@ -3147,6 +3148,7 @@ The website was originally going to have breadcrumb navigation to communicate hi
 - Private messaging
 - Discussion forums
 - The ability to reorder posts via drag-and-drop
+- Password recovery/reset
 
 ---
 
@@ -3617,11 +3619,12 @@ During development, ChatGPT and GitHub Copilot were used as AI assistants to hel
 AI was used to:
 - Generate user stories (ChatGPT)
 - Make code suggestions for styling (GitHub Copilot)
-- Enhance the UI of the admin portal in sections like comments (GitHub Copilot)
+- Enhance the UI of the admin portal in sections like comments (GitHub Copilot) by adding some JavaScript
 - Create the Category model in article/models.py and allow articles to be sorted by categories (GitHub Copilot)
 - Create the Suggestions model article/models.py to allow users to make article change suggestions (GitHub Copilot)
 - Test and debug the application (GitHub Copilot and ChatGPT):
    - Copilot was used to debug and resolve errors that were returned during HTML5 code validation
+   - Copilot was used to debug and resolve errors that were returned during Python code validation
    - ChatGPT was used to debug and resolve issues that occured when trying to access the Django admin portal from its homepage
 
 ---
