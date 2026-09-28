@@ -564,7 +564,7 @@ If the user tries to leave the title field blank, they get a warning message.
 
 If the user tries to leave the slug field blank, they get a warning message.
 
-![](/documentation/testing/defensive-programming/form-and-data-validation/creating-articles/blank-content-2.png)
+![](/documentation/testing/defensive-programming/form-and-data-validation/blank-content.png)
 
 If the user tries to leave the content field blank, they get a warning message.
 
