@@ -912,11 +912,33 @@ Expected Result:
 - A superuser should be able to create, update and/or delete articles?
 - A superuser should be able to create, update and/or delete categories?
 
-The screenshots below shows an example post creation
+The screenshots below show an example post creation:
 
 | Create Article Page | Create Article Button | Article Creation Alert |
 | :---:         |     :---:      |          :---: |
 | ![](/documentation/testing/user-story-testing/creating-article.png)  | ![](/documentation/testing/user-story-testing/create-article-button.png) | ![](/documentation/testing/user-story-testing/article-created-alert.png) |
+
+The screenshots below show an example category creation:
+
+| Categories Page | Create Category Page | Category Creation Alert |
+| :---:         |     :---:      |          :---: |
+| ![](/documentation/testing/user-story-testing/categories-page.png)  | ![](/documentation/testing/user-story-testing/category-creation.png) | ![](/documentation/testing/user-story-testing/category-creation-alert.png) |
+
+The screenshot below shows the manage articles page where users can edit and/or delete articles:
+
+![](/documentation/testing/user-story-testing/manage-articles-page.png)
+
+Actual Result:
+- The user can create an article by clicking on "Create Article" in the navbar which takes the user to a page where they can create the article
+- On the create article page, the user can define the properties of the article, including, the title, the post content, categories and the excerpt
+- When the user clicks the "Create article" button, they are redirected to the newly created articles page and get an alert message saying "Post created successfully"
+
+- The user can create a category by clicking on "Categories" in the navbar which takes the user to a page where they can create the category
+- On this page, the user can click the "Create category" button which takes them to a prompt page where they can enter the name of the category and click save to create it
+- After creating the category, the user gets a prompt saying "Category created successfully"
+
+- The user can edit or delete categories on the "Categories" page by clicking the "Edit" or "Delete" buttons in the last column of the table
+
 
 ## Bug Fxing and Debugging
 
