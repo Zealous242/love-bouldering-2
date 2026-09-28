@@ -939,6 +939,8 @@ Actual Result:
 
 - The user can edit or delete categories on the "Categories" page by clicking the "Edit" or "Delete" buttons in the last column of the table
 
+**Overall Result/Outcome: PASS**
+
 
 ## Bug Fxing and Debugging
 
