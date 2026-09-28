@@ -2281,7 +2281,7 @@ A set of wireframes for desktops was not required since the website would look t
 
 ![Diagram of mobile wireframes](/documentation/wireframes/mobile/mobile-wireframes.png)
 
-#### Note:
+#### Notes:
 
 These were the original designs of the wireframes for the wireframes and they suggest that the website only has four pages. The final website ended up having more pages than this and the number of pages the user can browse varies based on the type of user that they are. The wireframes you see above correspond to the MVP of the project. 
 
@@ -2521,6 +2521,8 @@ The skeleton establishes consistent patterns for:
 - Feedback and error states
 - Responsive layouts
 - Accessibility
+
+---
 
 ## UX Design — Surface Plane
 
