@@ -3550,10 +3550,11 @@ AI was used to:
 
 ## Credits
 
-- W3Schools
-- Code Institute
+- [W3Schools Django Tutorial](https://www.w3schools.com/django/)
+- [Bootstrap](https://getbootstrap.com/) 
+- Code Institute CodeStar Blog Walkthrough project
 - Tim Nelson Markdown Builder
-- JSHint
-- W3C HTML Validator
-- W3C CSS Validator
-- 
+- [JSHint](https://jshint.com/) 
+- [W3C HTML Validator](https://validator.w3.org/)
+- [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
+- [KiwiFunk Djangoblog](https://github.com/KiwiFunk/django-blog/blob/main/README.md)
